@@ -1,0 +1,5 @@
+probe,objective,expected
+origin,0.000000,0.000000
+ones,8.000000,8.000000
+minus_fives,200.000000,200.000000
+mixed,34.500000,34.500000
