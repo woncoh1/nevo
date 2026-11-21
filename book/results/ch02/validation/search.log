@@ -1,0 +1,16 @@
+   Compiling nevo v0.1.0-dev (<repository>/crates/nevo)
+    Finished `release` profile [optimized] target(s) in 1.16s
+     Running `target/release/examples/ch02_search book/results/ch02`
+Chapter 2: 8 dimensions, 64 evaluations/batch, 100 batches, seeds 0..19.
+Budget includes initialization. Scores are best evaluated candidates, not distribution means.
+GA/ES share the full initial population. CMA/OpenAI use a Gaussian around an independent uniform center.
+sphere     ga         median_final=8.365754199e-5 target_hits=0/20
+sphere     es         median_final=8.697074293e-10 target_hits=19/20
+sphere     cma_es     median_final=5.045378547e-13 target_hits=20/20
+sphere     openai_es  median_final=1.695175775e0 target_hits=0/20
+rastrigin  ga         median_final=5.478136737e0 target_hits=0/20
+rastrigin  es         median_final=1.989914084e1 target_hits=0/20
+rastrigin  cma_es     median_final=2.984956143e0 target_hits=0/20
+rastrigin  openai_es  median_final=5.376754152e1 target_hits=0/20
+zdt1: 30 dimensions, seed 42, 12800 evaluations, 64 nondominated parents, mean vertical gap=9.464360436e-5
+Saved experiment files to book/results/ch02

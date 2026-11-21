@@ -1,0 +1,151 @@
+[
+  {
+    "check": "fmt",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.139
+  },
+  {
+    "check": "clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--locked",
+      "--offline",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.648
+  },
+  {
+    "check": "test_debug",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 5.158
+  },
+  {
+    "check": "test_release",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--release",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 4.039
+  },
+  {
+    "check": "doc",
+    "command": [
+      "cargo",
+      "doc",
+      "--workspace",
+      "--no-deps",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.691
+  },
+  {
+    "check": "sphere",
+    "command": [
+      "cargo",
+      "run",
+      "-p",
+      "nevo",
+      "--example",
+      "sphere",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.027
+  },
+  {
+    "check": "chapter1",
+    "command": [
+      "cargo",
+      "run",
+      "-p",
+      "nevo",
+      "--example",
+      "ch01_introduction",
+      "--locked",
+      "--offline",
+      "--",
+      "<temporary-ch01-output>"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.084
+  },
+  {
+    "check": "search",
+    "command": [
+      "cargo",
+      "run",
+      "-p",
+      "nevo",
+      "--example",
+      "ch02_search",
+      "--release",
+      "--locked",
+      "--offline",
+      "--",
+      "book/results/ch02"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.749
+  },
+  {
+    "check": "xor",
+    "command": [
+      "cargo",
+      "run",
+      "-p",
+      "nevo",
+      "--example",
+      "ch02_xor",
+      "--release",
+      "--locked",
+      "--offline",
+      "--",
+      "book/results/ch02"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.232
+  },
+  {
+    "check": "neural",
+    "command": [
+      "cargo",
+      "run",
+      "-p",
+      "nevo",
+      "--example",
+      "ch02_neural",
+      "--locked",
+      "--offline"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.045
+  }
+]

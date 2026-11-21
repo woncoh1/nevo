@@ -1,11 +1,14 @@
 # Rust notebooks
 
-`ch01_introduction.ipynb` evolves a three-gene neural controller through the
-public `nevo` API, then plots its learning curve and held-out trajectories.
-The notebook is original companion material inspired by Chapter 1 of
-[Neuroevolution: Harnessing Creativity in AI Agent Design](https://neuroevolutionbook.com/).
-It is not an official book assignment or a reproduction of the chapter text.
-The book's listed coding assignments start at Chapter 2.
+The notebooks use the `nevo` library in this repository and contain real saved
+outputs from a Rust/Evcxr kernel. They are original companion materials inspired
+by [Neuroevolution](https://neuroevolutionbook.com/), not official exercise
+solutions or copies of the textbook.
+
+| Notebook | Contents |
+| --- | --- |
+| [Chapter 1](ch01_introduction.ipynb) | Evolve a three-gene controller, then inspect learning and held-out trajectories. |
+| [Chapter 2](ch02_foundations.ipynb) | GES, four scalar searches, multi-seed results, NSGA-II/ZDT1, MLP gradients, XOR, recurrence, convolution and attention. |
 
 ## Run interactively
 
@@ -26,64 +29,64 @@ cd notebooks
 rustup run stable jupyter lab
 ```
 
-Open `ch01_introduction.ipynb`, select the **Rust** kernel, and use **Restart
-Kernel and Run All Cells**. The notebook expects its working directory to be
-`notebooks/`: its first cell loads `../crates/nevo`. Adjust that path if you
-move the notebook. The first execution downloads and compiles dependencies;
-later cells reuse the same kernel state.
+Open a notebook, select the **Rust** kernel, and choose **Restart Kernel and Run
+All Cells**. Its working directory must be `notebooks/`; the dependency cell
+loads `../crates/nevo`. First execution downloads and compiles dependencies.
+Start from a fresh kernel when reproducing a run: rerunning stateful training
+cells can continue existing state or replace it according to that cell's code.
 
-The library targets Rust 1.85.1 or newer. Installing the current Evcxr release
-may require a newer compiler, which is why the commands use the `stable`
-toolchain for notebook execution. This does not change the repository's
-minimum supported library version.
+The library targets Rust 1.85.1 or newer. The current Evcxr release may require
+a newer compiler, so the commands above use the `stable` toolchain for notebook
+execution. The recorded validation used **Evcxr 0.15.1 and Rust 1.85.1**; see
+[VALIDATION.md](../VALIDATION.md) for the tested versions.
 
-The notebook uses Plotters 0.3.7 with only `evcxr` and `line_series` enabled.
-Plotters is a notebook dependency; it is not added to the library's dependency
-graph. Charts are inline SVG output, so no graphical simulation window is
-needed. No Python optimizer or simulation code is involved; Python supplies
-the Jupyter application.
+Both notebooks pin Plotters 0.3.7 with `evcxr` and `line_series` features. The
+Chapter 2 notebook also declares rand_chacha 0.9.0 to reproduce independent
+initialization stream 2. These notebook dependencies do not add plotting tools
+to the library dependency graph. Notebook package resolution uses Evcxr's
+separate generated Cargo project; the workspace lockfile controls Cargo builds
+of the repository itself.
 
-## Reproducibility
+All search, neural and environment computations in the notebooks are Rust.
+Python supplies Jupyter and execution tooling. Charts are inline SVG; no
+simulation window is required.
 
-Start with a fresh kernel when changing settings or repeating the experiment.
-Rerunning only the training cell continues the existing search for another
-100 batches. The default complete run uses seed 42 and 100 batches of 32
-candidates, including random initialization. This means 3,200 search
-evaluations, 12,800 training episodes, and 1,024,000 simulation steps.
+## Chapter 2 data and work budgets
 
-The no-action baseline, held-out score, and plotted rollouts are extra
-diagnostics outside that search budget. Held-out starts are not consulted
-until training finishes. Their scores are useful diagnostics, not a proof
-of generalization. Do not compare raw losses as if the training and held-out
-start distributions were identical.
+The delivered notebook reads the committed 20-seed experiment. To regenerate
+that CSV before opening the notebook, run from the repository root:
 
-The delivered notebook includes real outputs from a successful seven-cell
-Rust/Evcxr run, including both inline figures. See the root `VALIDATION.md` for
-the exact tested toolchain and kernel versions.
-Notebook cells call library code rather than carrying a second optimizer
-implementation.
-
-## Command-line alternatives
-
-Run the equivalent library example without Jupyter, from the repository root:
-
-```bash
-cargo run -p nevo --example ch01_introduction --locked -- results/ch01
+```sh
+cargo run -p nevo --example ch02_search --release --locked -- book/results/ch02
+cargo run -p nevo --example ch02_xor --release --locked -- book/results/ch02
 ```
 
-To execute the notebook and save its real outputs after installing nbconvert:
+Live scalar runs use 6,400 objective calls each. GA/ES share a uniform initial
+population; CMA/OpenAI use a Gaussian around a separately randomized center.
+ZDT1 uses 30 genes and 12,800 evaluations. XOR stops at MSE at most 0.001 or its
+budget cap; evolutionary evaluations and gradient steps are different work
+units. The notebook states these distinctions alongside the plots.
+
+Chapter 1 still uses 3,200 search evaluations, each with four 80-step episodes.
+Its baseline, held-out loss and trajectory recording are additional diagnostics.
+Held-out starts are not used for selection. See the respective result folders
+for exact configurations and interpretation.
+
+## Headless execution
+
+After installing the kernel and nbconvert:
 
 ```bash
 python -m pip install nbconvert
 cd notebooks
-rustup run stable jupyter nbconvert --to notebook --execute --inplace ch01_introduction.ipynb --ExecutePreprocessor.timeout=600
+rustup run stable jupyter nbconvert --to notebook --execute --inplace ch02_foundations.ipynb --ExecutePreprocessor.timeout=600
 ```
 
-The first command-line example writes numerical CSV outputs; the notebook
-produces inline figures. Both run the same `nevo` implementation.
+Replace the filename with `ch01_introduction.ipynb` to run Chapter 1. The
+command-line examples provide an alternative when Jupyter is unnecessary.
 
-## Documentation
+## References
 
-- [Evcxr Jupyter installation and usage](https://github.com/evcxr/evcxr/blob/main/evcxr_jupyter/README.md)
+- [Evcxr installation and usage](https://github.com/evcxr/evcxr/blob/main/evcxr_jupyter/README.md)
 - [Plotters 0.3.7](https://docs.rs/plotters/0.3.7/plotters/)
-- [Book contents and exercise list](https://neuroevolutionbook.com/)
+- [Chapter 2 explanations and method references](../book/ch02_foundations.md)

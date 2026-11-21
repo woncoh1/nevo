@@ -1,5 +1,21 @@
 # Changelog
 
+## Chapter 2 foundations — 2026-11-19
+
+- Preserve the two-trait Generate → Evaluate → Select API and Chapter 1 behavior.
+- Add real-valued GA, self-adaptive comma ES, classic full-covariance CMA-ES,
+  mirrored OpenAI-style SGD ES, and a specified NSGA-II variant.
+- Extract reusable tournament, crossover, mutation, Pareto and crowding functions.
+- Add scalar MLP/backpropagation, RNN/LSTM cells, cross-correlation, attention,
+  positions, normalization and a small single-head Transformer forward block.
+- Add Rastrigin, ZDT1 and XOR evaluators with checked shapes/domains.
+- Add original Chapter 2 prose, executed Rust notebook, reproducible Rust
+  experiments, multi-seed CSV results, plots, and configuration manifests.
+- Add numerical equation/gradient checks and regression coverage, including
+  preservation of pre-truncation NSGA-II crowding distances.
+- Add nalgebra 0.33.2 for symmetric covariance decomposition; the core still
+  has no external dependencies. Burn/Bevy remain optional future integrations.
+
 ## Chapter 1 companion — 2026-11-19
 
 - Adopt Generate → Evaluate → Select as the public lifecycle.

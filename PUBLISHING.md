@@ -9,6 +9,7 @@ not a preconfigured Git repository or credentials.
 ```sh
 cargo test --workspace --locked
 cargo run -p nevo --example ch01_introduction --locked
+cargo run -p nevo --example ch02_search --release --locked -- results/ch02
 ```
 
 ## First push to a new, empty repository
@@ -20,7 +21,7 @@ separate initial commit. Then run:
 ```sh
 git init -b main
 git add .
-git commit -m "Add GES core and Chapter 1 neuroevolution companion"
+git commit -m "Add nevo foundations and Chapters 1-2 companions"
 git remote add origin https://github.com/YOUR_USERNAME/nevo.git
 git push -u origin main
 ```
@@ -30,7 +31,7 @@ authentication. If you already have a local repository or nonempty remote,
 integrate the files with that history rather than overwriting it or force-pushing.
 
 The included workflow runs Rust formatting, linting, tests, documentation, and
-both examples on Linux and Windows. Review the resulting Actions run after push.
+the Chapter 1 and Chapter 2 examples on Linux and Windows. Review the resulting Actions run after push.
 Notebook execution is documented separately and is not currently a CI job.
 
 ## Source license

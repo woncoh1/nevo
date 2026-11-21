@@ -9,6 +9,7 @@ description = "Composable neuroevolution building blocks"
 [dependencies]
 nevo-core = { path = "../nevo-core" }
 rand_chacha = "=0.9.0"
+nalgebra = { version = "=0.33.2", default-features = false, features = ["std"] }
 
 [lints]
 workspace = true

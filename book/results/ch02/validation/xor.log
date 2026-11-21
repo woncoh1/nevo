@@ -1,0 +1,13 @@
+   Compiling nevo v0.1.0-dev (<repository>/crates/nevo)
+    Finished `release` profile [optimized] target(s) in 2.21s
+     Running `target/release/examples/ch02_xor book/results/ch02`
+XOR: 2 -> 4 tanh -> 1 sigmoid, 17 parameters, all 4 truth-table rows.
+seed=42, initial mean weights in [-0.5,0.5), initial MSE=2.687971233e-1
+Stop at MSE <= 0.001 or the configured budget cap.
+CMA-ES: 1056 search evaluations (33 batches x 32), best MSE=5.741047324e-4
+Backprop: 1100 full-batch gradient steps, learning_rate=1, MSE=9.990828383e-4
+These are different work units, not an equal-cost speed comparison.
+[0.0, 0.0] target=0 evolved=0.00002396 backprop=0.03145369
+[0.0, 1.0] target=1 evolved=0.96530082 backprop=0.97128600
+[1.0, 0.0] target=1 evolved=0.96696122 backprop=0.97005803
+[1.0, 1.0] target=0 evolved=0.00090779 backprop=0.03586059

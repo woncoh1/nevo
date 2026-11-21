@@ -1,6 +1,6 @@
 # nevo: design contract
 
-**Status:** accepted for the Chapter 1 companion milestone, 2026-11-19.
+**Status:** accepted for the Chapter 2 foundations milestone, 2026-11-19.
 This is an evolving library design, not a stable 1.0 API.
 
 ## Purpose and vocabulary
@@ -133,24 +133,88 @@ or future backends. Sphere remains the scalar numerical reference.
 | Package or directory | Role |
 | --- | --- |
 | `nevo-core` | GES protocol and serial executor; no external dependencies. |
-| `nevo` | Public re-exports, teaching optimizer, tasks, and benchmarks. |
+| `nevo` | Public re-exports, search methods, neural primitives, tasks, and benchmarks. |
 | `book/` | Original explanations and recorded example results. |
 | `notebooks/` | Rust/Evcxr examples using the public library. |
 
 Bevy and Burn will be optional integrations. Bevy supplies external simulation;
 learned internal world models belong to neural computation and learning. Neither
-is necessary for a three-parameter scalar teaching example.
+is necessary for these small scalar reference examples.
 
 The Chapter 1 companion is original educational code. The official book's listed
 programming assignments start in Chapter 2. `coverage.md` distinguishes a teaching
 illustration from an algorithm reproduction and research validation.
 
+## Chapter 2 compositions
+
+The core traits are unchanged. Five additional algorithms demonstrate distinct
+meanings of `select`:
+
+| Search | Selected state | Evaluation output |
+| --- | --- | --- |
+| `Ga` | Evaluated parents used by subsequent tournaments; copied elites are reevaluated. | `f64` |
+| `Es` | Best `mu` offspring and their inherited mutation scales. | `f64` |
+| `CmaEs` | Mean, full covariance, evolution paths, and global step size. | `f64` |
+| `OpenAiEs` | A mean updated by mirrored perturbation rewards and explicit SGD. | `f64` |
+| `Nsga2` | Parents retained from parents plus offspring by rank and crowding. | `Vec<f64>` |
+
+`select` remains the single public result-consumption/update operation. Operator
+calls inside an algorithm may choose mating parents while constructing a batch;
+users do not have to orchestrate separate public update methods. Distribution
+means are not implicitly evaluated. `best()` on scalar searches means best
+actually evaluated candidate; `pareto_front()` means the current selected
+nondominated population, not a historical archive.
+
+The new numerical searches share a private checked batch implementation.
+`SearchError` reports configuration, protocol and numerical failures. This
+internal reuse does not require a new public trait or force custom algorithms
+to adopt `Vec<f64>`. Returned numerical genes and seeds must match issued jobs
+bit-for-bit; objective values must be finite. Rejected selection does not commit
+new state, but the public failure policy remains fail-stop rather than a general
+retry protocol.
+
+Reusable functions live in `operators` and `multiobjective`. The default GA/ES
+search domain is unbounded after initialization. NSGA-II explicitly clips to
+configured box bounds and caches deterministic parent fitness. Alternative
+variation, constraints, noisy evaluation, and archives are separate choices.
+The book companion specifies each variant rather than using its algorithm name
+as a claim that every known extension is implemented.
+
+`nn::Mlp` separates architecture from a flat parameter vector. Each output
+neuron stores its input weights and then its bias. It supports analytic MSE
+backpropagation; the RNN, LSTM, convolution and attention components provide
+checked forward computations. Caller-owned recurrent state makes trial reset
+explicit. `Xor` decodes an ordinary vector into the same MLP used by gradient
+descent. This is the scalar reference boundary for future tensor adapters.
+
+## Numerical and execution costs
+
+Gaussian noise uses an uncached Box–Muller transform with two 64-bit RNG draws
+per scalar. OpenAI-style ES deliberately shares an evaluation seed between
+mirrored candidates. Example initial means use an independent ChaCha stream 2,
+while algorithms use stream 0 for search and stream 1 for evaluation seeds.
+
+The strict reference batch layer keeps an issued copy for identity validation;
+this costs memory proportional to population times genome size. It is not a
+large-model zero-copy executor. CMA-ES stores full covariance and performs an
+eigendecomposition per selected batch; memory grows quadratically and that
+factorization grows cubically with dimension. It has no restarts or automatic
+stopping heuristics. These costs are intentional and documented, and motivate
+future backend and representation choices.
+
+Use caller-owned stopping rules and report actual objective calls. The search
+comparison includes initialization in its fixed budget; the XOR example uses an
+explicit loss target plus a budget cap. Gradient steps and evolutionary fitness
+calls remain distinct work units.
+
 ## Next implementation boundary
 
-Implement and specify the Chapter 2 GA and ES, then compare them on common
-objective-evaluation budgets. Extract shared selection/mutation components from
-working implementations. Add an `Experiment` builder when real use cases justify
-it. Avoid committing the API to a universal operator graph prematurely.
+Extend the coverage registry for the next chapter before adding abstractions.
+Keep reusable algorithms independent of Burn/Bevy and introduce adapters when a
+working experiment needs them. Add an `Experiment` builder or richer execution
+interface only when concrete use cases justify it. A universal operator graph,
+asynchronous execution, checkpointing and distributed scheduling remain future
+work.
 
 See `VALIDATION.md` for actual checks and limitations. Package publication remains
 disabled; the project source-code license has not yet been selected.

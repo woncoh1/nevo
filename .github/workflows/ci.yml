@@ -33,3 +33,9 @@ jobs:
         run: cargo run -p nevo --example sphere --locked
       - name: Chapter 1 companion
         run: cargo run -p nevo --example ch01_introduction --locked
+      - name: Chapter 2 search experiments
+        run: cargo run -p nevo --example ch02_search --release --locked -- results/ch02
+      - name: Chapter 2 neural integration
+        run: cargo run -p nevo --example ch02_xor --release --locked -- results/ch02
+      - name: Chapter 2 neural building blocks
+        run: cargo run -p nevo --example ch02_neural --locked

@@ -1,0 +1,19 @@
+{
+  "experiment": "chapter2_reference_searches",
+  "dimensions": 8,
+  "problems": ["sphere", "rastrigin"],
+  "seeds": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
+  "population": 64,
+  "batches_including_initialization": 100,
+  "evaluations_per_run": 6400,
+  "target": 1e-8,
+  "objective": "minimize",
+  "reported_score": "best actually evaluated candidate",
+  "ga": {"initial_bound":5,"mutation_sigma":0.1,"mutation_probability":0.125,"tournament_size":3,"elite_count":1,"crossover_probability":0.9,"reevaluate_elites":true},
+  "es": {"initial_bound":5,"parents":16,"initial_sigma":0.5,"tau":"1/sqrt(2*d)","sigma_min":1e-12,"sigma_max":1e3,"replacement":"comma","recombination":false},
+  "cma_es": {"initial_mean":"uniform [-5,5) on independent ChaCha8 stream2","sigma":0.5,"population":64,"variant":"positive-weight non-active full covariance"},
+  "openai_es": {"initial_mean":"uniform [-5,5) on independent ChaCha8 stream2","directions":32,"sigma":0.5,"learning_rate":0.1,"score_transform":"centered average-tie ranks","update":"SGD with 1/(2*K*sigma)"},
+  "zdt1": {"dimensions":30,"seed":42,"population":64,"batches":200,"evaluations":12800,"lower_bound":0,"upper_bound":1,"mutation_sigma":0.1,"mutation_probability":"1/30","crossover_probability":0.9,"replacement":"NSGA-II with cached parents"},
+  "execution": "serial f64; no early termination; no held-out tuning",
+  "limitations": "Equal evaluation budgets do not imply identical initial distributions or universal algorithm rankings. ZDT1 is one demonstration seed."
+}

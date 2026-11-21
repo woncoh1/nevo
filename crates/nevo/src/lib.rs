@@ -1,8 +1,9 @@
 //! Composable neuroevolution building blocks.
 //!
 //! Reusable algorithms and tasks share the Generate -> Evaluate -> Select
-//! protocol. The Chapter 1 companion evolves a small neural controller;
-//! the Sphere problem remains a separate numerical reference benchmark.
+//! protocol. Chapter 1 evolves a small neural controller; Chapter 2 adds
+//! foundational search methods, Pareto operators, and scalar neural primitives.
+//! Benchmarks and tasks remain independent of concrete search algorithms.
 //!
 //! ```
 //! use nevo::benchmarks::Sphere;
@@ -14,6 +15,9 @@
 
 pub mod algorithms;
 pub mod benchmarks;
+pub mod multiobjective;
+pub mod nn;
+pub mod operators;
 pub mod tasks;
 
 pub use nevo_core::{Algorithm, Evaluated, Evaluator, Job, JobId, StepError, step};

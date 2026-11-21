@@ -1,0 +1,74 @@
+[
+  {
+    "problem": "sphere",
+    "algorithm": "ga",
+    "median": 8.365754198867017e-05,
+    "q1": 4.944848665284461e-05,
+    "q3": 0.00011605469694198268,
+    "hits": 0,
+    "median_evaluations_to_target_successes_only": null
+  },
+  {
+    "problem": "sphere",
+    "algorithm": "es",
+    "median": 8.697074293083037e-10,
+    "q1": 4.4503059299520586e-10,
+    "q3": 1.7821654803071005e-09,
+    "hits": 19,
+    "median_evaluations_to_target_successes_only": 5734.0
+  },
+  {
+    "problem": "sphere",
+    "algorithm": "cma_es",
+    "median": 5.045378546700539e-13,
+    "q1": 1.6269809079064543e-13,
+    "q3": 1.2116839573427504e-12,
+    "hits": 20,
+    "median_evaluations_to_target_successes_only": 4416.0
+  },
+  {
+    "problem": "sphere",
+    "algorithm": "openai_es",
+    "median": 1.6951757749358989,
+    "q1": 1.3121771637761341,
+    "q3": 4.802499093312959,
+    "hits": 0,
+    "median_evaluations_to_target_successes_only": null
+  },
+  {
+    "problem": "rastrigin",
+    "algorithm": "ga",
+    "median": 5.478136737497593,
+    "q1": 2.996733026905372,
+    "q3": 7.222648161621553,
+    "hits": 0,
+    "median_evaluations_to_target_successes_only": null
+  },
+  {
+    "problem": "rastrigin",
+    "algorithm": "es",
+    "median": 19.899140836408733,
+    "q1": 14.924350676344652,
+    "q3": 22.13779873453243,
+    "hits": 0,
+    "median_evaluations_to_target_successes_only": null
+  },
+  {
+    "problem": "rastrigin",
+    "algorithm": "cma_es",
+    "median": 2.9849561425904825,
+    "q1": 1.9899225917738108,
+    "q3": 3.979943322182094,
+    "hits": 0,
+    "median_evaluations_to_target_successes_only": null
+  },
+  {
+    "problem": "rastrigin",
+    "algorithm": "openai_es",
+    "median": 53.767541517183396,
+    "q1": 47.043139796353,
+    "q3": 61.367513835767866,
+    "hits": 0,
+    "median_evaluations_to_target_successes_only": null
+  }
+]

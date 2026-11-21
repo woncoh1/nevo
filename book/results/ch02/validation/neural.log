@@ -1,0 +1,20 @@
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running `target/debug/examples/ch02_neural`
+Chapter 2: scalar neural building blocks
+Affine MLP: 2*3 - 4 + 0.5 = [2.5]
+Analytic MSE gradient [weight, bias]: [-10.0, -6.0]
+One gradient step: loss 10.000000 -> 1.060000
+Updated [weight, bias]: [1.0, 0.6000000000000001]
+RNN h'=tanh(x+0.5*h): [0.7615941559557649] -> [0.3633994843890525]
+Zero LSTM gates: i=f=o=0.5, g=0; next state LstmState { hidden: [0.3807970779778824], cell: [1.0] }
+Valid CNN cross-correlation, bias=0.5: [[37.5, 47.5], [67.5, 77.5]]
+Attention causal=false: values=[[4.0], [4.0], [4.0]]
+Attention weights: [[0.3333333333333333, 0.3333333333333333, 0.3333333333333333], [0.3333333333333333, 0.3333333333333333, 0.3333333333333333], [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]]
+Attention causal=true: values=[[2.0], [3.0], [4.0]]
+Attention weights: [[1.0, 0.0, 0.0], [0.5, 0.5, 0.0], [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]]
+Layer normalization [1,3]: [-0.9999950000374997, 0.9999950000374997]
+Sinusoidal positions (2 tokens, width 4): [[0.0, 1.0, 0.0, 1.0], [0.8414709848078965, 0.5403023058681398, 0.009999833334166664, 0.9999500004166653]]
+Single-head post-norm Transformer with fixed illustrative weights:
+  [0.12443985070885945, -1.282207090855087, 1.1577672401462278]
+  [0.6151593801474823, -1.4103808180728954, 0.7952214379254129]
+Forward references only for RNN/LSTM/CNN/Transformer; no training was run for them.

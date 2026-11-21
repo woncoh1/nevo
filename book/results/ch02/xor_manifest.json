@@ -1,0 +1,13 @@
+{
+  "architecture": [2,4,1],
+  "activations": ["tanh","sigmoid"],
+  "parameter_order": "each layer, each output neuron: input weights then bias",
+  "parameters": 17,
+  "seed": 42,
+  "initial_mean": "ChaCha8 stream2 uniform [-0.5,0.5), independent of search stream0",
+  "loss": "MSE on all four XOR truth-table examples",
+  "target_mse": 0.001,
+  "cma_es": {"population":32,"sigma":0.5,"batch_cap":400,"actual_batches":33,"search_evaluations":1056},
+  "backprop": {"learning_rate":1.0,"step_cap":5000,"actual_steps":1100,"reporting_forward_loss_passes":1100},
+  "reporting": "One common baseline loss before search; final prediction forward passes are outside search budget. No held-out set. Unequal compute work."
+}
