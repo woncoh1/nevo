@@ -1,0 +1,97 @@
+{
+  "notebook": "notebooks/ch03_neuroevolution.ipynb",
+  "started_utc": "2026-11-23T08:43:54.972818+00:00",
+  "duration_seconds": 57.247274825999966,
+  "execution_exit_code": 0,
+  "tools": {
+    "rustc": "rustc 1.85.1 (4eb161250 2025-03-15)",
+    "cargo": "cargo 1.85.1 (d73d2caf9 2024-12-31)",
+    "evcxr_jupyter": "0.15.1 (installation metadata verified)",
+    "nbclient": "0.11.0",
+    "nbformat": "5.11.1",
+    "jupyter_client": "8.10.0"
+  },
+  "working_directory": "notebooks",
+  "actual_rust_kernel": true,
+  "prior_notebooks_rerun": false,
+  "classification_data_sha256_before": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+  "classification_data_sha256_after": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+  "setup_note": "Initial offline setup needed zerocopy-derive 0.8.64 in the task-private cache; fetched normally without changing the notebook or project dependencies.",
+  "source_corrections": [
+    "Final deep_best binding clones the evaluated result because Evcxr persists top-level bindings; algorithm budgets unchanged."
+  ],
+  "capture_note": "Evcxr late stdout drained for 250 ms after idle by the previously validated nbclient harness.",
+  "total_cells": 29,
+  "code_cells": 17,
+  "execution_counts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "error_outputs": [],
+  "svg_figures": 4,
+  "svg_sizes": [
+    {
+      "width": "1000",
+      "height": "400"
+    },
+    {
+      "width": "1000",
+      "height": "150"
+    },
+    {
+      "width": "1000",
+      "height": "370"
+    },
+    {
+      "width": "1000",
+      "height": "320"
+    }
+  ],
+  "private_absolute_paths_in_outputs": false,
+  "notebook_sha256": "6d1aabbbf271e38f139632321415922e568944ad8ebc75accbee4e359b3a9cf8",
+  "walker_replays": [
+    {
+      "case": "neutral_500",
+      "matches_frozen_csv_to_print_precision": true,
+      "absolute_differences": {
+        "return": 2.8897180754938745e-06,
+        "com_distance": 3.613073921826526e-06,
+        "actuator_work": 1.396022071276093e-06
+      }
+    },
+    {
+      "case": "friction_06",
+      "matches_frozen_csv_to_print_precision": true,
+      "absolute_differences": {
+        "return": 3.0342334729205334e-06,
+        "com_distance": 3.984440515081289e-06,
+        "actuator_work": 4.896479367744178e-06
+      }
+    }
+  ],
+  "figure_visual_inspection": {
+    "status": "passed",
+    "method": "Each of four actual SVG outputs was rendered to PNG and visually inspected; final SVG hashes match inspected figures.",
+    "svg_sha256": {
+      "1.svg": "b76aab0ed2e29f56f129e14d6e9963be67771cc80afa164bd589c587ef36c6b9",
+      "2.svg": "2d1142cfafcfaa4e2accb3857cb72561f0ff071da8c28d35544bb18be7673a85",
+      "3.svg": "cb7134f835a330e494d14d535b0e71afae31af3558d2c06d96d03e8f009434d4",
+      "4.svg": "e0cb21e27f79e61a3461a9c5ae9db27b87f50b97c5d8f1d378eac311c54af692"
+    }
+  }
+}

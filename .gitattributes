@@ -1,0 +1,2 @@
+# Keep the attributed dataset's original bytes and recorded checksum intact.
+data/optdigits.csv -text

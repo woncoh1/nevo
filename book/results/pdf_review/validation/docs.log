@@ -1,0 +1,5 @@
+    Checking nevo-core v0.1.0-dev (<repo>/crates/nevo-core)
+ Documenting nevo-core v0.1.0-dev (<repo>/crates/nevo-core)
+ Documenting nevo v0.1.0-dev (<repo>/crates/nevo)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.89s
+   Generated <cargo-target>/doc/nevo/index.html and 1 other file

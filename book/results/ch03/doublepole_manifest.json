@@ -1,0 +1,16 @@
+{
+  "experiment": "Chapter 3 full-state double-pole teaching comparison",
+  "search_seed": 42,
+  "physics": {"gravity":9.8,"cart_mass":1.0,"pole_masses":[0.1,0.01],"half_lengths":[0.5,0.05],"hinge_damping":0.000002,"force_newtons":10.0,"dt_seconds":0.02,"rk4_substeps":2,"position_limit":2.4,"angle_limit_radians":0.628329,"max_steps":500},
+  "observation": "Full state [x/4.8,v/2,long_angle/0.52,long_omega/2,short_angle/0.52,short_omega/2], not clipped",
+  "training_start": {"position":0,"velocity":0,"angles":[0.07,0],"angular_velocities":[0,0]},
+  "heldout_suite": {"cart_positions":[-0.1,0.1],"long_angles":[-0.07,-0.03,0.03,0.07],"short_angles":[-0.003,0.003],"all_velocities":0,"construction":"Cartesian product, position outermost then long angle then short angle","trials":16},
+  "fitness": "Number of valid control endpoints; a failing final action earns zero",
+  "stopping": "Best observed training return reaches 500 or 150 selected batches, including initialization",
+  "cma_es": {"network":[6,4,1],"activations":["tanh","tanh"],"parameters":33,"population":32,"evaluation_cap":4800,"initial_mean":"ChaCha8 seed42 stream2, uniform [-0.5,0.5)","sigma":0.5,"objective":"minimize negative training return","other_settings":"CmaEsConfig defaults","action":"tanh output is signed force fraction"},
+  "neat": {"initial_network":"six inputs, one bias, one output, zero hidden nodes","population":150,"evaluation_cap":22500,"config":"NeatConfig::new(6,1,42), all defaults","objective":"maximize nonnegative training return","action":"2*sigmoid_output-1 is signed force fraction","recurrent":false},
+  "accounting": "One training fitness call contains one episode. Training control steps count applied actions, including a failing final action. Final reporting adds one training and sixteen held-out episodes per selected policy; those are excluded from search counts.",
+  "heldout_policy": "Only final training-selected policies are evaluated; no held-out tuning or reselection",
+  "trace_selection": "Training start and held-out start_id 0, fixed before evaluation; action on each state row applies to the following state; final action is blank",
+  "limitations": "Single search seed, different architectures and unequal budgets. No equal-cost algorithm ranking. This is not a partial-observation/recurrent experiment or a reproduction of the 2002 paper's benchmark protocol."
+}

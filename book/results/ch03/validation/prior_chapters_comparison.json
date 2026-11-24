@@ -1,0 +1,422 @@
+{
+  "baseline_workspace": "/workspace/scratch/a2689e927bb8/work_ch02/nevo",
+  "current_workspace": "/workspace/scratch/a2689e927bb8/work_ch03/nevo",
+  "comparisons": {
+    "previous_result_artifacts": {
+      "files": 31,
+      "identical": 31,
+      "differences": [],
+      "entries": [
+        {
+          "path": "book/results/ch01/README.md",
+          "baseline_sha256": "f5bba92bdf773a8415a43cd7c98974fae06d3e56c7fd8b0b835ec0450ca2ab1a",
+          "current_sha256": "f5bba92bdf773a8415a43cd7c98974fae06d3e56c7fd8b0b835ec0450ca2ab1a",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch01/fig_ch01.png",
+          "baseline_sha256": "36602525f9ea0bf1d0a815cce8666f5bfc1b9dab7e5964fb88ed4445d659ecab",
+          "current_sha256": "36602525f9ea0bf1d0a815cce8666f5bfc1b9dab7e5964fb88ed4445d659ecab",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch01/learning.csv",
+          "baseline_sha256": "e74c094741ba8767014fc256af3b4082720e98e51f05ea40ce8c7d1a005c58cb",
+          "current_sha256": "e74c094741ba8767014fc256af3b4082720e98e51f05ea40ce8c7d1a005c58cb",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch01/run.json",
+          "baseline_sha256": "fcbd30e48f684cbcffae0f7b98364558a0479b720d47b40e2649e958877433f6",
+          "current_sha256": "fcbd30e48f684cbcffae0f7b98364558a0479b720d47b40e2649e958877433f6",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch01/run.txt",
+          "baseline_sha256": "b7a3917dd7a901f4b6c21e5939d28b28bb90cb8fb22e6c7088652b3dd01aca64",
+          "current_sha256": "b7a3917dd7a901f4b6c21e5939d28b28bb90cb8fb22e6c7088652b3dd01aca64",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch01/trajectories.csv",
+          "baseline_sha256": "d4f06dc9b34a6e92d92de1e4e46a19ae072ca66354e8da4cf7963cfc4620c504",
+          "current_sha256": "d4f06dc9b34a6e92d92de1e4e46a19ae072ca66354e8da4cf7963cfc4620c504",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/README.md",
+          "baseline_sha256": "9d35c22aecb9501d40b0386e0af7488abff89c3a527eb7a3458417d4155872e1",
+          "current_sha256": "9d35c22aecb9501d40b0386e0af7488abff89c3a527eb7a3458417d4155872e1",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/search_comparison.png",
+          "baseline_sha256": "b26f5173d4ca8d4e07daba2f6528fa0f04da55a7559f660ee2ade5586ccd9967",
+          "current_sha256": "b26f5173d4ca8d4e07daba2f6528fa0f04da55a7559f660ee2ade5586ccd9967",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/search_curves.csv",
+          "baseline_sha256": "27646df1373a10056e44268af99a7d7d920e0aaeaf87528ac553079d5ae89eed",
+          "current_sha256": "27646df1373a10056e44268af99a7d7d920e0aaeaf87528ac553079d5ae89eed",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/search_manifest.json",
+          "baseline_sha256": "27990dd07b3ccb29f6baa3ca9de6d69718af6599dc549740c16e7c029cdd60dc",
+          "current_sha256": "27990dd07b3ccb29f6baa3ca9de6d69718af6599dc549740c16e7c029cdd60dc",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/search_runs.csv",
+          "baseline_sha256": "14ce8e69e47637fd2acbd9ed9f6e866548e7f8ad5742f4bc05a27bb5ca9f58d7",
+          "current_sha256": "14ce8e69e47637fd2acbd9ed9f6e866548e7f8ad5742f4bc05a27bb5ca9f58d7",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/summary.csv",
+          "baseline_sha256": "1b273205be401df3c148aac563ad8e6cbef5a80eebe3458d10f5414ef9120df3",
+          "current_sha256": "1b273205be401df3c148aac563ad8e6cbef5a80eebe3458d10f5414ef9120df3",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/summary.json",
+          "baseline_sha256": "4386836a619cae8f21c27f18fdd8ff15662465f297c0e90035e747d3645aa2b9",
+          "current_sha256": "4386836a619cae8f21c27f18fdd8ff15662465f297c0e90035e747d3645aa2b9",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/chapter1.log",
+          "baseline_sha256": "ebe38f86f889697da4e630972342c087db70346e414f26cc4f6e5d1552e48873",
+          "current_sha256": "ebe38f86f889697da4e630972342c087db70346e414f26cc4f6e5d1552e48873",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/checks.json",
+          "baseline_sha256": "701a160320ef30cf78f94e2ff5d6aa582158fd9517d94f8b994b12ab6d09cce2",
+          "current_sha256": "701a160320ef30cf78f94e2ff5d6aa582158fd9517d94f8b994b12ab6d09cce2",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/clippy.log",
+          "baseline_sha256": "78e8b046a255a112e3285133ea1102a49b1fc1c3da2b545c4c3d2f3eb2a635aa",
+          "current_sha256": "78e8b046a255a112e3285133ea1102a49b1fc1c3da2b545c4c3d2f3eb2a635aa",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/doc.log",
+          "baseline_sha256": "d75a8110b440dbb476ddde661dc5c4d26750f007506ff94454ba73e48c72a88c",
+          "current_sha256": "d75a8110b440dbb476ddde661dc5c4d26750f007506ff94454ba73e48c72a88c",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/fmt.log",
+          "baseline_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "current_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/neural.log",
+          "baseline_sha256": "a9af0460ab5b4a95b5c858b4473a6045948d4ab70039349f769e4865c1dd0aa5",
+          "current_sha256": "a9af0460ab5b4a95b5c858b4473a6045948d4ab70039349f769e4865c1dd0aa5",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/search.log",
+          "baseline_sha256": "6f337a1c19a78ccfcbb9ddd8eac69480bbe3a509ecaf5bab82f4a77eeb4c9ca5",
+          "current_sha256": "6f337a1c19a78ccfcbb9ddd8eac69480bbe3a509ecaf5bab82f4a77eeb4c9ca5",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/sphere.log",
+          "baseline_sha256": "9a73b24230844923afa1c70ff520150c2e6fc6af4bb5d2997916aaf83b32e650",
+          "current_sha256": "9a73b24230844923afa1c70ff520150c2e6fc6af4bb5d2997916aaf83b32e650",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/test_debug.log",
+          "baseline_sha256": "69253d05ff7fb6d2ca8a1ebe96755d4e69578a353a51235cbb29f1c2e0b801d7",
+          "current_sha256": "69253d05ff7fb6d2ca8a1ebe96755d4e69578a353a51235cbb29f1c2e0b801d7",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/test_release.log",
+          "baseline_sha256": "3429a20f1cfffafce0af612a17e122d47b9f3c625a3ca5b6b518e498e3492226",
+          "current_sha256": "3429a20f1cfffafce0af612a17e122d47b9f3c625a3ca5b6b518e498e3492226",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/validation/xor.log",
+          "baseline_sha256": "0335bce0eaa2b425b5e5f0dbe935bd18138b1c4f0d2cef2b89fb67895294febe",
+          "current_sha256": "0335bce0eaa2b425b5e5f0dbe935bd18138b1c4f0d2cef2b89fb67895294febe",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/xor_curves.csv",
+          "baseline_sha256": "e2139a4980d949c79c84a13f31a03a6daa1055adf4c7c1fbd7518f36d6677035",
+          "current_sha256": "e2139a4980d949c79c84a13f31a03a6daa1055adf4c7c1fbd7518f36d6677035",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/xor_manifest.json",
+          "baseline_sha256": "8077d100e82fc8a98921b7357e8f4db9fca295ac5b0fb009da4b17e30c8722e3",
+          "current_sha256": "8077d100e82fc8a98921b7357e8f4db9fca295ac5b0fb009da4b17e30c8722e3",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/xor_parameters.txt",
+          "baseline_sha256": "2337404c806ddb818e08a60430e4f1aebfc764415060e72b2a1e383da317c2f9",
+          "current_sha256": "2337404c806ddb818e08a60430e4f1aebfc764415060e72b2a1e383da317c2f9",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/xor_predictions.csv",
+          "baseline_sha256": "b0316b73eb4a0f778fc078ff503a21715756aab1710469d20a527b1896180c34",
+          "current_sha256": "b0316b73eb4a0f778fc078ff503a21715756aab1710469d20a527b1896180c34",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/xor_training.png",
+          "baseline_sha256": "e6a84c59d13b057bee0d2eea06b873d2f7a8532d17000ae478a186ddbadf1655",
+          "current_sha256": "e6a84c59d13b057bee0d2eea06b873d2f7a8532d17000ae478a186ddbadf1655",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/zdt1_pareto.png",
+          "baseline_sha256": "1dde65d923316d27ad8e3c2cb89ab87b9039f366c74f783171ac3d41fa3ab87a",
+          "current_sha256": "1dde65d923316d27ad8e3c2cb89ab87b9039f366c74f783171ac3d41fa3ab87a",
+          "identical": true
+        },
+        {
+          "path": "book/results/ch02/zdt1_population.csv",
+          "baseline_sha256": "41ef5e533c87843b9352b3336be607fca5b8085293565d1727a3e0348375c586",
+          "current_sha256": "41ef5e533c87843b9352b3336be607fca5b8085293565d1727a3e0348375c586",
+          "identical": true
+        }
+      ]
+    },
+    "chapter2_source_units": {
+      "files": 30,
+      "identical": 30,
+      "differences": [],
+      "entries": [
+        {
+          "path": "crates/nevo/src/algorithms/cma_es.rs",
+          "baseline_sha256": "411bf59100b0e84cf403dfaf0fec7a75ce6f18fdfd3d351e65fd94e3d98b0885",
+          "current_sha256": "411bf59100b0e84cf403dfaf0fec7a75ce6f18fdfd3d351e65fd94e3d98b0885",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/algorithms/common.rs",
+          "baseline_sha256": "202193d42b7e29163041c3b0bdb957f769659cd376691b629b33b7a619c45a80",
+          "current_sha256": "202193d42b7e29163041c3b0bdb957f769659cd376691b629b33b7a619c45a80",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/algorithms/elitist.rs",
+          "baseline_sha256": "437685e3522b58398ddace81b1149d413ddd233fc00e04dfc8ffec3ed1a8d6ff",
+          "current_sha256": "437685e3522b58398ddace81b1149d413ddd233fc00e04dfc8ffec3ed1a8d6ff",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/algorithms/es.rs",
+          "baseline_sha256": "84aa83f46f31a8a7108b7f45517a047046fa3d213f6054839c8791c0ff0ebf4c",
+          "current_sha256": "84aa83f46f31a8a7108b7f45517a047046fa3d213f6054839c8791c0ff0ebf4c",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/algorithms/ga.rs",
+          "baseline_sha256": "6816cfb33f6c32214161f3cc85fee6771aee9d9d47d41dec0ff5324c039ffca3",
+          "current_sha256": "6816cfb33f6c32214161f3cc85fee6771aee9d9d47d41dec0ff5324c039ffca3",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/algorithms/nsga2.rs",
+          "baseline_sha256": "c7a30bdacb36e120532df364cf03589131829f734727e8687a73a9a3656c09f9",
+          "current_sha256": "c7a30bdacb36e120532df364cf03589131829f734727e8687a73a9a3656c09f9",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/algorithms/openai_es.rs",
+          "baseline_sha256": "d3fffe710d8e545cc8a7b647d407b0317e05134af4be3297ace79a63f09bd252",
+          "current_sha256": "d3fffe710d8e545cc8a7b647d407b0317e05134af4be3297ace79a63f09bd252",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/benchmarks/foundations.rs",
+          "baseline_sha256": "ab6b9494fcd019d428e0bd83141997ed4f05691d495d8397a745ad5d6abfa447",
+          "current_sha256": "ab6b9494fcd019d428e0bd83141997ed4f05691d495d8397a745ad5d6abfa447",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/benchmarks/mod.rs",
+          "baseline_sha256": "33b1cb6d28f26f1e35bb006b55dafaeaf295582f30be7120dd523b3918031169",
+          "current_sha256": "33b1cb6d28f26f1e35bb006b55dafaeaf295582f30be7120dd523b3918031169",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/benchmarks/sphere.rs",
+          "baseline_sha256": "becb219a7ee32d847f8fef4b8c191c28a8c7bcec08a2d6a221d88ca34aeb07b2",
+          "current_sha256": "becb219a7ee32d847f8fef4b8c191c28a8c7bcec08a2d6a221d88ca34aeb07b2",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/multiobjective.rs",
+          "baseline_sha256": "7bbb1c4853846065749dbe299b6dabcd9a9d0557315fd0b1ff7dbf20f68ca764",
+          "current_sha256": "7bbb1c4853846065749dbe299b6dabcd9a9d0557315fd0b1ff7dbf20f68ca764",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/nn/attention.rs",
+          "baseline_sha256": "bbf265ec7be6f47d385ad2b4787e87ae839b06af0c03f981bae553ba153248e2",
+          "current_sha256": "bbf265ec7be6f47d385ad2b4787e87ae839b06af0c03f981bae553ba153248e2",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/nn/mlp.rs",
+          "baseline_sha256": "723c2372a130a04fb3612a7dbbcccd4266de26c926f34db859fa0a197f793c05",
+          "current_sha256": "723c2372a130a04fb3612a7dbbcccd4266de26c926f34db859fa0a197f793c05",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/nn/mod.rs",
+          "baseline_sha256": "10134645757b2fcee5028bb7c9b3acf8d36109c3f423c00f163d2158e75b978e",
+          "current_sha256": "10134645757b2fcee5028bb7c9b3acf8d36109c3f423c00f163d2158e75b978e",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/nn/recurrent.rs",
+          "baseline_sha256": "cac5aecb24543fa13545ff895953994aa89bfe1c22c88c99fe4c2d7bce67753e",
+          "current_sha256": "cac5aecb24543fa13545ff895953994aa89bfe1c22c88c99fe4c2d7bce67753e",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/nn/spatial.rs",
+          "baseline_sha256": "60603d87983f819fbd22b8d903918c3cf01b845ae63713991c72b9c230e5f84f",
+          "current_sha256": "60603d87983f819fbd22b8d903918c3cf01b845ae63713991c72b9c230e5f84f",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/operators.rs",
+          "baseline_sha256": "82d60db0f285c87f5e54639999733822c6bddbe9dfc8f08f5f271e9c4c1bf370",
+          "current_sha256": "82d60db0f285c87f5e54639999733822c6bddbe9dfc8f08f5f271e9c4c1bf370",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/tasks/target_reach.rs",
+          "baseline_sha256": "3595d42868a856277f568bf1de8b336d14d8134090276dc4f117c32055f07e6b",
+          "current_sha256": "3595d42868a856277f568bf1de8b336d14d8134090276dc4f117c32055f07e6b",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/src/tasks/xor.rs",
+          "baseline_sha256": "b6c6d4150b0f70a6d3d9efc2e36177ba8485701ccd8e081b1f11097b680c6fb4",
+          "current_sha256": "b6c6d4150b0f70a6d3d9efc2e36177ba8485701ccd8e081b1f11097b680c6fb4",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/cma_openai.rs",
+          "baseline_sha256": "f9c1161310256d30a597218f465da0848470fbc143250f35f2db755c22cc4c55",
+          "current_sha256": "f9c1161310256d30a597218f465da0848470fbc143250f35f2db755c22cc4c55",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/elitist.rs",
+          "baseline_sha256": "3196f73ee339a74be1e2092b702eae84a5eace924581420b9ba411726fc22898",
+          "current_sha256": "3196f73ee339a74be1e2092b702eae84a5eace924581420b9ba411726fc22898",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/foundations_tasks.rs",
+          "baseline_sha256": "ac9d863639834ab72af5e1393bee9bc3c6faad36c45ed6da21be26a7eb1ef95a",
+          "current_sha256": "ac9d863639834ab72af5e1393bee9bc3c6faad36c45ed6da21be26a7eb1ef95a",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/ga_es.rs",
+          "baseline_sha256": "7f1795591d558c7c1231426dc16d12070405ac20204519a20b307aa3bd3aa008",
+          "current_sha256": "7f1795591d558c7c1231426dc16d12070405ac20204519a20b307aa3bd3aa008",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/ges.rs",
+          "baseline_sha256": "1bfb6aaf01e4f98fd4bba6e07d06dfb4f1fc4db32093fd81723275bfe065eb01",
+          "current_sha256": "1bfb6aaf01e4f98fd4bba6e07d06dfb4f1fc4db32093fd81723275bfe065eb01",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/multiobjective.rs",
+          "baseline_sha256": "d332c23c56969f43de80a1ef220741b9f4c20dda07f9ed01797b856404af71f1",
+          "current_sha256": "d332c23c56969f43de80a1ef220741b9f4c20dda07f9ed01797b856404af71f1",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/neural.rs",
+          "baseline_sha256": "9a8f6ba1dfd20dba227fb9370d742c1c3b41565960de18be7c70541dd2ddb009",
+          "current_sha256": "9a8f6ba1dfd20dba227fb9370d742c1c3b41565960de18be7c70541dd2ddb009",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/sphere.rs",
+          "baseline_sha256": "f812a815e503ff323df62cdb10148ce15b1ed1e50d3215234f9982ce0407a67d",
+          "current_sha256": "f812a815e503ff323df62cdb10148ce15b1ed1e50d3215234f9982ce0407a67d",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo/tests/target_reach.rs",
+          "baseline_sha256": "ac17aa15a56ef75de1d18d774a7c3608e899668e2897341ec66519f013ac5ec2",
+          "current_sha256": "ac17aa15a56ef75de1d18d774a7c3608e899668e2897341ec66519f013ac5ec2",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo-core/src/lib.rs",
+          "baseline_sha256": "a40a1a41f65371fa8956ff52180cf0179f98e4dd3d45065636dc3302d399546f",
+          "current_sha256": "a40a1a41f65371fa8956ff52180cf0179f98e4dd3d45065636dc3302d399546f",
+          "identical": true
+        },
+        {
+          "path": "crates/nevo-core/src/runner.rs",
+          "baseline_sha256": "33b28027cda4d50615911a86fc31f10c88fdd524bab0d3e1045da8cd36d4397c",
+          "current_sha256": "33b28027cda4d50615911a86fc31f10c88fdd524bab0d3e1045da8cd36d4397c",
+          "identical": true
+        }
+      ]
+    }
+  },
+  "notes": [
+    "Algorithm module export file is excluded because Chapter 3 intentionally adds modules.",
+    "Comparison reads prior artifacts without rewriting them."
+  ],
+  "regression_output_comparisons": [
+    {
+      "kind": "chapter1_csv",
+      "baseline": "book/results/ch01/learning.csv",
+      "current": "book/results/ch03/validation/regression_ch01/learning.csv",
+      "byte_identical": true,
+      "baseline_sha256": "e74c094741ba8767014fc256af3b4082720e98e51f05ea40ce8c7d1a005c58cb",
+      "current_sha256": "e74c094741ba8767014fc256af3b4082720e98e51f05ea40ce8c7d1a005c58cb"
+    },
+    {
+      "kind": "chapter1_csv",
+      "baseline": "book/results/ch01/trajectories.csv",
+      "current": "book/results/ch03/validation/regression_ch01/trajectories.csv",
+      "byte_identical": true,
+      "baseline_sha256": "d4f06dc9b34a6e92d92de1e4e46a19ae072ca66354e8da4cf7963cfc4620c504",
+      "current_sha256": "d4f06dc9b34a6e92d92de1e4e46a19ae072ca66354e8da4cf7963cfc4620c504"
+    },
+    {
+      "kind": "sphere_stdout",
+      "baseline": "book/results/ch02/validation/sphere.log",
+      "current": "book/results/ch03/validation/regression_sphere.log",
+      "program_output_identical": true,
+      "comparison": "Program stdout beginning at first example heading, excluding Cargo build output"
+    },
+    {
+      "kind": "neural_stdout",
+      "baseline": "book/results/ch02/validation/neural.log",
+      "current": "book/results/ch03/validation/regression_ch02_neural.log",
+      "program_output_identical": true,
+      "comparison": "Program stdout beginning at first example heading, excluding Cargo build output"
+    }
+  ]
+}

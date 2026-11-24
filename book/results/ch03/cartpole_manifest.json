@@ -1,0 +1,14 @@
+{
+  "environment":"Native Rust CartPole with classic Gym equations and discrete +/-10 N actions",
+  "horizon":500,"dt":0.02,"network":[4,4,1],"activations":["tanh","tanh"],"parameters":25,
+  "training_start_seeds":[100,101,102],"heldout_start_seeds":"200..219",
+  "reset":"Independent ChaCha8 stream3, each of four coordinates uniform [-0.05,0.05)",
+  "search_seeds":[0,1,2],"population":64,"batch_cap_including_initialization":60,
+  "stop":"Best observed mean training return reaches 500",
+  "fitness":"Negative mean complete episode return over the same three training starts; minimize",
+  "reward":"+1 per action including failure; termination and time-limit truncation reported separately",
+  "ga":{"initial_bound":0.5,"mutation_sigma":0.2,"other_settings":"GaConfig defaults"},
+  "es":{"initial_bound":0.5,"initial_sigma":0.2,"other_settings":"EsConfig defaults"},
+  "holdout":"Evaluate final training-selected policy once per held-out start; no holdout tuning",
+  "limitations":"Teaching experiments, not the standard Gym evaluation protocol; native RNG is not Gym's NumPy RNG. Fitness calls each contain three episodes; reporting rollouts are additional."
+}

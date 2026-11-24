@@ -1,4 +1,4 @@
-//! A self-adaptive, isotropic `(mu, lambda)` evolution strategy.
+//! Isotropic Gaussian evolution strategies with explicit scale and survival rules.
 
 use rand_chacha::ChaCha8Rng;
 
@@ -8,24 +8,52 @@ use super::common::{
 use super::{Objective, SearchError};
 use crate::{Algorithm, Evaluated, Job};
 
-/// Settings for [`Es`], with one inherited step size per individual.
+/// Candidates eligible to become the next generation's parents.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub enum EsSelection {
+    /// Select the best mu from the new lambda offspring only.
+    #[default]
+    Comma,
+    /// Select the best mu from cached parents and new offspring.
+    ///
+    /// Parent fitness is not reevaluated. Use a stationary deterministic
+    /// evaluator, or explicitly accept the consequences of cached observations.
+    Plus,
+}
+
+/// How offspring inherit their isotropic Gaussian mutation scale.
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub enum EsStepSize {
+    /// Mutate an inherited scalar scale using log-normal self-adaptation.
+    #[default]
+    SelfAdaptive,
+    /// Keep [`EsConfig::initial_sigma`] fixed; draw no adaptation noise.
+    Fixed,
+}
+
+/// Settings for [`Es`], with one step size per individual.
 #[derive(Clone, Debug, PartialEq)]
 pub struct EsConfig {
     /// Number of real-valued genes; must be positive.
     pub dimensions: usize,
     /// Offspring count lambda, including the initial evaluated batch.
     pub population: usize,
-    /// Parent count mu; must satisfy `0 < parents < population`.
+    /// Parent count mu; must satisfy `0 < parents <= population`.
+    /// Comma selection has no survivor truncation pressure when mu equals lambda.
     pub parents: usize,
     /// Initial coordinate half-width; there is no later clipping of coordinates.
     pub initial_bound: f64,
     /// Step size assigned to every member of the initial population.
     pub initial_sigma: f64,
-    /// Learning rate for the scalar log-normal step-size mutation.
+    /// Offspring-only (comma) or cached parent-plus-offspring survival.
+    pub selection: EsSelection,
+    /// Fixed or inherited self-adaptive Gaussian scale.
+    pub step_size: EsStepSize,
+    /// Learning rate for log-normal step-size mutation; unused in fixed mode.
     pub tau: f64,
-    /// Explicit lower bound on inherited step sizes.
+    /// Lower bound on inherited scales; unused in fixed mode.
     pub sigma_min: f64,
-    /// Explicit upper bound on inherited step sizes.
+    /// Upper bound on inherited scales; unused in fixed mode.
     pub sigma_max: f64,
     /// Direction of the raw scalar objective.
     pub objective: Objective,
@@ -36,6 +64,7 @@ pub struct EsConfig {
 impl EsConfig {
     /// Set lambda 64, mu 16, bound 5, sigma 0.5, and minimization.
     ///
+    /// Comma replacement and self-adaptation retain the original defaults.
     /// The default learning rate is `1 / sqrt(2*d)` and sigma bounds are
     /// `[1e-12, 1e3]`. These are declared defaults, not universal optima.
     pub fn new(dimensions: usize, seed: u64) -> Self {
@@ -45,6 +74,8 @@ impl EsConfig {
             parents: 16,
             initial_bound: 5.0,
             initial_sigma: 0.5,
+            selection: EsSelection::Comma,
+            step_size: EsStepSize::SelfAdaptive,
             tau: 1.0 / (2.0 * dimensions as f64).sqrt(),
             sigma_min: 1e-12,
             sigma_max: 1e3,
@@ -54,13 +85,19 @@ impl EsConfig {
     }
 
     fn validate(&self) -> Result<(), SearchError> {
-        if self.dimensions == 0 || self.parents == 0 || self.parents >= self.population {
+        if self.dimensions == 0 || self.parents == 0 || self.parents > self.population {
             return Err(SearchError::InvalidConfig(
-                "dimensions must be positive and 0 < parents < population",
+                "dimensions must be positive and 0 < parents <= population",
             ));
         }
+        let combined =
+            self.population
+                .checked_add(self.parents)
+                .ok_or(SearchError::InvalidConfig(
+                    "combined population overflows usize",
+                ))?;
         self.dimensions
-            .checked_mul(self.population)
+            .checked_mul(combined)
             .ok_or(SearchError::InvalidConfig(
                 "population dimensions overflow usize",
             ))?;
@@ -72,11 +109,17 @@ impl EsConfig {
                 "initial_bound and twice its value must be positive and finite",
             ));
         }
-        if [self.initial_sigma, self.sigma_min, self.sigma_max, self.tau]
-            .iter()
-            .any(|x| !x.is_finite() || *x <= 0.0)
-            || self.sigma_min > self.initial_sigma
-            || self.initial_sigma > self.sigma_max
+        if !self.initial_sigma.is_finite() || self.initial_sigma <= 0.0 {
+            return Err(SearchError::InvalidConfig(
+                "initial_sigma must be finite and positive",
+            ));
+        }
+        if self.step_size == EsStepSize::SelfAdaptive
+            && ([self.sigma_min, self.sigma_max, self.tau]
+                .iter()
+                .any(|x| !x.is_finite() || *x <= 0.0)
+                || self.sigma_min > self.initial_sigma
+                || self.initial_sigma > self.sigma_max)
         {
             return Err(SearchError::InvalidConfig(
                 "sigma values and tau must be finite and positive, with sigma_min <= initial_sigma <= sigma_max",
@@ -95,17 +138,32 @@ pub struct EsParent {
     pub sigma: f64,
 }
 
-/// Isotropic Gaussian ES with self-adaptation and comma-only replacement.
+/// Isotropic Gaussian ES with selectable mutation-scale and survival rules.
 ///
 /// Each child samples one of the current mu parents uniformly, mutates its
-/// step size by `sigma' = sigma * exp(tau * N(0,1))`, then perturbs every gene
-/// using `sigma' * N(0,1)`. The next mu parents come from the new lambda
-/// offspring only. There is no recombination or best-ever reinsertion.
+/// step size by `sigma' = sigma * exp(tau * N(0,1))` in self-adaptive mode,
+/// then perturbs every gene using `sigma' * N(0,1)`. Fixed mode uses
+/// `initial_sigma` and consumes no log-normal adaptation draw. There is no
+/// recombination or best-ever reinsertion.
+///
+/// Comma selection chooses the next mu parents from new offspring only. Plus
+/// selection includes cached parents, assuming stationary deterministic fitness;
+/// it does not spend evaluations on those parents. Equal scores favor existing
+/// parents over offspring in plus mode, then preserve their current order;
+/// offspring ties preserve submission order in either mode.
+/// With equal mu and lambda, comma selection retains every offspring and adds
+/// no survivor truncation pressure; plus selection still compares them with
+/// old parents. In particular, mu=lambda=1 supports fixed-scale `(1+1)` ES.
 ///
 /// The initial lambda random points are evaluated and truncated to mu parents.
-/// Step sizes are clipped in log space to the declared sigma bounds before
-/// exponentiation. This numerical safeguard is an explicit implementation
-/// choice. All object variables remain unbounded after initialization.
+/// Self-adaptive scales are clipped in log space to the declared sigma bounds
+/// before exponentiation. Fixed mode ignores the adaptation rate and bounds.
+/// All object variables remain unbounded after initialization.
+/// The default remains self-adaptive comma ES. Fixed scale and plus selection
+/// implement the additional choices discussed in the book's Chapter 2, §2.2.2,
+/// pp.24–25; initialization remains a uniform batch, not its origin-centered
+/// demonstration. The book's plus-selection prose and offspring-only Eq.2.2
+/// describe different survivor rules, so they are represented explicitly here.
 ///
 /// See Beyer and Schwefel (2002), *Evolution strategies: A comprehensive
 /// introduction*, Figure 1 and Section 4.2, DOI `10.1023/A:1015059928466`.
@@ -188,15 +246,20 @@ impl Algorithm for Es {
             for _ in 0..self.config.population {
                 let parent =
                     &self.parents[uniform_index(self.parents.len(), &mut self.candidates_rng)];
-                let proposed_log_sigma =
-                    parent.sigma.ln() + self.config.tau * normal(&mut self.candidates_rng);
-                if !proposed_log_sigma.is_finite() {
-                    return Err(SearchError::Numerical("step-size adaptation overflowed"));
-                }
-                let sigma = proposed_log_sigma
-                    .clamp(self.config.sigma_min.ln(), self.config.sigma_max.ln())
-                    .exp()
-                    .clamp(self.config.sigma_min, self.config.sigma_max);
+                let sigma = match self.config.step_size {
+                    EsStepSize::Fixed => self.config.initial_sigma,
+                    EsStepSize::SelfAdaptive => {
+                        let proposed_log_sigma =
+                            parent.sigma.ln() + self.config.tau * normal(&mut self.candidates_rng);
+                        if !proposed_log_sigma.is_finite() {
+                            return Err(SearchError::Numerical("step-size adaptation overflowed"));
+                        }
+                        proposed_log_sigma
+                            .clamp(self.config.sigma_min.ln(), self.config.sigma_max.ln())
+                            .exp()
+                            .clamp(self.config.sigma_min, self.config.sigma_max)
+                    }
+                };
                 if !sigma.is_finite() || sigma <= 0.0 {
                     return Err(SearchError::Numerical(
                         "adapted step size is not finite and positive",
@@ -227,11 +290,16 @@ impl Algorithm for Es {
             ));
         }
         update_best(&mut self.best, &results, self.config.objective);
-        let mut parents: Vec<_> = results
+        let offspring = results
             .into_iter()
             .zip(&self.pending_sigmas)
-            .map(|(evaluation, &sigma)| EsParent { evaluation, sigma })
-            .collect();
+            .map(|(evaluation, &sigma)| EsParent { evaluation, sigma });
+        let mut parents = if self.config.selection == EsSelection::Plus {
+            self.parents.clone()
+        } else {
+            Vec::new()
+        };
+        parents.extend(offspring);
         parents.sort_by(|a, b| {
             score_cmp(
                 a.evaluation.output,

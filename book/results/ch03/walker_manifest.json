@@ -1,0 +1,70 @@
+{
+  "experiment": "original SpringWalker; no Gym BipedalWalker equivalence",
+  "algorithm": "CMA-ES, positive weights, full covariance, minimize negative mean return",
+  "seed": 42,
+  "population": 32,
+  "batches": 100,
+  "objective_evaluations": 3200,
+  "episodes_per_training_evaluation": 3,
+  "training_episode_horizon": 250,
+  "training_torso_x": [
+    -0.015,
+    0.0,
+    0.015
+  ],
+  "held_out_episode_horizon": 500,
+  "held_out_cases": [
+    "torso_x=-0.03",
+    "torso_x=0.03",
+    "torso_vx=-0.05",
+    "torso_vx=0.05",
+    "friction=0.6",
+    "friction=1.0"
+  ],
+  "held_out_cases_combined": false,
+  "extended_neutral_case": true,
+  "architecture": [
+    13,
+    4,
+    2
+  ],
+  "activations": [
+    "tanh",
+    "tanh"
+  ],
+  "parameter_count": 66,
+  "initial_mean": "all zero",
+  "initial_sigma": 0.5,
+  "initial_covariance": "identity",
+  "chosen_policy": "best evaluated sample on the three training starts only",
+  "zero_action_training_mean_return": -1.2826725799390277e-18,
+  "chosen_training_mean_return": 13.83338991586793,
+  "return_definition": "COM horizontal displacement - energy_cost * positive actuator work - fall_penalty if terminated",
+  "integration": "semi-implicit Euler; fixed substeps; capped dissipative friction impulse",
+  "control_dt_seconds": 0.02,
+  "physics_substeps_per_action": 20,
+  "masses_kg": [
+    1,
+    0.2,
+    0.2
+  ],
+  "gravity_m_per_s2": 9.81,
+  "leg_length_m": 1.1,
+  "foot_spacing_m": 1.2,
+  "leg_stiffness_N_per_m": 120,
+  "spacing_stiffness_N_per_m": 80,
+  "spring_damping_Ns_per_m": 2,
+  "actuation_fraction": 0.25,
+  "ground_stiffness_N_per_m": 2000,
+  "ground_damping_Ns_per_m": 20,
+  "training_friction": 0.8,
+  "torso_radius_m": 0.15,
+  "foot_radius_m": 0.06,
+  "energy_cost_m_per_J": 0.002,
+  "fall_penalty": 2,
+  "curves_include_extra_evaluations": false,
+  "hyperparameter_tuning_on_results": false,
+  "notes": "A single prespecified seed and budget, not a benchmark of optimizer reliability. Time-limit truncation is not success. Baseline and replay calls are outside the optimizer objective-call count. Final falling actions can contain fewer physics substeps; traces therefore index control steps, not inferred elapsed time.",
+  "initial_baseline_summary_episodes": 3,
+  "recorded_baseline_and_selected_replay_episodes": 20
+}

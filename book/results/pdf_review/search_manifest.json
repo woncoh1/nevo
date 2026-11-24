@@ -1,0 +1,14 @@
+{
+  "description": "PDF-audit additions; original Sphere companion, not a textbook benchmark reproduction",
+  "source_sections": ["Chapter 2 section 2.2.2 pp.24-25", "Chapter 2 section 2.2.6 pp.34-35"],
+  "objective": "minimize sum(x_j^2)", "dimensions": 8,
+  "seeds": [0,1,2,3,4], "population": 64,
+  "batches_including_initialization": 100, "evaluations_per_run": 6400,
+  "initialization": "uniform [-5,5), same initial jobs for all three variants at each seed",
+  "de": {"variant": "rand/1/bin", "F": 0.8, "CR": 0.9, "donors_exclude_target": true, "forced_mutant_coordinate": true, "strict_slotwise_survival": true},
+  "es": {"mu": 16, "lambda": 64, "sigma": 0.2, "scale": "fixed isotropic", "survival": ["comma","plus"]},
+  "parent_fitness_reuse": "DE and plus ES reuse deterministic cached scores",
+  "bounds_after_initialization": null, "score_transform": null,
+  "stopping": "fixed budget; no seed or hyperparameter search",
+  "rng": "ChaCha8; search stream 0; evaluation seed stream 1"
+}

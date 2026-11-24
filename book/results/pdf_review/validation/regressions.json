@@ -1,0 +1,586 @@
+{
+  "previous_result_files": 109,
+  "all_previous_result_files_unchanged": true,
+  "previous_results": [
+    {
+      "path": "book/results/ch01/README.md",
+      "unchanged": true,
+      "sha256": "f5bba92bdf773a8415a43cd7c98974fae06d3e56c7fd8b0b835ec0450ca2ab1a"
+    },
+    {
+      "path": "book/results/ch01/fig_ch01.png",
+      "unchanged": true,
+      "sha256": "36602525f9ea0bf1d0a815cce8666f5bfc1b9dab7e5964fb88ed4445d659ecab"
+    },
+    {
+      "path": "book/results/ch01/learning.csv",
+      "unchanged": true,
+      "sha256": "e74c094741ba8767014fc256af3b4082720e98e51f05ea40ce8c7d1a005c58cb"
+    },
+    {
+      "path": "book/results/ch01/run.json",
+      "unchanged": true,
+      "sha256": "fcbd30e48f684cbcffae0f7b98364558a0479b720d47b40e2649e958877433f6"
+    },
+    {
+      "path": "book/results/ch01/run.txt",
+      "unchanged": true,
+      "sha256": "b7a3917dd7a901f4b6c21e5939d28b28bb90cb8fb22e6c7088652b3dd01aca64"
+    },
+    {
+      "path": "book/results/ch01/trajectories.csv",
+      "unchanged": true,
+      "sha256": "d4f06dc9b34a6e92d92de1e4e46a19ae072ca66354e8da4cf7963cfc4620c504"
+    },
+    {
+      "path": "book/results/ch02/README.md",
+      "unchanged": true,
+      "sha256": "9d35c22aecb9501d40b0386e0af7488abff89c3a527eb7a3458417d4155872e1"
+    },
+    {
+      "path": "book/results/ch02/search_comparison.png",
+      "unchanged": true,
+      "sha256": "b26f5173d4ca8d4e07daba2f6528fa0f04da55a7559f660ee2ade5586ccd9967"
+    },
+    {
+      "path": "book/results/ch02/search_curves.csv",
+      "unchanged": true,
+      "sha256": "27646df1373a10056e44268af99a7d7d920e0aaeaf87528ac553079d5ae89eed"
+    },
+    {
+      "path": "book/results/ch02/search_manifest.json",
+      "unchanged": true,
+      "sha256": "27990dd07b3ccb29f6baa3ca9de6d69718af6599dc549740c16e7c029cdd60dc"
+    },
+    {
+      "path": "book/results/ch02/search_runs.csv",
+      "unchanged": true,
+      "sha256": "14ce8e69e47637fd2acbd9ed9f6e866548e7f8ad5742f4bc05a27bb5ca9f58d7"
+    },
+    {
+      "path": "book/results/ch02/summary.csv",
+      "unchanged": true,
+      "sha256": "1b273205be401df3c148aac563ad8e6cbef5a80eebe3458d10f5414ef9120df3"
+    },
+    {
+      "path": "book/results/ch02/summary.json",
+      "unchanged": true,
+      "sha256": "4386836a619cae8f21c27f18fdd8ff15662465f297c0e90035e747d3645aa2b9"
+    },
+    {
+      "path": "book/results/ch02/validation/chapter1.log",
+      "unchanged": true,
+      "sha256": "ebe38f86f889697da4e630972342c087db70346e414f26cc4f6e5d1552e48873"
+    },
+    {
+      "path": "book/results/ch02/validation/checks.json",
+      "unchanged": true,
+      "sha256": "701a160320ef30cf78f94e2ff5d6aa582158fd9517d94f8b994b12ab6d09cce2"
+    },
+    {
+      "path": "book/results/ch02/validation/clippy.log",
+      "unchanged": true,
+      "sha256": "78e8b046a255a112e3285133ea1102a49b1fc1c3da2b545c4c3d2f3eb2a635aa"
+    },
+    {
+      "path": "book/results/ch02/validation/doc.log",
+      "unchanged": true,
+      "sha256": "d75a8110b440dbb476ddde661dc5c4d26750f007506ff94454ba73e48c72a88c"
+    },
+    {
+      "path": "book/results/ch02/validation/fmt.log",
+      "unchanged": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "book/results/ch02/validation/neural.log",
+      "unchanged": true,
+      "sha256": "a9af0460ab5b4a95b5c858b4473a6045948d4ab70039349f769e4865c1dd0aa5"
+    },
+    {
+      "path": "book/results/ch02/validation/search.log",
+      "unchanged": true,
+      "sha256": "6f337a1c19a78ccfcbb9ddd8eac69480bbe3a509ecaf5bab82f4a77eeb4c9ca5"
+    },
+    {
+      "path": "book/results/ch02/validation/sphere.log",
+      "unchanged": true,
+      "sha256": "9a73b24230844923afa1c70ff520150c2e6fc6af4bb5d2997916aaf83b32e650"
+    },
+    {
+      "path": "book/results/ch02/validation/test_debug.log",
+      "unchanged": true,
+      "sha256": "69253d05ff7fb6d2ca8a1ebe96755d4e69578a353a51235cbb29f1c2e0b801d7"
+    },
+    {
+      "path": "book/results/ch02/validation/test_release.log",
+      "unchanged": true,
+      "sha256": "3429a20f1cfffafce0af612a17e122d47b9f3c625a3ca5b6b518e498e3492226"
+    },
+    {
+      "path": "book/results/ch02/validation/xor.log",
+      "unchanged": true,
+      "sha256": "0335bce0eaa2b425b5e5f0dbe935bd18138b1c4f0d2cef2b89fb67895294febe"
+    },
+    {
+      "path": "book/results/ch02/xor_curves.csv",
+      "unchanged": true,
+      "sha256": "e2139a4980d949c79c84a13f31a03a6daa1055adf4c7c1fbd7518f36d6677035"
+    },
+    {
+      "path": "book/results/ch02/xor_manifest.json",
+      "unchanged": true,
+      "sha256": "8077d100e82fc8a98921b7357e8f4db9fca295ac5b0fb009da4b17e30c8722e3"
+    },
+    {
+      "path": "book/results/ch02/xor_parameters.txt",
+      "unchanged": true,
+      "sha256": "2337404c806ddb818e08a60430e4f1aebfc764415060e72b2a1e383da317c2f9"
+    },
+    {
+      "path": "book/results/ch02/xor_predictions.csv",
+      "unchanged": true,
+      "sha256": "b0316b73eb4a0f778fc078ff503a21715756aab1710469d20a527b1896180c34"
+    },
+    {
+      "path": "book/results/ch02/xor_training.png",
+      "unchanged": true,
+      "sha256": "e6a84c59d13b057bee0d2eea06b873d2f7a8532d17000ae478a186ddbadf1655"
+    },
+    {
+      "path": "book/results/ch02/zdt1_pareto.png",
+      "unchanged": true,
+      "sha256": "1dde65d923316d27ad8e3c2cb89ab87b9039f366c74f783171ac3d41fa3ab87a"
+    },
+    {
+      "path": "book/results/ch02/zdt1_population.csv",
+      "unchanged": true,
+      "sha256": "41ef5e533c87843b9352b3336be607fca5b8085293565d1727a3e0348375c586"
+    },
+    {
+      "path": "book/results/ch03/README.md",
+      "unchanged": true,
+      "sha256": "49615c2f8762f4bf7e9b2d2c1ca39faca85c86cb856fbb1a02e33f745af7e844"
+    },
+    {
+      "path": "book/results/ch03/cartpole_curves.csv",
+      "unchanged": true,
+      "sha256": "37eeb38eccded33756d83092c5ee3cb3845b655c184371602b6064ce4164a86a"
+    },
+    {
+      "path": "book/results/ch03/cartpole_es_0_parameters.txt",
+      "unchanged": true,
+      "sha256": "4eedeaf644ac3328cc7d312bb68068657d761adccfd5085db448c01550e7249e"
+    },
+    {
+      "path": "book/results/ch03/cartpole_es_1_parameters.txt",
+      "unchanged": true,
+      "sha256": "8fd6d015815d92c5ca6fa2fe6412dabb69347efb0ce522b8a47ef294d5abc499"
+    },
+    {
+      "path": "book/results/ch03/cartpole_es_2_parameters.txt",
+      "unchanged": true,
+      "sha256": "2fbc4e2d6caf0becc304e51f44ac36103c455fc128911485cf5f28b6b7227499"
+    },
+    {
+      "path": "book/results/ch03/cartpole_ga_0_parameters.txt",
+      "unchanged": true,
+      "sha256": "bcf357d0f9bb9d43ba3e539c6bada0729815f26804407422f7ba423cd4708789"
+    },
+    {
+      "path": "book/results/ch03/cartpole_ga_1_parameters.txt",
+      "unchanged": true,
+      "sha256": "b0f8793a215b4c2a5b4b9e8b508c3991d81d88a9dfab58224a1b6120df7f95b1"
+    },
+    {
+      "path": "book/results/ch03/cartpole_ga_2_parameters.txt",
+      "unchanged": true,
+      "sha256": "d7af39d905254a42b595483e70f8bb6ac68d2a1806d0d5d6b06c36f815019b47"
+    },
+    {
+      "path": "book/results/ch03/cartpole_manifest.json",
+      "unchanged": true,
+      "sha256": "42599ce00d70ce7c35864260eb3c8ce6b1dd108446de92f4454fd4fbbca28a16"
+    },
+    {
+      "path": "book/results/ch03/cartpole_runs.csv",
+      "unchanged": true,
+      "sha256": "d1e9f1349355003c478b25054acbe06e3178955a952d56d222a69b57686f12ca"
+    },
+    {
+      "path": "book/results/ch03/cartpole_trajectories.csv",
+      "unchanged": true,
+      "sha256": "d33814e99278d5cb1eb0a772358e473d2cef6690ce9cffde7fc32529c630b5fe"
+    },
+    {
+      "path": "book/results/ch03/cartpole_trials.csv",
+      "unchanged": true,
+      "sha256": "7c3716659dcf870aa6835fe73a88ed645c4b5ed4c65942a4b5bbfcc19e66eec1"
+    },
+    {
+      "path": "book/results/ch03/control_generalization.png",
+      "unchanged": true,
+      "sha256": "1c93cd06ac0f697b2c9702d55efae57c3d9450ecbf6d0613f5ccf9bf1b3ffd3a"
+    },
+    {
+      "path": "book/results/ch03/control_generalization.svg",
+      "unchanged": true,
+      "sha256": "19eb3ca7f67eb301fea20e0721587cbdec4c2b7046a568333b1ed44893e28789"
+    },
+    {
+      "path": "book/results/ch03/deep_ga_curves.csv",
+      "unchanged": true,
+      "sha256": "a3c9e57444e067e9b84d3aa6e0f9661f279e3fdc5a6150077763bf9416f2aed6"
+    },
+    {
+      "path": "book/results/ch03/deep_ga_lineage.json",
+      "unchanged": true,
+      "sha256": "42e106bd8332152a1a8d068ca6bdcf4bc355e9570edc66ea1e0a8a83295ebe73"
+    },
+    {
+      "path": "book/results/ch03/deep_ga_parameters.txt",
+      "unchanged": true,
+      "sha256": "5d3dcf6665545a3a1734609d5def43e7e1622bf7d1322531481fa0005f3e1b23"
+    },
+    {
+      "path": "book/results/ch03/deep_ga_predictions.csv",
+      "unchanged": true,
+      "sha256": "196a8d51e94bd5617ebc68e2e27f765667f2754c5a404e52a07a9a38c41abb72"
+    },
+    {
+      "path": "book/results/ch03/digits_classification.png",
+      "unchanged": true,
+      "sha256": "97774b8bd8b49da5a04b75201c832ee4c00edd25373c10f249ab5980e5426d21"
+    },
+    {
+      "path": "book/results/ch03/digits_classification.svg",
+      "unchanged": true,
+      "sha256": "34de5ce7fd81a6222e882bf2923140235cf7ab6140ab432a3043573579e48644"
+    },
+    {
+      "path": "book/results/ch03/digits_curves.csv",
+      "unchanged": true,
+      "sha256": "6e9cbcc725f32f48a87eca2031e01605c8098bb9a5e12cbc0160f1c53ad84c16"
+    },
+    {
+      "path": "book/results/ch03/digits_es_0_parameters.txt",
+      "unchanged": true,
+      "sha256": "0d59384d766a868bb0db6dbd66503b1642c45cfde862424e3eb8d02742b6a571"
+    },
+    {
+      "path": "book/results/ch03/digits_es_1_parameters.txt",
+      "unchanged": true,
+      "sha256": "c343705817495d7cccdd9b0c7d52e08a2835236fea02a488135330870e90bdc5"
+    },
+    {
+      "path": "book/results/ch03/digits_es_2_parameters.txt",
+      "unchanged": true,
+      "sha256": "d9602510de9772c1bf12a48a9a32704a99a08e4cf0c0c3b92068a3cedc19b4ef"
+    },
+    {
+      "path": "book/results/ch03/digits_ga_0_parameters.txt",
+      "unchanged": true,
+      "sha256": "7b27a74446971288e8d288de0e1d64491474d41f0d90167b1cbfca67b4faed25"
+    },
+    {
+      "path": "book/results/ch03/digits_ga_1_parameters.txt",
+      "unchanged": true,
+      "sha256": "1a5465514a8881773d2c6ba157332573ab68dcd065b1d258a0e3b65395b5a913"
+    },
+    {
+      "path": "book/results/ch03/digits_ga_2_parameters.txt",
+      "unchanged": true,
+      "sha256": "aaf06baca7a4cade8b1ca1caa18b504fd1c95a108e976a0bd62aaf973033dab5"
+    },
+    {
+      "path": "book/results/ch03/digits_manifest.json",
+      "unchanged": true,
+      "sha256": "53e3b2909dc3cb3b4f80a473443b87d3412149ed992f9cc15bdd6553330fc2cd"
+    },
+    {
+      "path": "book/results/ch03/digits_neat_genomes.csv",
+      "unchanged": true,
+      "sha256": "88fd67654e7a7437b646ad69f422903929a5f23fc7e6b0f6b51211a1dd964299"
+    },
+    {
+      "path": "book/results/ch03/digits_runs.csv",
+      "unchanged": true,
+      "sha256": "ff5a2380c0830d8212f7e87ad158840af34bbd62e27e977c0f449b9d5dcf1bca"
+    },
+    {
+      "path": "book/results/ch03/digits_split.csv",
+      "unchanged": true,
+      "sha256": "50d5e8de944c7da2439ad3381da92569f0cdce651ab65c7685ad78fa0a76379c"
+    },
+    {
+      "path": "book/results/ch03/doublepole_cma_parameters.txt",
+      "unchanged": true,
+      "sha256": "a572ff9c63468e983fd12f5bd25fef18004a2880e4501830caf32f72e44f4a83"
+    },
+    {
+      "path": "book/results/ch03/doublepole_curves.csv",
+      "unchanged": true,
+      "sha256": "a417ab31a81dba7ee69a59e4b9866407b143d07a4391bbd77a21dc0b9d9738de"
+    },
+    {
+      "path": "book/results/ch03/doublepole_manifest.json",
+      "unchanged": true,
+      "sha256": "001cac2a3ac6fe1033986d5fe115399f4b2e1f83d0a33ec65c426ec0b6894714"
+    },
+    {
+      "path": "book/results/ch03/doublepole_neat_connections.csv",
+      "unchanged": true,
+      "sha256": "fc3d6ca8315ed9059b96310bb69603011ef0c24e9135bbc06079c95b8fbfa229"
+    },
+    {
+      "path": "book/results/ch03/doublepole_neat_nodes.csv",
+      "unchanged": true,
+      "sha256": "20416a0e3904df3c409b31c9a592336d7266ecf73b99f6b75304695d596f1988"
+    },
+    {
+      "path": "book/results/ch03/doublepole_runs.csv",
+      "unchanged": true,
+      "sha256": "eb2ba0d5575597c83b82bc346ad173d30bfd16ce73e858649698916123b0cd4e"
+    },
+    {
+      "path": "book/results/ch03/doublepole_trajectories.csv",
+      "unchanged": true,
+      "sha256": "34ab67e3afbac130aa74669d4cb32eb14f1957dfa35f14ec78954e41e1564fd1"
+    },
+    {
+      "path": "book/results/ch03/doublepole_trials.csv",
+      "unchanged": true,
+      "sha256": "d53e9a6179443a4c73de377ef7d19f480857e6b5d1448a799d59e8435a238123"
+    },
+    {
+      "path": "book/results/ch03/neat_manifest.json",
+      "unchanged": true,
+      "sha256": "470c2b7843c26938845bc54a41a51ca24b31ffd5a6d3221f0004b8e5978bbfe8"
+    },
+    {
+      "path": "book/results/ch03/neat_xor_connections.csv",
+      "unchanged": true,
+      "sha256": "692f0afefe98d2c976fba0c1482ff0a4f4e434ac24443f9aad42cb5a5ad98c94"
+    },
+    {
+      "path": "book/results/ch03/neat_xor_curves.csv",
+      "unchanged": true,
+      "sha256": "c261284639a8a6cb51d409616e75a7ebc1e99bfb30b37f46af1b743c9b2530dd"
+    },
+    {
+      "path": "book/results/ch03/neat_xor_nodes.csv",
+      "unchanged": true,
+      "sha256": "928b4e276c0821f06f67770f5652dc0d023557c48d4677efd5229aad86b244d8"
+    },
+    {
+      "path": "book/results/ch03/neat_xor_overview.png",
+      "unchanged": true,
+      "sha256": "1ad16a511f033f14dad0499e24e4f2bc9f6ce5f0a2699ba16671e36e519e5f32"
+    },
+    {
+      "path": "book/results/ch03/neat_xor_overview.svg",
+      "unchanged": true,
+      "sha256": "d5bca50970ae0ea65b69ff9b18cd4265edbd63b641d21bddef64b29c210e189e"
+    },
+    {
+      "path": "book/results/ch03/neat_xor_predictions.csv",
+      "unchanged": true,
+      "sha256": "6ee134986a77caebfdcefcdae191c29549b77db836d63d8245e960658b245d16"
+    },
+    {
+      "path": "book/results/ch03/neat_xor_runs.csv",
+      "unchanged": true,
+      "sha256": "fe486dc30876e036f8bf01884b4c902ca9b34a01bfa13494c395f2e2b0eec041"
+    },
+    {
+      "path": "book/results/ch03/parallel_manifest.json",
+      "unchanged": true,
+      "sha256": "091649ddb93e94f880183171b06e2084d77af398c3df286da533f0bce67b637e"
+    },
+    {
+      "path": "book/results/ch03/parallel_runs.csv",
+      "unchanged": true,
+      "sha256": "a5538c9a8f51f5e3b01ef0e3d925a89f14ffcec13b94ee0ffc4c632e459451c9"
+    },
+    {
+      "path": "book/results/ch03/summary.json",
+      "unchanged": true,
+      "sha256": "0eea38ebfc124dc044ec24301f6720f4d8bc0e418e8400f5bba404cc13d738ec"
+    },
+    {
+      "path": "book/results/ch03/validation/README.md",
+      "unchanged": true,
+      "sha256": "dec79eb8ab68ad97e9267ac136d60a475f4e019384c2045431d1cee447b1dd3e"
+    },
+    {
+      "path": "book/results/ch03/validation/checks.json",
+      "unchanged": true,
+      "sha256": "044c78fe8adba571ab12d1db84f9eba9dc2319b634667ee4a69f1a85ce950193"
+    },
+    {
+      "path": "book/results/ch03/validation/clippy.log",
+      "unchanged": true,
+      "sha256": "9f9a75f748f9a791698fe3eaa83cdc39b0e3d19f8cc8ee7068688eaeac30e2a1"
+    },
+    {
+      "path": "book/results/ch03/validation/clippy_attempt2.log",
+      "unchanged": true,
+      "sha256": "e9417badea83bd2b65151a247ddd94a3cd2ae7b1e3efc9eaed2382088d868d0c"
+    },
+    {
+      "path": "book/results/ch03/validation/docs.log",
+      "unchanged": true,
+      "sha256": "82f667c75dc0bc3ad80e0dcdf8f0901efb404ef8a812c385d548e18a112ac69f"
+    },
+    {
+      "path": "book/results/ch03/validation/fmt.log",
+      "unchanged": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "book/results/ch03/validation/fmt_attempt2.log",
+      "unchanged": true,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "book/results/ch03/validation/notebook.log",
+      "unchanged": true,
+      "sha256": "36a3434e45cf453e780c1bec11ca2e09f40f8a003084bb9fac715816a4cc18c1"
+    },
+    {
+      "path": "book/results/ch03/validation/notebook_borrow_attempt.log",
+      "unchanged": true,
+      "sha256": "92fca745410d13edb9ced58f9518fa6b3591037b6da7f57245eafd4c70dcfc57"
+    },
+    {
+      "path": "book/results/ch03/validation/notebook_checks.json",
+      "unchanged": true,
+      "sha256": "febb0fc3c03839726998c7db118d80bd1d3eb1976b87a6cc9b84024b6e35a92b"
+    },
+    {
+      "path": "book/results/ch03/validation/notebook_setup_attempt.log",
+      "unchanged": true,
+      "sha256": "cca9cd95f0db494f66a308b0c65482890cd69083f9f0bb8e3d902ad0259747e5"
+    },
+    {
+      "path": "book/results/ch03/validation/prior_chapters_comparison.json",
+      "unchanged": true,
+      "sha256": "86749117883689ab640ee63ea6274d344e8073a0b4b235126815ba9e4b95a7fc"
+    },
+    {
+      "path": "book/results/ch03/validation/regression_ch01/learning.csv",
+      "unchanged": true,
+      "sha256": "e74c094741ba8767014fc256af3b4082720e98e51f05ea40ce8c7d1a005c58cb"
+    },
+    {
+      "path": "book/results/ch03/validation/regression_ch01/trajectories.csv",
+      "unchanged": true,
+      "sha256": "d4f06dc9b34a6e92d92de1e4e46a19ae072ca66354e8da4cf7963cfc4620c504"
+    },
+    {
+      "path": "book/results/ch03/validation/regression_ch01.log",
+      "unchanged": true,
+      "sha256": "18836f92c4b9deaeb272a8877c74957189a175905be9d484a52b8129b2883072"
+    },
+    {
+      "path": "book/results/ch03/validation/regression_ch02_neural.log",
+      "unchanged": true,
+      "sha256": "f3be33fc51e2454389f39958a49f8430d9cb3e590fc139c3fd713e6135b06ca8"
+    },
+    {
+      "path": "book/results/ch03/validation/regression_sphere.log",
+      "unchanged": true,
+      "sha256": "051d8e77671e7ddb0380cab0fabbfac07d4f3228187a0e7ea33c5efa97fed63a"
+    },
+    {
+      "path": "book/results/ch03/validation/tests_all_features.log",
+      "unchanged": true,
+      "sha256": "b496b3ea5abe5f4b8e653defb9e316761608b77fce1a26e4b6bb817f38bf2505"
+    },
+    {
+      "path": "book/results/ch03/validation/tests_default.log",
+      "unchanged": true,
+      "sha256": "fe89092c2cdf8efb8f1f5882b3f7dbd01c1677e65e39c09652ee360692452615"
+    },
+    {
+      "path": "book/results/ch03/validation/tests_release_all_features.log",
+      "unchanged": true,
+      "sha256": "fdde2de6adadabfb58c4361e1ec176a7f088edfcce79c83a879072efc1a3668e"
+    },
+    {
+      "path": "book/results/ch03/validation/toolchain.log",
+      "unchanged": true,
+      "sha256": "793d86b02de1b435dfe3b5277fc1821aece8872b99acd9dc475a98e41586152b"
+    },
+    {
+      "path": "book/results/ch03/walker_curves.csv",
+      "unchanged": true,
+      "sha256": "840c5aff1e0755db0a6c2e54532d2588463b53ebc6851d0cb76fd468b3e1bab9"
+    },
+    {
+      "path": "book/results/ch03/walker_manifest.json",
+      "unchanged": true,
+      "sha256": "f50d3a3dae496685ba71a423ee5b661582d8136723d7657fefd2dff02d4e0ae7"
+    },
+    {
+      "path": "book/results/ch03/walker_motion.png",
+      "unchanged": true,
+      "sha256": "27543da556da8391cf57bb9cccab2c979bb206051ca09185ad5d7a7dcbbd2f79"
+    },
+    {
+      "path": "book/results/ch03/walker_motion.svg",
+      "unchanged": true,
+      "sha256": "df4ffbaaa3f09b5fc66d1c670d71c9a6c1f7b0408f51adef2a6c350264131648"
+    },
+    {
+      "path": "book/results/ch03/walker_parameters.txt",
+      "unchanged": true,
+      "sha256": "4f70923c4496e9b4cfafd3038c69d1afa13f6ca855316291e527d8e726576aaf"
+    },
+    {
+      "path": "book/results/ch03/walker_runs.csv",
+      "unchanged": true,
+      "sha256": "dc73250b207b6e416b6f7df86e80fc2f8fb1d0f1ca84962a82020c0c4e387e53"
+    },
+    {
+      "path": "book/results/ch03/walker_trajectories.csv",
+      "unchanged": true,
+      "sha256": "6524d68ce6fcbb82bb58d47d40682e24fbf77fb25e7cdb2fa277bb071baade29"
+    }
+  ],
+  "regressions": [
+    {
+      "original": "book/results/ch01/learning.csv",
+      "regenerated": "book/results/pdf_review/validation/regression_ch01/learning.csv",
+      "identical": true
+    },
+    {
+      "original": "book/results/ch01/trajectories.csv",
+      "regenerated": "book/results/pdf_review/validation/regression_ch01/trajectories.csv",
+      "identical": true
+    },
+    {
+      "original": "book/results/ch02/search_curves.csv",
+      "regenerated": "book/results/pdf_review/validation/regression_ch02/search_curves.csv",
+      "identical": true
+    },
+    {
+      "original": "book/results/ch02/search_manifest.json",
+      "regenerated": "book/results/pdf_review/validation/regression_ch02/search_manifest.json",
+      "identical": true
+    },
+    {
+      "original": "book/results/ch02/search_runs.csv",
+      "regenerated": "book/results/pdf_review/validation/regression_ch02/search_runs.csv",
+      "identical": true
+    },
+    {
+      "original": "book/results/ch02/zdt1_population.csv",
+      "regenerated": "book/results/pdf_review/validation/regression_ch02/zdt1_population.csv",
+      "identical": true
+    }
+  ],
+  "ch03_code_cells_and_outputs_unchanged": true,
+  "ch03_code_cells": 17,
+  "core_files_unchanged": true
+}

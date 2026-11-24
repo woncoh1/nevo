@@ -1,0 +1,41 @@
+Chapter 3 actual Evcxr execution
+Started UTC: 2026-11-23T08:39:17.498700+00:00
+Duration seconds: 8.61511587400014
+
+<validation-runtime>/notebook-python/jupyter_client/localinterfaces.py:58: UserWarning: Unexpected error discovering local network interfaces: [Errno 1] Operation not permitted
+  ret = f(**kwargs)
+Traceback (most recent call last):
+  File "<validation-runtime>/execute_notebook.py", line 48, in <module>
+    client.execute()
+  File "<validation-runtime>/notebook-python/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "<validation-runtime>/notebook-python/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "<validation-runtime>/notebook-python/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "<validation-runtime>/notebook-python/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+:dep nevo = { path = "../crates/nevo", features = ["parallel"] }
+:dep rayon = "=1.10.0"
+:dep plotters = { version = "=0.3.7", default-features = false, features = ["evcxr", "line_series"] }
+use nevo::{Algorithm, Evaluated, Evaluator, step};
+use nevo::algorithms::*;
+use nevo::neat::*;
+use nevo::tasks::*;
+use nevo::control::*;
+use nevo::encoding::{SeedGenome, SeededEncoding};
+use nevo::execution::step_parallel;
+use nevo::nn::{Activation, Mlp, TrainingExample};
+use plotters::prelude::*;
+
+------------------
+
+
+
+

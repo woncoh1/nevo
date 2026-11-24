@@ -1,0 +1,21 @@
+[
+  {
+    "notebook": "ch01_introduction",
+    "figures": 2,
+    "svg_bytes_unchanged_from_previously_reviewed_figures": true,
+    "sha256": [
+      "bc15668391d239f32cac13e6f8b7fc53f7a1e07fd9f225d345c1bd16b172213a",
+      "02dc61fdf7fd7dab73964aaa584e5e097d4dbbe1a38cf97f8d0c05e21d4d24fc"
+    ]
+  },
+  {
+    "notebook": "ch02_foundations",
+    "figures": 3,
+    "svg_bytes_unchanged_from_previously_reviewed_figures": true,
+    "sha256": [
+      "d0162094b350af3e2ca8323d527327b392187c2ad53e728c8187aefe8272be52",
+      "6baf760db9099e56d9e55c9a6848ec22a89176be43c0e6aa9a149c12e13fc569",
+      "e980e0d6b1114f9755fe1c28cc7439f7ed5f0007f21a19944f0acbb2b8cc4d47"
+    ]
+  }
+]

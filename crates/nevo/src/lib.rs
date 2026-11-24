@@ -15,7 +15,12 @@
 
 pub mod algorithms;
 pub mod benchmarks;
+pub mod control;
+pub mod encoding;
+#[cfg(feature = "parallel")]
+pub mod execution;
 pub mod multiobjective;
+pub mod neat;
 pub mod nn;
 pub mod operators;
 pub mod tasks;

@@ -22,6 +22,12 @@ pub struct GaConfig {
     pub mutation_probability: f64,
     /// Number of contestants sampled with replacement per parent selection.
     pub tournament_size: usize,
+    /// Restrict mating to the best `k` current candidates, or use all if `None`.
+    ///
+    /// A value must be in `1..=population`. This restricts the tournament pool;
+    /// it does not change the evaluated population or the copied elite count.
+    /// Set `tournament_size = 1` to sample uniformly from the chosen pool.
+    pub parent_pool_size: Option<usize>,
     /// Best previous candidates copied unchanged into the next evaluated batch.
     pub elite_count: usize,
     /// Probability of uniform crossover for each nonelite offspring.
@@ -36,7 +42,8 @@ impl GaConfig {
     /// Set population 64, bound 5, mutation sigma 0.1, and minimization.
     ///
     /// The remaining defaults are per-gene mutation probability `1/d`,
-    /// tournament size 3, one copied elite, and crossover probability 0.9.
+    /// tournament size 3 over the full population, one copied elite, and
+    /// crossover probability 0.9.
     pub fn new(dimensions: usize, seed: u64) -> Self {
         Self {
             dimensions,
@@ -45,6 +52,7 @@ impl GaConfig {
             mutation_sigma: 0.1,
             mutation_probability: 1.0 / dimensions as f64,
             tournament_size: 3,
+            parent_pool_size: None,
             elite_count: 1,
             crossover_probability: 0.9,
             objective: Objective::Minimize,
@@ -89,6 +97,14 @@ impl GaConfig {
                 "tournament_size must be positive and elite_count smaller than population",
             ));
         }
+        if self
+            .parent_pool_size
+            .is_some_and(|size| size == 0 || size > self.population)
+        {
+            return Err(SearchError::InvalidConfig(
+                "parent_pool_size must be in 1..=population when specified",
+            ));
+        }
         Ok(())
     }
 }
@@ -97,8 +113,11 @@ impl GaConfig {
 ///
 /// Every batch contains `population` newly identified jobs, including copied
 /// elites. Copied candidates are reevaluated rather than reusing their prior
-/// scores; tournaments use the current evaluated parent scores. After selection, the current population is sorted by objective,
-/// with issue order breaking ties. Best-ever reporting is kept separately.
+/// scores; tournaments use the current evaluated parent scores. After selection,
+/// the current population is sorted by objective, with issue order breaking ties.
+/// Mating uses the best `parent_pool_size` candidates if configured, otherwise
+/// the full population. The entire evaluated population remains available through
+/// [`Ga::parents`]. Best-ever reporting is kept separately.
 ///
 /// This explicitly specified real-valued GA is an independent implementation
 /// of standard operators, not a line-by-line port of the book's exercise.
@@ -172,12 +191,14 @@ impl Algorithm for Ga {
                 );
             }
         } else {
+            let pool_size = self.config.parent_pool_size.unwrap_or(self.parents.len());
+            let mating_pool = &self.parents[..pool_size];
             for elite in self.parents.iter().take(self.config.elite_count) {
                 inputs.push(elite.job.input.clone());
             }
             while inputs.len() < self.config.population {
                 let first = tournament_selection(
-                    &self.parents,
+                    mating_pool,
                     self.config.tournament_size,
                     self.config.objective,
                     &mut self.candidates_rng,
@@ -185,18 +206,18 @@ impl Algorithm for Ga {
                 let mut child =
                     if uniform01(&mut self.candidates_rng) < self.config.crossover_probability {
                         let second = tournament_selection(
-                            &self.parents,
+                            mating_pool,
                             self.config.tournament_size,
                             self.config.objective,
                             &mut self.candidates_rng,
                         )?;
                         uniform_crossover(
-                            &self.parents[first].job.input,
-                            &self.parents[second].job.input,
+                            &mating_pool[first].job.input,
+                            &mating_pool[second].job.input,
                             &mut self.candidates_rng,
                         )?
                     } else {
-                        self.parents[first].job.input.clone()
+                        mating_pool[first].job.input.clone()
                     };
                 gaussian_mutation(
                     &mut child,

@@ -1,0 +1,22 @@
+   Compiling nevo v0.1.0-dev (<repo>/crates/nevo)
+    Finished `release` profile [optimized] target(s) in 0.51s
+     Running `<cargo-target>/release/examples/ch02_pdf_updates book/results/pdf_review`
+de_rand_1_bin   seed=0 evaluations=6400 initial=2.273228e1 final=1.717074e-1
+es_comma_fixed  seed=0 evaluations=6400 initial=2.273228e1 final=6.026347e-2
+es_plus_fixed   seed=0 evaluations=6400 initial=2.273228e1 final=2.675395e-2
+de_rand_1_bin   seed=1 evaluations=6400 initial=1.286660e1 final=2.506049e-1
+es_comma_fixed  seed=1 evaluations=6400 initial=1.286660e1 final=3.660894e-2
+es_plus_fixed   seed=1 evaluations=6400 initial=1.286660e1 final=1.220993e-2
+de_rand_1_bin   seed=2 evaluations=6400 initial=2.901931e1 final=8.933228e-2
+es_comma_fixed  seed=2 evaluations=6400 initial=2.901931e1 final=5.370741e-2
+es_plus_fixed   seed=2 evaluations=6400 initial=2.901931e1 final=1.926653e-2
+de_rand_1_bin   seed=3 evaluations=6400 initial=2.608461e1 final=2.221750e-1
+es_comma_fixed  seed=3 evaluations=6400 initial=2.608461e1 final=6.949522e-2
+es_plus_fixed   seed=3 evaluations=6400 initial=2.608461e1 final=2.526684e-2
+de_rand_1_bin   seed=4 evaluations=6400 initial=2.347248e1 final=1.460556e-1
+es_comma_fixed  seed=4 evaluations=6400 initial=2.347248e1 final=4.893910e-2
+es_plus_fixed   seed=4 evaluations=6400 initial=2.347248e1 final=1.497212e-2
+max pooling: [[6.0, 8.0]]
+stable softmax: [0.24999999999998976, 0.7500000000000102]
+two-head projected output: [[-1.0, 10.0]]
+Saved search_curves.csv, search_runs.csv and search_manifest.json.

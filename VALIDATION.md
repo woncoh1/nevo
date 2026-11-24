@@ -1,8 +1,161 @@
 # Validation status
 
+## Current: full-PDF review of Chapters 1–3
+
+Verified **2026-11-24** on Linux x86_64 with Rust/Cargo **1.85.1**.
+All command logs, exact arguments, counts and regression hashes are in
+[the PDF-review validation record](book/results/pdf_review/validation/README.md).
+
+| Check | Actual result |
+| --- | --- |
+| Formatting | Passed. |
+| Strict Clippy, all targets/features | Passed with `-D warnings`. |
+| Default-feature tests | **212 unit/integration + 3 doctests = 215 passed.** |
+| All-feature tests | **218 unit/integration + 3 doctests = 221 passed.** |
+| Release, all features | **218 unit/integration + 3 doctests = 221 passed.** |
+| API documentation | Passed with `RUSTDOCFLAGS=-D warnings`. |
+| Previous results | **109 files unchanged**; six regenerated Chapter 1/2 artifacts match exactly. |
+| Chapter 1 notebook | Fresh execution: **8 code cells**, zero errors, 2 unchanged SVG figures. |
+| Chapter 2 notebook | Fresh execution: **14 code cells**, zero errors, 3 unchanged SVG figures. |
+| Chapter 3 notebook | Markdown updated; all **17 code cells and their saved outputs unchanged**. |
+
+The update adds 31 semantic tests for restricted GA mating, ES scale/survival
+choices, differential evolution, softmax, max pooling and multi-head attention.
+Tests preserve parent/scale associations, target identity, frozen generations,
+forced crossover, complete-batch rejection, objective direction, numerical/shape
+errors and deterministic replay. Existing defaults and core interfaces remain.
+The new CLI experiments and their actual results are in
+[book/results/pdf_review](book/results/pdf_review/README.md).
+
+The full supplied PDFs have now been read. Earlier outline-only source claims
+below are dated history, superseded by [the source audit](book/source-audit-ch01-ch03.md).
+Current coverage remains deliberately explicit: feedforward NEAT is implemented;
+recurrent NEAT, BipedalWalkerHardcore and its exact trial protocol, Deep GA's
+extra elite-contender trials, full neural-training frameworks and accelerator/
+distributed backends are not. The new components are tested reference variants,
+not a claim of exhaustive coverage of all named methods in Chapters 1–3.
+
+Only Linux execution is established. Remote GitHub Actions and Windows/macOS
+runs have not been performed. The CI configuration includes the new examples.
+No cross-platform bitwise or general performance guarantee follows from these
+local checks.
+
+The sections below preserve earlier milestones' evidence and counts. Their
+"current" wording and source-access limitations apply to their recorded date.
+
+## Historical Chapter 3 milestone (2026-11-23)
+
+Verified on **2026-11-23**, Linux `x86_64-unknown-linux-gnu`, with Rust/Cargo
+**1.85.1**. Full command arguments, toolchain versions, exit codes, elapsed
+wall times, and captured output are in
+[the Chapter 3 validation record](book/results/ch03/validation/README.md).
+
+| Check | Recorded result |
+| --- | --- |
+| Formatting | `cargo fmt --all -- --check` passed. |
+| Strict linting | `cargo clippy --workspace --all-targets --all-features --locked -- -D warnings` passed. |
+| Default-feature tests | **181 unit/integration tests + 3 doctests = 184 passed.** |
+| All-feature tests | **187 unit/integration tests + 3 doctests = 190 passed.** |
+| Release, all features | **187 unit/integration tests + 3 doctests = 190 passed.** |
+| Documentation | `cargo doc --workspace --all-features --no-deps --locked` passed with `RUSTDOCFLAGS=-D warnings`. |
+| Sphere regression | All four exact reference probes passed; stdout matches the prior Chapter 2 run. |
+| Chapter 1 regression | Both regenerated CSVs exactly match the recorded Chapter 1 files. |
+| Chapter 2 neural regression | Program stdout exactly matches the prior Chapter 2 run. |
+
+There are no failed or ignored tests in the successful runs. The first Clippy
+attempt exposed mechanical example lint issues; its actual nonzero exit code
+and output remain in the log, alongside the successful rerun after correction.
+No Chapter 3 experiment was rerun merely to obtain these validation counts.
+Durations in the command log include build/cache effects, not controlled speed
+measurements.
+
+### What the Chapter 3 checks establish
+
+The tests cover historical NEAT genes and innovations, DAG compilation and
+cycle guards, structural mutation and crossover, compatibility and fitness
+sharing, exact species allocations, complete-batch failures, and deterministic
+replay. They also cover control dynamics and task adapters, valid and invalid
+classification data/splits, known network outputs, seed-lineage reconstruction,
+truncation selection and reevaluated elites, and finite arithmetic failures.
+
+The optional Rayon executor adds six tests. They verify submission-order
+results, preserved job IDs/inputs/seeds, one fresh evaluator per job, deterministic
+error choice with no partial selection, and serial/one-worker/four-worker replay.
+The tests also establish that the algorithm and locally constructed evaluator
+need not be `Send`, and inputs need not be `Clone` or `Sync`.
+
+A SHA-256 comparison found all **31** prior Chapter 1/2 result artifacts and
+**30** selected preexisting source/test files unchanged. The full comparison,
+including exact regenerated Chapter 1 CSV hashes, is in
+[prior_chapters_comparison.json](book/results/ch03/validation/prior_chapters_comparison.json).
+Algorithm module exports intentionally change to expose the new implementations.
+
+### Experiments and notebook
+
+The six Chapter 3 example programs have been executed. Their exact settings,
+budgets, failures as well as successes, and recorded metrics belong to
+[the Chapter 3 results report](book/results/ch03/README.md). Those experiments
+are teaching demonstrations; equal candidate counts do not imply equal compute,
+and the classification runs do not establish a tuned algorithm ranking.
+
+The Chapter 3 notebook completed a fresh **Rust/Evcxr execution** in **57.25 s**:
+29 total cells, **17 code cells** with consecutive execution counts 1–17,
+**zero error outputs**, and **four inline SVG figures**, all visually inspected.
+The live runs reproduce the recorded NEAT seed-1, GA classifier and CartPole
+results. Neutral and low-friction walker replays match the frozen CSV to printed
+precision; Deep GA serial/four-worker results match exactly. The dataset checksum
+is unchanged. See [notebook_checks.json](book/results/ch03/validation/notebook_checks.json)
+and [notebook.log](book/results/ch03/validation/notebook.log).
+
+Notebook runtime was Evcxr 0.15.1 with Rust 1.85.1. Its separate temporary Cargo
+project needed one missing cached dependency; that repair did not change the
+workspace lockfile or notebook dependencies. One top-level result binding was
+changed from a borrow to an owned clone for Evcxr persistence. Earlier attempt
+logs are retained, and the final saved notebook has no error outputs. Earlier
+notebooks were preserved rather than rerun; their relevant source and recorded
+result regressions are checked above.
+
+### Current limits
+
+- The new NEAT implementation is an explicit feedforward variant. Recurrent
+  NEAT, the original non-Markov double-pole scoring/generalization protocol,
+  and Box2D BipedalWalker reproduction are not implemented.
+- `SpringWalker` is an original three-particle teaching environment. The digit
+  experiment uses real UCI Optdigits with a declared educational split, not
+  MNIST or UCI's original writer-independent split.
+- DeepGa's compact seed lineage has growing replay cost. It does not include
+  the paper's distributed noise table or extra elite-contender reevaluations.
+- Rayon provides optional CPU evaluation parallelism. Burn/Bevy integration,
+  explicit SIMD, GPU batching, distributed execution, and checkpointing remain
+  outside this implementation. No parallel speedup is claimed by these tests.
+- RNN/LSTM, convolution, and attention/Transformer components remain forward
+  references; the implemented analytic backpropagation applies to MLPs.
+- Tests ran on the recorded Linux toolchain. Windows/macOS execution and remote
+  GitHub Actions results have not been established. Seeded replay is not a
+  promise of bitwise equality across platforms or future numerical versions.
+- The companion follows public book outlines and primary references; it is not
+  an exhaustive port of currently unavailable full chapter text.
+
+### Repeat the current gates
+
+```sh
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
+cargo test --workspace --locked
+cargo test --workspace --all-features --locked
+cargo test --workspace --release --all-features --locked
+RUSTDOCFLAGS="-D warnings" cargo doc --workspace --all-features --no-deps --locked
+```
+
+## Historical Chapter 2 validation
+
+The following section preserves the earlier Chapter 2 evidence and limitations
+as recorded at that stage. Its feature limits and test counts are historical;
+the current PDF-review status is stated above.
+
 Verified on **2026-11-19**, Linux `x86_64-unknown-linux-gnu`.
 
-## Executed workspace validation
+### Executed workspace validation
 
 - `rustc 1.85.1 (4eb161250 2025-03-15)`
 - `cargo 1.85.1 (d73d2caf9 2024-12-31)`
@@ -27,7 +180,7 @@ measurements there are check durations, not controlled performance benchmarks.
 The Chapter 1 output directory in the command record is represented as a
 portable placeholder for the temporary regression output.
 
-## What the new tests establish
+### What the new tests establish
 
 The Chapter 1 protocol and numerical tests remain. Chapter 2 adds 68 tests and
 one documentation example, including:
@@ -55,7 +208,7 @@ These checks support the documented implementations. They are not a claim of
 exhaustive correctness for every numerical scale or full differential validation
 against another maintained library. See `coverage.md` for validation levels.
 
-## Recorded search results
+### Recorded search results
 
 All four scalar methods use **8 dimensions, 64 calls per batch, 100 batches and
 20 seeds**, with initialization inside the 6,400-call budget. GA/ES have the
@@ -87,7 +240,7 @@ after 1,100 full-batch steps. Backprop also performs 1,100 post-update
 forward-loss checks. These are different work units. All four truth-table
 rows are used for training and reporting; no generalization claim is made.
 
-## Real notebook execution
+### Real notebook execution
 
 Both notebooks were executed in fresh Rust kernels against the Chapter 2 library:
 
@@ -107,7 +260,7 @@ rewrite results, or fabricate display output. Notebook figures were inspected.
 Notebook builds use Evcxr's generated project, not the workspace lockfile.
 The setup guide offers a current stable-toolchain installation route.
 
-## Remaining limits
+### Remaining limits
 
 - RNN/LSTM, convolution and attention/Transformer components are forward
   reference computations; only MLP includes backpropagation here.
@@ -126,7 +279,7 @@ The setup guide offers a current stable-toolchain installation route.
   a reproduction of the papers' experiments.
 - The source license remains a project decision; Cargo publication is disabled.
 
-## Repeat checks
+### Repeat checks
 
 ```sh
 cargo fmt --all -- --check

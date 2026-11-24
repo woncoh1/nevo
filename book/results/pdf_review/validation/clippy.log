@@ -1,0 +1,26 @@
+    Checking num-traits v0.2.19
+   Compiling crossbeam-utils v0.8.23
+   Compiling crossbeam-epoch v0.9.21
+    Checking bytemuck v1.25.2
+   Compiling crossbeam-deque v0.8.8
+   Compiling rayon-core v1.13.0
+    Checking zerocopy v0.8.63
+    Checking rawpointer v0.2.1
+    Checking either v1.19.0
+    Checking matrixmultiply v0.3.11
+    Checking safe_arch v0.7.4
+    Checking rand_core v0.9.5
+    Checking typenum v1.20.1
+    Checking nevo-core v0.1.0-dev (<repo>/crates/nevo-core)
+    Checking wide v0.7.33
+    Checking approx v0.5.1
+    Checking num-complex v0.4.6
+    Checking num-integer v0.1.47
+    Checking num-rational v0.4.2
+    Checking rayon v1.10.0
+    Checking simba v0.9.1
+    Checking ppv-lite86 v0.2.21
+    Checking rand_chacha v0.9.0
+    Checking nalgebra v0.33.2
+    Checking nevo v0.1.0-dev (<repo>/crates/nevo)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 11.23s

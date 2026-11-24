@@ -20,22 +20,40 @@ jobs:
       - name: Formatting
         run: cargo fmt --all -- --check
       - name: Clippy
-        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+        run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
       - name: Tests and doctests
         run: cargo test --workspace --locked
+      - name: Optional parallel tests
+        run: cargo test --workspace --all-features --locked
       - name: Release-mode tests
-        run: cargo test --workspace --release --locked
+        run: cargo test --workspace --all-features --release --locked
       - name: Documentation
-        run: cargo doc --workspace --no-deps --locked
+        run: cargo doc --workspace --all-features --no-deps --locked
         env:
           RUSTDOCFLAGS: -D warnings
       - name: Sphere reference example
         run: cargo run -p nevo --example sphere --locked
       - name: Chapter 1 companion
         run: cargo run -p nevo --example ch01_introduction --locked
+      - name: Chapter 1 population companion
+        run: cargo run -p nevo --example ch01_population --locked -- results/ch01_population
+      - name: PDF-review additions
+        run: cargo run -p nevo --example ch02_pdf_updates --release --locked -- results/pdf_review
       - name: Chapter 2 search experiments
         run: cargo run -p nevo --example ch02_search --release --locked -- results/ch02
       - name: Chapter 2 neural integration
         run: cargo run -p nevo --example ch02_xor --release --locked -- results/ch02
       - name: Chapter 2 neural building blocks
         run: cargo run -p nevo --example ch02_neural --locked
+      - name: Chapter 3 NEAT topology evolution
+        run: cargo run -p nevo --example ch03_neat --release --locked -- results/ch03
+      - name: Chapter 3 classification
+        run: cargo run -p nevo --example ch03_classification --release --locked -- results/ch03
+      - name: Chapter 3 CartPole
+        run: cargo run -p nevo --example ch03_cartpole --release --locked -- results/ch03
+      - name: Chapter 3 double-pole generalization
+        run: cargo run -p nevo --example ch03_doublepole --release --locked -- results/ch03
+      - name: Chapter 3 spring robot
+        run: cargo run -p nevo --example ch03_walker --release --locked -- results/ch03
+      - name: Chapter 3 parallel replay
+        run: cargo run -p nevo --example ch03_parallel --features parallel --release --locked -- results/ch03

@@ -1,0 +1,201 @@
+{
+  "date": "2026-11-24",
+  "target": "x86_64-unknown-linux-gnu",
+  "rust": "1.85.1",
+  "cargo_locked": true,
+  "checks": [
+    {
+      "label": "fmt",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.185
+    },
+    {
+      "label": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 11.314
+    },
+    {
+      "label": "tests_default",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 14.286,
+      "passed": 215,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "tests_all_features",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--all-features",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 20.873,
+      "passed": 221,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "tests_release_all_features",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--all-features",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 21.61,
+      "passed": 221,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "label": "docs",
+      "command": [
+        "cargo",
+        "doc",
+        "--workspace",
+        "--all-features",
+        "--no-deps",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.902
+    },
+    {
+      "label": "ch01_population",
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "ch01_population",
+        "--release",
+        "--locked",
+        "--offline",
+        "--",
+        "book/results/pdf_review/ch01_population"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 3.957
+    },
+    {
+      "label": "ch02_pdf_updates",
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "ch02_pdf_updates",
+        "--release",
+        "--locked",
+        "--offline",
+        "--",
+        "book/results/pdf_review"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.572
+    },
+    {
+      "label": "regression_sphere",
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "sphere",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.021
+    },
+    {
+      "label": "regression_ch01",
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "ch01_introduction",
+        "--release",
+        "--locked",
+        "--offline",
+        "--",
+        "book/results/pdf_review/validation/regression_ch01"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.485
+    },
+    {
+      "label": "regression_ch02_neural",
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "ch02_neural",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.02
+    },
+    {
+      "label": "regression_ch02_search",
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "ch02_search",
+        "--release",
+        "--locked",
+        "--offline",
+        "--",
+        "book/results/pdf_review/validation/regression_ch02"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.167
+    }
+  ]
+}

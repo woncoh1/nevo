@@ -1,10 +1,15 @@
 # Chapter 1 companion: evolve a neural controller
 
 This original `nevo` example illustrates the idea of evolving neural behavior.
-The book's Chapter 1 is introductory; its official listed coding assignments
-start in Chapter 2. This walkthrough adds a small runnable example rather than
-claiming to reproduce a Chapter 1 algorithm, exercise solution, or review question.
-The full online chapter was unavailable when checked on 2026-11-19.
+The supplied Chapter 1 PDF was checked on 2026-11-24. Section 1.1, pages 3–5,
+introduces a population of 100 neural weight vectors: retain the best 20 and
+create 80 offspring through crossover and mutation. The original three-gene
+demo below simplifies this idea to one retained controller and mutation only.
+A second runnable example now demonstrates the book's 100/20/80 population
+structure with explicit choices for its unspecified numerical settings.
+
+The official listed coding assignments start in Chapter 2. These are independent
+companion examples, not official assignment solutions or research reproductions.
 
 ## What you will build
 
@@ -149,6 +154,58 @@ recordings are additional diagnostics and excluded from that search budget.
 See [recorded data](results/ch01/) and [validation](../VALIDATION.md). The Rust
 notebook plots the same public experiment and the trajectories inline.
 
+## The book's population structure: 100 candidates, 20 retained
+
+Section 1.1, pages 3–4, describes retaining the best 20 of 100 evaluated neural
+weight vectors and filling the other 80 places with offspring of those 20.
+Figure 1.2 on page 5 places this search around the network/environment loop.
+The chapter leaves the task, numerical distributions, and stopping budget open.
+
+`ch01_population` applies that population structure to `TargetReach`, using the
+existing `Ga` implementation:
+
+```rust
+use nevo::algorithms::{Ga, GaConfig};
+use nevo::tasks::TargetReach;
+
+let mut config = GaConfig::new(TargetReach::PARAMETERS, 42);
+config.population = 100;
+config.elite_count = 20;
+config.parent_pool_size = Some(20);
+config.tournament_size = 1;
+config.crossover_probability = 1.0;
+config.initial_bound = 1.0;
+config.mutation_sigma = 0.2;
+let mut search = Ga::new(config)?;
+```
+
+The two counts serve different purposes. `elite_count` copies the best 20
+genomes unchanged. `parent_pool_size` restricts reproduction to those same 20;
+without it, copied elites alone would not prevent other candidates from mating.
+A tournament of size one samples uniformly from this pool, with replacement.
+All 100 candidates, including copied elites, receive new evaluation jobs in
+every batch. `Ga::parents()` still exposes the full current evaluated population.
+
+The example chooses uniform crossover, uniform initialization in `[-1, 1)`,
+and independent Gaussian mutation with standard deviation 0.2 and probability
+`1 / dimensions` for each gene. With three genes this mutates one coordinate
+on average, but an offspring may have zero, one, two, or three mutated coordinates.
+The book describes choosing a weight to mutate; this per-gene rule is an explicit
+companion variation, not a claim of exactly one mutation per offspring.
+
+Run the example with:
+
+```sh
+cargo run -p nevo --example ch01_population --locked -- results/ch01_population
+```
+
+It runs 32 batches including initialization, for 3,200 search evaluations.
+Its held-out score is computed after selection; the optional directory receives
+`learning.csv`. This is a demonstration of population composition, not a
+multi-seed comparison with the earlier mutation-only example. `Ga` defaults to
+`parent_pool_size = None`, preserving full-population mating and earlier seeded
+experiments unless a restricted pool is explicitly requested.
+
 ## Why this helps the library design
 
 The search works on vectors and scalar scores; it does not know the world
@@ -173,9 +230,11 @@ These questions are written for this companion and are not copied from the book.
 
 ## References and scope
 
+- Risi, Tang, Ha, and Miikkulainen, *Neuroevolution: Harnessing Creativity in AI
+  Agent Design*, supplied Chapter 1 PDF, §1.1, pp. 3–5; §1.5, p. 12.
 - [Official book contents and assignments](https://neuroevolutionbook.com/)
 - [Rust trait overview](https://doc.rust-lang.org/book/ch10-02-traits.html)
 - [ChaCha RNG used by the search](https://docs.rs/rand_chacha/0.9.0/rand_chacha/)
 
-The next formal algorithm milestone is Chapter 2's GA and ES. This companion
+The full GA and ES implementations are introduced in Chapter 2. This companion
 prepares the software interface without claiming that later coverage is complete.

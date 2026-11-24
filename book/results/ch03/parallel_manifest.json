@@ -1,0 +1,13 @@
+{
+  "task":"XOR, all four truth-table rows; no held-out set",
+  "network":[2,16,16,16,1],"activations":["tanh","tanh","tanh","sigmoid"],"parameters":609,
+  "algorithm":"Mutation-only DeepGa teaching variant; top-parent truncation and seeded dense Gaussian mutations",
+  "seed":42,"population":64,"parents":16,"elite_count":1,"initial_bound":0.5,"mutation_sigma":0.1,
+  "batch_cap_including_initialization":100,"stop":"Best observed MSE <= 0.01",
+  "execution":["serial","Rayon1worker","Rayon4workers"],
+  "checked":"Every batch best-score bits, final seed genome, decoded weight bits, evaluation count match all three runs",
+  "payload":"8 bytes per seed versus 8 bytes per f64; excludes Vec metadata, allocation, network architecture/settings, and issued-batch copies",
+  "decode_cost":"O(dimensions * lineage_length); no shared prefix cache or noise table",
+  "timing":"One local demonstration trial per mode; includes search and curve logging, excludes final decoding/reporting. Not a controlled throughput benchmark.",
+  "limitations":"Small deep MLP, not Atari or large-model reproduction; CPU job-level parallelism, not SIMD, GPU, distributed execution, or batched tensors."
+}

@@ -1,0 +1,13 @@
+{
+  "task": "XOR, all four truth-table rows; no held-out data",
+  "seeds": [0,1,2,3,4,5,6,7,8,9],
+  "population": 150,
+  "batch_cap_including_initialization": 300,
+  "stop": "Every prediction of the best-fitness observed genome is within 0.1 of its target",
+  "fitness": "(4 - sum_absolute_error)^2, maximize",
+  "network": "Feedforward DAG, steepened sigmoid 4.9, bias 1; no hidden nodes initially",
+  "config": "NeatConfig::new(2,1,seed), all other defaults",
+  "reported_genome": "Best actually evaluated fitness; earliest evaluation wins ties",
+  "reporting_forward_passes": "Additional prediction/MSE passes are outside the fitness-evaluation count",
+  "limitations": "Teaching-scale experiment; not a replication of the 2002 paper's budgets or success definition"
+}

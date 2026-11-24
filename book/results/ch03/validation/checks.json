@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-11-23T08:35:24.366017+00:00",
+  "workspace": "/workspace/scratch/a2689e927bb8/work_ch03/nevo",
+  "toolchain": {
+    "rustc --version --verbose": {
+      "exit_code": 0,
+      "output": "rustc 1.85.1 (4eb161250 2025-03-15)\nbinary: rustc\ncommit-hash: 4eb161250e340c8f48f66e2b929ef4a5bed7c181\ncommit-date: 2025-03-15\nhost: x86_64-unknown-linux-gnu\nrelease: 1.85.1\nLLVM version: 19.1.7"
+    },
+    "cargo --version": {
+      "exit_code": 0,
+      "output": "cargo 1.85.1 (d73d2caf9 2024-12-31)"
+    },
+    "cargo clippy --version": {
+      "exit_code": 0,
+      "output": "clippy 0.1.85 (4eb161250e 2025-03-15)"
+    },
+    "rustfmt --version": {
+      "exit_code": 0,
+      "output": "rustfmt 1.8.0-stable (4eb161250e 2025-03-15)"
+    }
+  },
+  "environment_overrides": {
+    "CARGO_HOME": "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/cargo",
+    "RUSTUP_HOME": "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/rustup",
+    "RUSTC": "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/rustup/toolchains/1.85.1-x86_64-unknown-linux-gnu/bin/rustc",
+    "RUSTDOC": "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/rustup/toolchains/1.85.1-x86_64-unknown-linux-gnu/bin/rustdoc",
+    "PATH_prefix": "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/rustup/toolchains/1.85.1-x86_64-unknown-linux-gnu/bin",
+    "CARGO_TERM_COLOR": "never"
+  },
+  "checks": [
+    {
+      "name": "fmt",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "environment_overrides": {},
+      "log": "fmt.log",
+      "started_utc": "2026-11-23T08:35:24.366306+00:00",
+      "finished_utc": "2026-11-23T08:35:24.593621+00:00",
+      "duration_seconds": 0.226868,
+      "exit_code": 0
+    },
+    {
+      "name": "clippy",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "environment_overrides": {},
+      "log": "clippy.log",
+      "started_utc": "2026-11-23T08:35:28.772781+00:00",
+      "finished_utc": "2026-11-23T08:35:30.561083+00:00",
+      "duration_seconds": 1.787945,
+      "exit_code": 101
+    },
+    {
+      "name": "tests_default",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked"
+      ],
+      "environment_overrides": {},
+      "log": "tests_default.log",
+      "started_utc": "2026-11-23T08:35:30.562386+00:00",
+      "finished_utc": "2026-11-23T08:35:45.873069+00:00",
+      "duration_seconds": 15.30858,
+      "exit_code": 0,
+      "test_totals": {
+        "passed": 184,
+        "failed": 0,
+        "ignored": 0,
+        "measured": 0,
+        "filtered_out": 0
+      },
+      "test_summary_blocks": 20
+    },
+    {
+      "name": "tests_all_features",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--all-features",
+        "--locked"
+      ],
+      "environment_overrides": {},
+      "log": "tests_all_features.log",
+      "started_utc": "2026-11-23T08:35:45.875217+00:00",
+      "finished_utc": "2026-11-23T08:36:01.683345+00:00",
+      "duration_seconds": 15.806681,
+      "exit_code": 0,
+      "test_totals": {
+        "passed": 190,
+        "failed": 0,
+        "ignored": 0,
+        "measured": 0,
+        "filtered_out": 0
+      },
+      "test_summary_blocks": 20
+    },
+    {
+      "name": "tests_release_all_features",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--release",
+        "--all-features",
+        "--locked"
+      ],
+      "environment_overrides": {},
+      "log": "tests_release_all_features.log",
+      "started_utc": "2026-11-23T08:36:01.685070+00:00",
+      "finished_utc": "2026-11-23T08:36:09.693420+00:00",
+      "duration_seconds": 8.007325,
+      "exit_code": 0,
+      "test_totals": {
+        "passed": 190,
+        "failed": 0,
+        "ignored": 0,
+        "measured": 0,
+        "filtered_out": 0
+      },
+      "test_summary_blocks": 20
+    },
+    {
+      "name": "docs",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "doc",
+        "--workspace",
+        "--all-features",
+        "--no-deps",
+        "--locked"
+      ],
+      "environment_overrides": {
+        "RUSTDOCFLAGS": "-D warnings"
+      },
+      "log": "docs.log",
+      "started_utc": "2026-11-23T08:36:09.694874+00:00",
+      "finished_utc": "2026-11-23T08:36:10.786360+00:00",
+      "duration_seconds": 1.091287,
+      "exit_code": 0
+    },
+    {
+      "name": "regression_sphere",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "sphere",
+        "--release",
+        "--locked"
+      ],
+      "environment_overrides": {},
+      "log": "regression_sphere.log",
+      "started_utc": "2026-11-23T08:36:29.516952+00:00",
+      "finished_utc": "2026-11-23T08:36:32.914432+00:00",
+      "duration_seconds": 3.39664,
+      "exit_code": 0
+    },
+    {
+      "name": "regression_ch01",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "ch01_introduction",
+        "--release",
+        "--locked",
+        "--",
+        "/workspace/scratch/a2689e927bb8/work_ch03/nevo/book/results/ch03/validation/regression_ch01"
+      ],
+      "environment_overrides": {},
+      "log": "regression_ch01.log",
+      "started_utc": "2026-11-23T08:36:32.916003+00:00",
+      "finished_utc": "2026-11-23T08:36:33.355231+00:00",
+      "duration_seconds": 0.438983,
+      "exit_code": 0
+    },
+    {
+      "name": "regression_ch02_neural",
+      "attempt": 1,
+      "command": [
+        "cargo",
+        "run",
+        "-p",
+        "nevo",
+        "--example",
+        "ch02_neural",
+        "--release",
+        "--locked"
+      ],
+      "environment_overrides": {},
+      "log": "regression_ch02_neural.log",
+      "started_utc": "2026-11-23T08:36:33.355819+00:00",
+      "finished_utc": "2026-11-23T08:36:33.665094+00:00",
+      "duration_seconds": 0.309059,
+      "exit_code": 0
+    },
+    {
+      "name": "fmt",
+      "attempt": 2,
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "environment_overrides": {},
+      "log": "fmt_attempt2.log",
+      "started_utc": "2026-11-23T08:37:55.420014+00:00",
+      "finished_utc": "2026-11-23T08:37:55.699390+00:00",
+      "duration_seconds": 0.279202,
+      "exit_code": 0
+    },
+    {
+      "name": "clippy",
+      "attempt": 2,
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--locked",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "environment_overrides": {},
+      "log": "clippy_attempt2.log",
+      "started_utc": "2026-11-23T08:37:55.700285+00:00",
+      "finished_utc": "2026-11-23T08:37:56.334708+00:00",
+      "duration_seconds": 0.634279,
+      "exit_code": 0
+    }
+  ],
+  "notes": [
+    "Logs preserve stdout and stderr in emission order.",
+    "Test totals are summed from Cargo test-result summaries, including doc tests.",
+    "An earlier failed attempt remains recorded if a gate is rerun.",
+    "No Chapter 3 experiment is rerun by this validation harness."
+  ],
+  "updated_utc": "2026-11-23T08:37:56.334768+00:00",
+  "required_gates": [
+    "fmt",
+    "clippy",
+    "tests_default",
+    "tests_all_features",
+    "tests_release_all_features",
+    "docs"
+  ],
+  "latest_required_gates_passed": true,
+  "regression_evidence": "prior_chapters_comparison.json",
+  "notebook_validation": {
+    "record": "notebook_checks.json",
+    "passed": true,
+    "executed_code_cells": 17,
+    "error_outputs": 0,
+    "svg_figures": 4
+  }
+}

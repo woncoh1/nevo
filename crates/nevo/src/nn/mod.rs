@@ -19,12 +19,12 @@ mod recurrent;
 mod spatial;
 
 pub use attention::{
-    AttentionOutput, TransformerBlock, layer_norm, scaled_dot_product_attention,
-    sinusoidal_positions,
+    AttentionOutput, MultiHeadAttentionOutput, TransformerBlock, layer_norm, multi_head_attention,
+    scaled_dot_product_attention, sinusoidal_positions, softmax,
 };
 pub use mlp::{Activation, Mlp, TrainingExample};
 pub use recurrent::{LstmCell, LstmState, RnnCell};
-pub use spatial::conv2d_valid;
+pub use spatial::{conv2d_valid, max_pool2d};
 
 use std::error::Error;
 use std::fmt;

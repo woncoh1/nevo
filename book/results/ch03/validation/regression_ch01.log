@@ -1,0 +1,25 @@
+   Compiling nevo v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03/nevo/crates/nevo)
+    Finished `release` profile [optimized] target(s) in 0.38s
+     Running `target/release/examples/ch01_introduction /workspace/scratch/a2689e927bb8/work_ch03/nevo/book/results/ch03/validation/regression_ch01`
+nevo Chapter 1 companion: Generate -> Evaluate -> Select
+Original teaching task; not an official book exercise.
+seed=42, genes=3, offspring=32, batches=100 (initial batch included)
+Objective: mean squared target error + 0.01 * action^2; minimize.
+No-action baseline: 0.625000000
+batch,evaluations,best_training_loss
+1,32,0.062843333
+10,320,0.041335120
+20,640,0.038255355
+30,960,0.037004491
+40,1280,0.036766812
+50,1600,0.036599276
+60,1920,0.036537198
+70,2240,0.036495381
+80,2560,0.036487499
+90,2880,0.036482718
+100,3200,0.036473747
+Weights [error, velocity, bias]: [8.277480418360419, -2.140629632961784, 0.0017547022593667558]
+Final training loss: 0.036473747
+Held-out-start loss: 0.070859762
+Training search evaluations: 3200 (4 episodes of 80 steps per evaluation)
+Saved learning.csv and trajectories.csv to /workspace/scratch/a2689e927bb8/work_ch03/nevo/book/results/ch03/validation/regression_ch01

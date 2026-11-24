@@ -1,5 +1,39 @@
 # Changelog
 
+## Full-PDF review of Chapters 1–3 · 2026-11-24
+
+- Read the supplied front matter and full Chapters 1–3; replaced current
+  outline-only source claims with printed-page mappings and an original audit.
+- Added optional top-parent mating to `Ga` and a 100/20/80 population companion.
+- Added fixed/self-adaptive ES scale and comma/plus survival, including `(1+1)`.
+  Previous self-adaptive comma defaults and random draws remain unchanged.
+- Added synchronous `De` / `DeConfig` with the explicit rand/1/bin variant.
+- Added public stable softmax, valid max pooling and multi-head attention on
+  caller-projected Q/K/V with output projection. The existing Transformer block
+  remains single-head and forward only.
+- Added focused semantic tests, declared Sphere experiments and notebook cells;
+  retained existing experiment records rather than reinterpreting them as book
+  reproductions.
+- Clarified remaining recurrent NEAT, BipedalWalkerHardcore, Deep GA elite-trial,
+  full neural-training and accelerator/distribution gaps. No Burn/Bevy dependency
+  or new core trait was introduced.
+
+## Chapter 3 neuroevolution — 2026-11-23
+
+- Preserve the two core GES traits and prior chapter behavior.
+- Add feedforward NEAT and reusable genes, innovation tracking, structural
+  mutations, aligned crossover, compatibility, species sharing and quotas.
+- Add mutation-only Deep GA with reproducible seed-history encoding.
+- Add optional Rayon execution with fresh per-job evaluators and ordered results.
+- Add validated classification data, stratified splits, MLP/NEAT classifiers,
+  and the attributed genuine Optdigits subset.
+- Add checked native CartPole/DoublePole physics and an original spring robot,
+  closure rollouts, and fixed-topology MLP evaluator adapters.
+- Add six reproducible CLI experiments, honest success/failure and held-out
+  results, original chapter, executed Rust notebook and scientific plots.
+- Record structural, numerical, physics, protocol, seed replay and parallel
+  checks; preserve earlier chapter outputs and source behavior.
+
 ## Chapter 2 foundations — 2026-11-19
 
 - Preserve the two-trait Generate → Evaluate → Select API and Chapter 1 behavior.

@@ -1,0 +1,54 @@
+<notebook-runtime>/notebook-python/jupyter_client/localinterfaces.py:58: UserWarning: Unexpected error discovering local network interfaces: [Errno 1] Operation not permitted
+  ret = f(**kwargs)
+   Compiling autocfg v1.5.1
+   Compiling bytemuck v1.25.2
+   Compiling zerocopy v0.8.64
+   Compiling paste v1.0.15
+   Compiling rawpointer v0.2.1
+   Compiling rand_core v0.9.5
+   Compiling typenum v1.20.1
+   Compiling safe_arch v0.7.4
+   Compiling matrixmultiply v0.3.11
+   Compiling wide v0.7.33
+   Compiling approx v0.5.1
+   Compiling plotters v0.3.7
+   Compiling simba v0.9.1
+   Compiling rand_chacha v0.9.0
+   Compiling nalgebra v0.33.2
+   Compiling nevo v0.1.0-dev (<repo>/crates/nevo)
+{
+  "input": "<repo>/notebooks/ch01_introduction.ipynb",
+  "output": "<repo>/notebooks/ch01_introduction.ipynb",
+  "code_cells": 8,
+  "execution_counts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "output_types": [
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "execute_result",
+    "stream",
+    "stream",
+    "execute_result",
+    "stream",
+    "stream",
+    "stream",
+    "stream"
+  ]
+}

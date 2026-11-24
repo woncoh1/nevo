@@ -1,0 +1,14 @@
+{
+  "dataset": "UCI Optdigits optdigits.tes, 1797 images, 64 integer features in 0..16; normalized by 16",
+  "source_sha256": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+  "split": {"seed":2026,"method":"per-class Fisher-Yates; 60 training, 30 validation, remainder test","sizes":[600,300,897]},
+  "seeds":[0,1,2], "population":64, "batches_including_initialization":80,
+  "fitness_evaluations_per_run":5120, "training_examples_per_evaluation":600,
+  "loss":"Mean squared error over samples and 10 one-hot outputs",
+  "metric":"Argmax accuracy; first class wins exact ties",
+  "selection":"Best actually evaluated training score; holdouts inspected only after search",
+  "ga":{"widths":[64,8,10],"activations":["tanh","sigmoid"],"initial_bound":0.5,"mutation_sigma":0.2,"other_settings":"GaConfig defaults"},
+  "es":{"widths":[64,8,10],"activations":["tanh","sigmoid"],"initial_bound":0.5,"initial_sigma":0.1,"other_settings":"EsConfig defaults"},
+  "neat":{"initial_widths":[64,10],"activation":"sigmoid 4.9","fitness":"1-MSE","weight_bound":0.3,"perturb_bound":0.1,"perturb_probability":0.95,"other_settings":"NeatConfig defaults except population64"},
+  "limitations":"Small fixed budgets and architectures; no tuned model ranking, writer-independent split, official UCI split, MNIST result, or paper reproduction."
+}

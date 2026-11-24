@@ -1,0 +1,92 @@
+Chapter 3 actual Evcxr execution
+Started UTC: 2026-11-23T08:41:07.654853+00:00
+Duration seconds: 56.74774844100011
+
+<validation-runtime>/notebook-python/jupyter_client/localinterfaces.py:58: UserWarning: Unexpected error discovering local network interfaces: [Errno 1] Operation not permitted
+  ret = f(**kwargs)
+   Compiling autocfg v1.5.1
+   Compiling paste v1.0.15
+   Compiling bytemuck v1.25.2
+   Compiling zerocopy v0.8.64
+   Compiling rawpointer v0.2.1
+   Compiling safe_arch v0.7.4
+   Compiling rand_core v0.9.5
+   Compiling typenum v1.20.1
+   Compiling either v1.19.0
+   Compiling matrixmultiply v0.3.11
+   Compiling wide v0.7.33
+   Compiling approx v0.5.1
+   Compiling plotters v0.3.7
+   Compiling rayon v1.10.0
+   Compiling simba v0.9.1
+   Compiling rand_chacha v0.9.0
+   Compiling nalgebra v0.33.2
+   Compiling nevo v0.1.0-dev (<workspace>/crates/nevo)
+Failed notebook diagnostics:
+27 [{"output_type": "error", "ename": "Error", "evalue": "`deep_serial` does not live long enough", "traceback": ["\u001b[31m[E0597] Error:\u001b[0m `deep_serial` does not live long enough", "    \u001b[38;5;246m╭\u001b[0m\u001b[38;5;246m─\u001b[0m\u001b[38;5;246m[\u001b[0mcommand_18:1:1\u001b[38;5;246m]\u001b[0m", "    \u001b[38;5;246m│\u001b[0m", " \u001b[38;5;246m33 │\u001b[0m \u001b[38;5;249ml\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249mt\u001b[0m\u001b[38;5;249m \u001b[0m\u001b[38;5;249m(\u001b[0m\u001b[38;5;100md\u001b[0m\u001b[38;5;100me\u001b[0m\u001b[38;5;100me\u001b[0m\u001b[38;5;100mp\u001b[0m\u001b[38;5;100m_\u001b[0m\u001b[38;5;100ms\u001b[0m\u001b[38;5;100me\u001b[0m\u001b[38;5;100mr\u001b[0m\u001b[38;5;100mi\u001b[0m\u001b[38;5;100ma\u001b[0m\u001b[38;5;100ml\u001b[0m\u001b[38;5;249m,\u001b[0m\u001b[38;5;249ms\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249mr\u001b[0m\u001b[38;5;249mi\u001b[0m\u001b[38;5;249ma\u001b[0m\u001b[38;5;249ml\u001b[0m\u001b[38;5;249m_\u001b[0m\u001b[38;5;249ms\u001b[0m\u001b[38;5;249mc\u001b[0m\u001b[38;5;249mo\u001b[0m\u001b[38;5;249mr\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249ms\u001b[0m\u001b[38;5;249m)\u001b[0m\u001b[38;5;249m=\u001b[0m\u001b[38;5;249md\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249mp\u001b[0m\u001b[38;5;249m_\u001b[0m\u001b[38;5;249mr\u001b[0m\u001b[38;5;249mu\u001b[0m\u001b[38;5;249mn\u001b[0m\u001b[38;5;249m(\u001b[0m\u001b[38;5;249mf\u001b[0m\u001b[38;5;249ma\u001b[0m\u001b[38;5;249ml\u001b[0m\u001b[38;5;249ms\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249m)\u001b[0m\u001b[38;5;249m?\u001b[0m\u001b[38;5;249m;\u001b[0m", " \u001b[38;5;240m   │\u001b[0m      \u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m┬\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m  ", " \u001b[38;5;240m   │\u001b[0m           \u001b[38;5;100m╰\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m\u001b[38;5;100m─\u001b[0m binding `deep_serial` declared here", " \u001b[38;5;240m   │\u001b[0m ", " \u001b[38;5;246m39 │\u001b[0m \u001b[38;5;249ml\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249mt\u001b[0m\u001b[38;5;249m \u001b[0m\u001b[38;5;249md\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249mp\u001b[0m\u001b[38;5;249m_\u001b[0m\u001b[38;5;249mb\u001b[0m\u001b[38;5;249me\u001b[0m\u001b[38;5;249ms\u001b[0m\u001b[38;5;249mt\u001b[0m\u001b[38;5;249m=\u001b[0m\u001b[38;5;54md\u001b[0m\u001b[38;5;54me\u001b[0m\u001b[38;5;54me\u001b[0m\u001b[38;5;54mp\u001b[0m\u001b[38;5;54m_\u001b[0m\u001b[38;5;54ms\u001b[0m\u001b[38;5;54me\u001b[0m\u001b[38;5;54mr\u001b[0m\u001b[38;5;54mi\u001b[0m\u001b[38;5;54ma\u001b[0m\u001b[38;5;54ml\u001b[0m\u001b[38;5;68m.\u001b[0m\u001b[38;5;68mb\u001b[0m\u001b[38;5;68me\u001b[0m\u001b[38;5;68ms\u001b[0m\u001b[38;5;68mt\u001b[0m\u001b[38;5;68m(\u001b[0m\u001b[38;5;68m)\u001b[0m\u001b[38;5;249m.\u001b[0m\u001b[38;5;249mu\u001b[0m\u001b[38;5;249mn\u001b[0m\u001b[38;5;249mw\u001b[0m\u001b[38;5;249mr\u001b[0m\u001b[38;5;249ma\u001b[0m\u001b[38;5;249mp\u001b[0m\u001b[38;5;249m(\u001b[0m\u001b[38;5;249m)\u001b[0m\u001b[38;5;249m;\u001b[0m", " \u001b[38;5;240m   │\u001b[0m               \u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m┬\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;68m┬\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m  ", " \u001b[38;5;240m   │\u001b[0m                    \u001b[38;5;54m╰\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m\u001b[38;5;54m─\u001b[0m borrowed value does not live long enough", " \u001b[38;5;240m   │\u001b[0m                        \u001b[38;5;68m│\u001b[0m          ", " \u001b[38;5;240m   │\u001b[0m                        \u001b[38;5;68m╰\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m\u001b[38;5;68m─\u001b[0m argument requires that `deep_serial` is borrowed for `'static`", "\u001b[38;5;246m────╯\u001b[0m"]}]
+Traceback (most recent call last):
+  File "<validation-runtime>/execute_notebook_diagnostic.py", line 49, in <module>
+    client.execute()
+  File "<validation-runtime>/notebook-python/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "<validation-runtime>/notebook-python/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "<validation-runtime>/notebook-python/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "<validation-runtime>/notebook-python/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+struct DecodedXor {encoding:SeededEncoding}
+impl Evaluator<SeedGenome> for DecodedXor {
+    type Output=f64;
+    type Error=std::io::Error;
+    fn evaluate(&mut self,genes:&SeedGenome,_seed:u64)->Result<f64,Self::Error> {
+        let weights=self.encoding.decode(genes).map_err(std::io::Error::other)?;
+        let net=Mlp::new(&[2,16,16,16,1],&[Activation::Tanh,Activation::Tanh,Activation::Tanh,Activation::Sigmoid],weights)
+            .map_err(std::io::Error::other)?;
+        let data=vec![
+            TrainingExample {input:vec![0.,0.],target:vec![0.]},
+            TrainingExample {input:vec![0.,1.],target:vec![1.]},
+            TrainingExample {input:vec![1.,0.],target:vec![1.]},
+            TrainingExample {input:vec![1.,1.],target:vec![0.]},
+        ];
+        net.mse(&data).map_err(std::io::Error::other)
+    }
+}
+fn deep_run(parallel:bool)->Result<(DeepGa,Vec<u64>),Box<dyn std::error::Error>> {
+    let mut config=DeepGaConfig::new(609,42); config.initial_bound=0.5;
+    let mut search=DeepGa::new(config)?;
+    let encoding=*search.encoding();
+    let mut evaluator=DecodedXor {encoding};
+    let mut scores=Vec::new();
+    for _ in 0..100 {
+        if parallel {step_parallel(&mut search,||DecodedXor {encoding})?;}
+        else {step(&mut search,&mut evaluator)?;}
+        let loss=search.best().unwrap().output;
+        scores.push(loss.to_bits());
+        if loss<=0.01 {break;}
+    }
+    Ok((search,scores))
+}
+let (deep_serial,serial_scores)=deep_run(false)?;
+let pool=rayon::ThreadPoolBuilder::new().num_threads(4).build()?;
+// Build the run inside the pool; return only Send data through its boundary.
+let (deep_parallel,parallel_scores)=pool.install(||deep_run(true).map_err(|e|e.to_string()))?;
+assert_eq!(serial_scores,parallel_scores);
+assert_eq!(deep_serial.best().unwrap(),deep_parallel.best().unwrap());
+let deep_best=deep_serial.best().unwrap();
+println!("Serial and four-worker runs match: evaluations={}, MSE={:.9}, mutation seeds={}",
+    deep_serial.evaluations(),deep_best.output,deep_best.job.input.mutation_seeds.len());
+println!("Seed payload={} bytes; dense payload={} bytes",
+    8*(1+deep_best.job.input.mutation_seeds.len()),609*8);
+
+------------------
+
+
+
+

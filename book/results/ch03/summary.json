@@ -1,0 +1,1409 @@
+{
+  "schema_version": 1,
+  "generated_by": "scripts/plot_ch03.py",
+  "plotting_runtime": {
+    "python": "3.12.14",
+    "matplotlib": "3.10.8"
+  },
+  "source_sha256": {
+    "cartpole_manifest.json": "42599ce00d70ce7c35864260eb3c8ce6b1dd108446de92f4454fd4fbbca28a16",
+    "cartpole_runs.csv": "d1e9f1349355003c478b25054acbe06e3178955a952d56d222a69b57686f12ca",
+    "cartpole_trials.csv": "7c3716659dcf870aa6835fe73a88ed645c4b5ed4c65942a4b5bbfcc19e66eec1",
+    "deep_ga_curves.csv": "a3c9e57444e067e9b84d3aa6e0f9661f279e3fdc5a6150077763bf9416f2aed6",
+    "digits_curves.csv": "6e9cbcc725f32f48a87eca2031e01605c8098bb9a5e12cbc0160f1c53ad84c16",
+    "digits_manifest.json": "53e3b2909dc3cb3b4f80a473443b87d3412149ed992f9cc15bdd6553330fc2cd",
+    "digits_runs.csv": "ff5a2380c0830d8212f7e87ad158840af34bbd62e27e977c0f449b9d5dcf1bca",
+    "digits_split.csv": "50d5e8de944c7da2439ad3381da92569f0cdce651ab65c7685ad78fa0a76379c",
+    "doublepole_manifest.json": "001cac2a3ac6fe1033986d5fe115399f4b2e1f83d0a33ec65c426ec0b6894714",
+    "doublepole_runs.csv": "eb2ba0d5575597c83b82bc346ad173d30bfd16ce73e858649698916123b0cd4e",
+    "doublepole_trials.csv": "d53e9a6179443a4c73de377ef7d19f480857e6b5d1448a799d59e8435a238123",
+    "neat_manifest.json": "470c2b7843c26938845bc54a41a51ca24b31ffd5a6d3221f0004b8e5978bbfe8",
+    "neat_xor_curves.csv": "c261284639a8a6cb51d409616e75a7ebc1e99bfb30b37f46af1b743c9b2530dd",
+    "neat_xor_predictions.csv": "6ee134986a77caebfdcefcdae191c29549b77db836d63d8245e960658b245d16",
+    "neat_xor_runs.csv": "fe486dc30876e036f8bf01884b4c902ca9b34a01bfa13494c395f2e2b0eec041",
+    "parallel_manifest.json": "091649ddb93e94f880183171b06e2084d77af398c3df286da533f0bce67b637e",
+    "parallel_runs.csv": "a5538c9a8f51f5e3b01ef0e3d925a89f14ffcec13b94ee0ffc4c632e459451c9",
+    "walker_manifest.json": "f50d3a3dae496685ba71a423ee5b661582d8136723d7657fefd2dff02d4e0ae7",
+    "walker_runs.csv": "dc73250b207b6e416b6f7df86e80fc2f8fb1d0f1ca84962a82020c0c4e387e53",
+    "walker_trajectories.csv": "6524d68ce6fcbb82bb58d47d40682e24fbf77fb25e7cdb2fa277bb071baade29"
+  },
+  "statistical_conventions": {
+    "sample_sd": "Across declared search seeds, denominator n-1; null when n=1",
+    "intervals": "Displayed standard deviations are descriptive, not confidence intervals",
+    "xor_success_costs": "Conditional on observed successes; capped failures are retained separately and are right-censored",
+    "comparison_scope": "Different task rewards, representations, and work budgets do not establish a general algorithm ranking"
+  },
+  "neat_xor": {
+    "protocol": {
+      "task": "XOR, all four truth-table rows; no held-out data",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "population": 150,
+      "batch_cap_including_initialization": 300,
+      "stop": "Every prediction of the best-fitness observed genome is within 0.1 of its target",
+      "fitness": "(4 - sum_absolute_error)^2, maximize",
+      "network": "Feedforward DAG, steepened sigmoid 4.9, bias 1; no hidden nodes initially",
+      "config": "NeatConfig::new(2,1,seed), all other defaults",
+      "reported_genome": "Best actually evaluated fitness; earliest evaluation wins ties",
+      "reporting_forward_passes": "Additional prediction/MSE passes are outside the fitness-evaluation count",
+      "limitations": "Teaching-scale experiment; not a replication of the 2002 paper's budgets or success definition"
+    },
+    "runs": [
+      {
+        "seed": 0,
+        "evaluations": 45000,
+        "solved": false,
+        "fitness": 9.0,
+        "mse": 0.25,
+        "hidden_nodes": 2,
+        "enabled_connections": 12
+      },
+      {
+        "seed": 1,
+        "evaluations": 15900,
+        "solved": true,
+        "fitness": 15.951628808009117,
+        "mse": 5.8885904082427035e-06,
+        "hidden_nodes": 4,
+        "enabled_connections": 18
+      },
+      {
+        "seed": 2,
+        "evaluations": 31350,
+        "solved": true,
+        "fitness": 15.33037941849414,
+        "mse": 0.0016733918245762005,
+        "hidden_nodes": 11,
+        "enabled_connections": 19
+      },
+      {
+        "seed": 3,
+        "evaluations": 45000,
+        "solved": false,
+        "fitness": 9.0,
+        "mse": 0.25,
+        "hidden_nodes": 4,
+        "enabled_connections": 16
+      },
+      {
+        "seed": 4,
+        "evaluations": 15900,
+        "solved": true,
+        "fitness": 14.145120800317402,
+        "mse": 0.00462657103374195,
+        "hidden_nodes": 6,
+        "enabled_connections": 20
+      },
+      {
+        "seed": 5,
+        "evaluations": 30450,
+        "solved": true,
+        "fitness": 14.470532481955159,
+        "mse": 0.004250151409220074,
+        "hidden_nodes": 9,
+        "enabled_connections": 16
+      },
+      {
+        "seed": 6,
+        "evaluations": 45000,
+        "solved": false,
+        "fitness": 9.0,
+        "mse": 0.25,
+        "hidden_nodes": 2,
+        "enabled_connections": 10
+      },
+      {
+        "seed": 7,
+        "evaluations": 12150,
+        "solved": true,
+        "fitness": 14.475994408721103,
+        "mse": 0.0034473187138526866,
+        "hidden_nodes": 4,
+        "enabled_connections": 15
+      },
+      {
+        "seed": 8,
+        "evaluations": 6600,
+        "solved": true,
+        "fitness": 14.90388275643461,
+        "mse": 0.0014654422967605375,
+        "hidden_nodes": 3,
+        "enabled_connections": 14
+      },
+      {
+        "seed": 9,
+        "evaluations": 9150,
+        "solved": true,
+        "fitness": 14.38801066174638,
+        "mse": 0.002774863007586313,
+        "hidden_nodes": 4,
+        "enabled_connections": 16
+      }
+    ],
+    "successes": 7,
+    "declared_runs": 10,
+    "successful_seeds": [
+      1,
+      2,
+      4,
+      5,
+      7,
+      8,
+      9
+    ],
+    "capped_failure_seeds": [
+      0,
+      3,
+      6
+    ],
+    "successful_evaluation_counts_only": {
+      "n": 7,
+      "mean": 17357.14285714286,
+      "sample_sd": 9845.956385382638,
+      "median": 15900,
+      "minimum": 6600,
+      "maximum": 31350
+    }
+  },
+  "classification": {
+    "protocol": {
+      "dataset": "UCI Optdigits optdigits.tes, 1797 images, 64 integer features in 0..16; normalized by 16",
+      "source_sha256": "6ebb3d2fee246a4e99363262ddf8a00a3c41bee6014c373ed9d9216ba7f651b8",
+      "split": {
+        "seed": 2026,
+        "method": "per-class Fisher-Yates; 60 training, 30 validation, remainder test",
+        "sizes": [
+          600,
+          300,
+          897
+        ]
+      },
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "population": 64,
+      "batches_including_initialization": 80,
+      "fitness_evaluations_per_run": 5120,
+      "training_examples_per_evaluation": 600,
+      "loss": "Mean squared error over samples and 10 one-hot outputs",
+      "metric": "Argmax accuracy; first class wins exact ties",
+      "selection": "Best actually evaluated training score; holdouts inspected only after search",
+      "ga": {
+        "widths": [
+          64,
+          8,
+          10
+        ],
+        "activations": [
+          "tanh",
+          "sigmoid"
+        ],
+        "initial_bound": 0.5,
+        "mutation_sigma": 0.2,
+        "other_settings": "GaConfig defaults"
+      },
+      "es": {
+        "widths": [
+          64,
+          8,
+          10
+        ],
+        "activations": [
+          "tanh",
+          "sigmoid"
+        ],
+        "initial_bound": 0.5,
+        "initial_sigma": 0.1,
+        "other_settings": "EsConfig defaults"
+      },
+      "neat": {
+        "initial_widths": [
+          64,
+          10
+        ],
+        "activation": "sigmoid 4.9",
+        "fitness": "1-MSE",
+        "weight_bound": 0.3,
+        "perturb_bound": 0.1,
+        "perturb_probability": 0.95,
+        "other_settings": "NeatConfig defaults except population64"
+      },
+      "limitations": "Small fixed budgets and architectures; no tuned model ranking, writer-independent split, official UCI split, MNIST result, or paper reproduction."
+    },
+    "runs": [
+      {
+        "algorithm": "ga",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.08191266870058773,
+        "accuracy": 0.31333333333333335
+      },
+      {
+        "algorithm": "ga",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.08165375229651367,
+        "accuracy": 0.33666666666666667
+      },
+      {
+        "algorithm": "ga",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.08169697413668983,
+        "accuracy": 0.3255295429208473
+      },
+      {
+        "algorithm": "es",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.07514368312063306,
+        "accuracy": 0.41
+      },
+      {
+        "algorithm": "es",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.07591645333192672,
+        "accuracy": 0.43
+      },
+      {
+        "algorithm": "es",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.0768355396843336,
+        "accuracy": 0.4280936454849498
+      },
+      {
+        "algorithm": "neat",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.06750781773813215,
+        "accuracy": 0.44666666666666666
+      },
+      {
+        "algorithm": "neat",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.06599805740812023,
+        "accuracy": 0.4666666666666667
+      },
+      {
+        "algorithm": "neat",
+        "seed": 0,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.06821906248848215,
+        "accuracy": 0.4358974358974359
+      },
+      {
+        "algorithm": "ga",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.0841856730025111,
+        "accuracy": 0.29833333333333334
+      },
+      {
+        "algorithm": "ga",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.08420324765843319,
+        "accuracy": 0.3
+      },
+      {
+        "algorithm": "ga",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.08420560470262112,
+        "accuracy": 0.2842809364548495
+      },
+      {
+        "algorithm": "es",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.07488336594659825,
+        "accuracy": 0.4
+      },
+      {
+        "algorithm": "es",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.07434546287397852,
+        "accuracy": 0.4266666666666667
+      },
+      {
+        "algorithm": "es",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.07373639940176845,
+        "accuracy": 0.4080267558528428
+      },
+      {
+        "algorithm": "neat",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.05649776701958487,
+        "accuracy": 0.6033333333333334
+      },
+      {
+        "algorithm": "neat",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.05636952630076084,
+        "accuracy": 0.6133333333333333
+      },
+      {
+        "algorithm": "neat",
+        "seed": 1,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.054610646884102325,
+        "accuracy": 0.5986622073578596
+      },
+      {
+        "algorithm": "ga",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.08314049500381916,
+        "accuracy": 0.2966666666666667
+      },
+      {
+        "algorithm": "ga",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.08326644493488936,
+        "accuracy": 0.29333333333333333
+      },
+      {
+        "algorithm": "ga",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.08324418793092477,
+        "accuracy": 0.3088071348940914
+      },
+      {
+        "algorithm": "es",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.0725957681433398,
+        "accuracy": 0.45666666666666667
+      },
+      {
+        "algorithm": "es",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.07159339785330386,
+        "accuracy": 0.45666666666666667
+      },
+      {
+        "algorithm": "es",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.07363567954215401,
+        "accuracy": 0.44258639910813824
+      },
+      {
+        "algorithm": "neat",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "training",
+        "samples": 600,
+        "mse": 0.06546362054404725,
+        "accuracy": 0.4666666666666667
+      },
+      {
+        "algorithm": "neat",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "validation",
+        "samples": 300,
+        "mse": 0.06475192912392677,
+        "accuracy": 0.47
+      },
+      {
+        "algorithm": "neat",
+        "seed": 2,
+        "evaluations": 5120,
+        "partition": "test",
+        "samples": 897,
+        "mse": 0.06586442702340926,
+        "accuracy": 0.48940914158305465
+      }
+    ],
+    "statistics": {
+      "ga": {
+        "training": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.3027777777777778,
+            "sample_sd": 0.009179284245476838,
+            "median": 0.29833333333333334,
+            "minimum": 0.2966666666666667,
+            "maximum": 0.31333333333333335
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.08307961223563934,
+            "sample_sd": 0.0011377245592569698,
+            "median": 0.08314049500381916,
+            "minimum": 0.08191266870058773,
+            "maximum": 0.0841856730025111
+          }
+        },
+        "validation": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.31,
+            "sample_sd": 0.023333333333333338,
+            "median": 0.3,
+            "minimum": 0.29333333333333333,
+            "maximum": 0.33666666666666667
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.08304114829661208,
+            "sample_sd": 0.0012895931845068704,
+            "median": 0.08326644493488936,
+            "minimum": 0.08165375229651367,
+            "maximum": 0.08420324765843319
+          }
+        },
+        "test": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.3062058714232627,
+            "sample_sd": 0.020746971166418243,
+            "median": 0.3088071348940914,
+            "minimum": 0.2842809364548495,
+            "maximum": 0.3255295429208473
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.08304892225674523,
+            "sample_sd": 0.0012656632023234971,
+            "median": 0.08324418793092477,
+            "minimum": 0.08169697413668983,
+            "maximum": 0.08420560470262112
+          }
+        }
+      },
+      "es": {
+        "training": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.4222222222222222,
+            "sample_sd": 0.030245905752924882,
+            "median": 0.41,
+            "minimum": 0.4,
+            "maximum": 0.45666666666666667
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.07420760573685704,
+            "sample_sd": 0.0014019474236507381,
+            "median": 0.07488336594659825,
+            "minimum": 0.0725957681433398,
+            "maximum": 0.07514368312063306
+          }
+        },
+        "validation": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.43777777777777777,
+            "sample_sd": 0.01644294287438748,
+            "median": 0.43,
+            "minimum": 0.4266666666666667,
+            "maximum": 0.45666666666666667
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.0739517713530697,
+            "sample_sd": 0.0021882520257135367,
+            "median": 0.07434546287397852,
+            "minimum": 0.07159339785330386,
+            "maximum": 0.07591645333192672
+          }
+        },
+        "test": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.42623560014864365,
+            "sample_sd": 0.017354581090799875,
+            "median": 0.4280936454849498,
+            "minimum": 0.4080267558528428,
+            "maximum": 0.44258639910813824
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.07473587287608535,
+            "sample_sd": 0.0018190620252687155,
+            "median": 0.07373639940176845,
+            "minimum": 0.07363567954215401,
+            "maximum": 0.0768355396843336
+          }
+        }
+      },
+      "neat": {
+        "training": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.5055555555555555,
+            "sample_sd": 0.08526646685755412,
+            "median": 0.4666666666666667,
+            "minimum": 0.44666666666666666,
+            "maximum": 0.6033333333333334
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.06315640176725476,
+            "sample_sd": 0.005856427927434414,
+            "median": 0.06546362054404725,
+            "minimum": 0.05649776701958487,
+            "maximum": 0.06750781773813215
+          }
+        },
+        "validation": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.5166666666666666,
+            "sample_sd": 0.08373237791386978,
+            "median": 0.47,
+            "minimum": 0.4666666666666667,
+            "maximum": 0.6133333333333333
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.06237317094426928,
+            "sample_sd": 0.005236508443544459,
+            "median": 0.06475192912392677,
+            "minimum": 0.05636952630076084,
+            "maximum": 0.06599805740812023
+          }
+        },
+        "test": {
+          "accuracy_fraction": {
+            "n": 3,
+            "mean": 0.5079895949461167,
+            "sample_sd": 0.08295792694205709,
+            "median": 0.48940914158305465,
+            "minimum": 0.4358974358974359,
+            "maximum": 0.5986622073578596
+          },
+          "mse": {
+            "n": 3,
+            "mean": 0.06289804546533125,
+            "sample_sd": 0.007273019213260826,
+            "median": 0.06586442702340926,
+            "minimum": 0.054610646884102325,
+            "maximum": 0.06821906248848215
+          }
+        }
+      }
+    }
+  },
+  "cartpole": {
+    "protocol": {
+      "environment": "Native Rust CartPole with classic Gym equations and discrete +/-10 N actions",
+      "horizon": 500,
+      "dt": 0.02,
+      "network": [
+        4,
+        4,
+        1
+      ],
+      "activations": [
+        "tanh",
+        "tanh"
+      ],
+      "parameters": 25,
+      "training_start_seeds": [
+        100,
+        101,
+        102
+      ],
+      "heldout_start_seeds": "200..219",
+      "reset": "Independent ChaCha8 stream3, each of four coordinates uniform [-0.05,0.05)",
+      "search_seeds": [
+        0,
+        1,
+        2
+      ],
+      "population": 64,
+      "batch_cap_including_initialization": 60,
+      "stop": "Best observed mean training return reaches 500",
+      "fitness": "Negative mean complete episode return over the same three training starts; minimize",
+      "reward": "+1 per action including failure; termination and time-limit truncation reported separately",
+      "ga": {
+        "initial_bound": 0.5,
+        "mutation_sigma": 0.2,
+        "other_settings": "GaConfig defaults"
+      },
+      "es": {
+        "initial_bound": 0.5,
+        "initial_sigma": 0.2,
+        "other_settings": "EsConfig defaults"
+      },
+      "holdout": "Evaluate final training-selected policy once per held-out start; no holdout tuning",
+      "limitations": "Teaching experiments, not the standard Gym evaluation protocol; native RNG is not Gym's NumPy RNG. Fitness calls each contain three episodes; reporting rollouts are additional."
+    },
+    "runs": [
+      {
+        "algorithm": "ga",
+        "seed": 0,
+        "evaluations": 512,
+        "training_mean": 499.99999999998903,
+        "heldout_mean": 500.0,
+        "heldout_full_horizon": 20
+      },
+      {
+        "algorithm": "es",
+        "seed": 0,
+        "evaluations": 192,
+        "training_mean": 499.99999999998903,
+        "heldout_mean": 500.0,
+        "heldout_full_horizon": 20
+      },
+      {
+        "algorithm": "ga",
+        "seed": 1,
+        "evaluations": 192,
+        "training_mean": 499.99999999998903,
+        "heldout_mean": 500.0,
+        "heldout_full_horizon": 20
+      },
+      {
+        "algorithm": "es",
+        "seed": 1,
+        "evaluations": 576,
+        "training_mean": 499.99999999998903,
+        "heldout_mean": 491.0,
+        "heldout_full_horizon": 16
+      },
+      {
+        "algorithm": "ga",
+        "seed": 2,
+        "evaluations": 256,
+        "training_mean": 499.99999999998903,
+        "heldout_mean": 500.0,
+        "heldout_full_horizon": 20
+      },
+      {
+        "algorithm": "es",
+        "seed": 2,
+        "evaluations": 512,
+        "training_mean": 499.99999999998903,
+        "heldout_mean": 499.3,
+        "heldout_full_horizon": 19
+      }
+    ],
+    "statistics": {
+      "ga": {
+        "fitness_calls": {
+          "n": 3,
+          "mean": 320,
+          "sample_sd": 169.3280839081338,
+          "median": 256,
+          "minimum": 192,
+          "maximum": 512
+        },
+        "heldout_return_mean_per_run": {
+          "n": 3,
+          "mean": 500.0,
+          "sample_sd": 0.0,
+          "median": 500.0,
+          "minimum": 500.0,
+          "maximum": 500.0
+        },
+        "horizon_hits_across_policy_start_pairs": 60,
+        "policy_start_pairs": 60
+      },
+      "es": {
+        "fitness_calls": {
+          "n": 3,
+          "mean": 426.6666666666667,
+          "sample_sd": 205.73121623451638,
+          "median": 512,
+          "minimum": 192,
+          "maximum": 576
+        },
+        "heldout_return_mean_per_run": {
+          "n": 3,
+          "mean": 496.76666666666665,
+          "sample_sd": 5.006329327294935,
+          "median": 499.3,
+          "minimum": 491.0,
+          "maximum": 500.0
+        },
+        "horizon_hits_across_policy_start_pairs": 55,
+        "policy_start_pairs": 60
+      }
+    }
+  },
+  "doublepole": {
+    "protocol": {
+      "experiment": "Chapter 3 full-state double-pole teaching comparison",
+      "search_seed": 42,
+      "physics": {
+        "gravity": 9.8,
+        "cart_mass": 1.0,
+        "pole_masses": [
+          0.1,
+          0.01
+        ],
+        "half_lengths": [
+          0.5,
+          0.05
+        ],
+        "hinge_damping": 2e-06,
+        "force_newtons": 10.0,
+        "dt_seconds": 0.02,
+        "rk4_substeps": 2,
+        "position_limit": 2.4,
+        "angle_limit_radians": 0.628329,
+        "max_steps": 500
+      },
+      "observation": "Full state [x/4.8,v/2,long_angle/0.52,long_omega/2,short_angle/0.52,short_omega/2], not clipped",
+      "training_start": {
+        "position": 0,
+        "velocity": 0,
+        "angles": [
+          0.07,
+          0
+        ],
+        "angular_velocities": [
+          0,
+          0
+        ]
+      },
+      "heldout_suite": {
+        "cart_positions": [
+          -0.1,
+          0.1
+        ],
+        "long_angles": [
+          -0.07,
+          -0.03,
+          0.03,
+          0.07
+        ],
+        "short_angles": [
+          -0.003,
+          0.003
+        ],
+        "all_velocities": 0,
+        "construction": "Cartesian product, position outermost then long angle then short angle",
+        "trials": 16
+      },
+      "fitness": "Number of valid control endpoints; a failing final action earns zero",
+      "stopping": "Best observed training return reaches 500 or 150 selected batches, including initialization",
+      "cma_es": {
+        "network": [
+          6,
+          4,
+          1
+        ],
+        "activations": [
+          "tanh",
+          "tanh"
+        ],
+        "parameters": 33,
+        "population": 32,
+        "evaluation_cap": 4800,
+        "initial_mean": "ChaCha8 seed42 stream2, uniform [-0.5,0.5)",
+        "sigma": 0.5,
+        "objective": "minimize negative training return",
+        "other_settings": "CmaEsConfig defaults",
+        "action": "tanh output is signed force fraction"
+      },
+      "neat": {
+        "initial_network": "six inputs, one bias, one output, zero hidden nodes",
+        "population": 150,
+        "evaluation_cap": 22500,
+        "config": "NeatConfig::new(6,1,42), all defaults",
+        "objective": "maximize nonnegative training return",
+        "action": "2*sigmoid_output-1 is signed force fraction",
+        "recurrent": false
+      },
+      "accounting": "One training fitness call contains one episode. Training control steps count applied actions, including a failing final action. Final reporting adds one training and sixteen held-out episodes per selected policy; those are excluded from search counts.",
+      "heldout_policy": "Only final training-selected policies are evaluated; no held-out tuning or reselection",
+      "trace_selection": "Training start and held-out start_id 0, fixed before evaluation; action on each state row applies to the following state; final action is blank",
+      "limitations": "Single search seed, different architectures and unequal budgets. No equal-cost algorithm ranking. This is not a partial-observation/recurrent experiment or a reproduction of the 2002 paper's benchmark protocol."
+    },
+    "runs": [
+      {
+        "algorithm": "cma_es",
+        "seed": 42,
+        "batches": 53,
+        "fitness_evaluations": 1696,
+        "training_control_steps": 117031,
+        "training_valid_steps": 500.0,
+        "training_solved": true,
+        "heldout_mean_valid_steps": 500.0,
+        "heldout_min_valid_steps": 500.0,
+        "heldout_horizon_hits": 16,
+        "heldout_trials": 16,
+        "hidden_nodes": 4,
+        "enabled_connections": 33
+      },
+      {
+        "algorithm": "neat",
+        "seed": 42,
+        "batches": 9,
+        "fitness_evaluations": 1350,
+        "training_control_steps": 52831,
+        "training_valid_steps": 500.0,
+        "training_solved": true,
+        "heldout_mean_valid_steps": 259.375,
+        "heldout_min_valid_steps": 10.0,
+        "heldout_horizon_hits": 8,
+        "heldout_trials": 16,
+        "hidden_nodes": 1,
+        "enabled_connections": 9
+      }
+    ]
+  },
+  "walker": {
+    "protocol": {
+      "experiment": "original SpringWalker; no Gym BipedalWalker equivalence",
+      "algorithm": "CMA-ES, positive weights, full covariance, minimize negative mean return",
+      "seed": 42,
+      "population": 32,
+      "batches": 100,
+      "objective_evaluations": 3200,
+      "episodes_per_training_evaluation": 3,
+      "training_episode_horizon": 250,
+      "training_torso_x": [
+        -0.015,
+        0.0,
+        0.015
+      ],
+      "held_out_episode_horizon": 500,
+      "held_out_cases": [
+        "torso_x=-0.03",
+        "torso_x=0.03",
+        "torso_vx=-0.05",
+        "torso_vx=0.05",
+        "friction=0.6",
+        "friction=1.0"
+      ],
+      "held_out_cases_combined": false,
+      "extended_neutral_case": true,
+      "architecture": [
+        13,
+        4,
+        2
+      ],
+      "activations": [
+        "tanh",
+        "tanh"
+      ],
+      "parameter_count": 66,
+      "initial_mean": "all zero",
+      "initial_sigma": 0.5,
+      "initial_covariance": "identity",
+      "chosen_policy": "best evaluated sample on the three training starts only",
+      "zero_action_training_mean_return": -1.2826725799390277e-18,
+      "chosen_training_mean_return": 13.83338991586793,
+      "return_definition": "COM horizontal displacement - energy_cost * positive actuator work - fall_penalty if terminated",
+      "integration": "semi-implicit Euler; fixed substeps; capped dissipative friction impulse",
+      "control_dt_seconds": 0.02,
+      "physics_substeps_per_action": 20,
+      "masses_kg": [
+        1,
+        0.2,
+        0.2
+      ],
+      "gravity_m_per_s2": 9.81,
+      "leg_length_m": 1.1,
+      "foot_spacing_m": 1.2,
+      "leg_stiffness_N_per_m": 120,
+      "spacing_stiffness_N_per_m": 80,
+      "spring_damping_Ns_per_m": 2,
+      "actuation_fraction": 0.25,
+      "ground_stiffness_N_per_m": 2000,
+      "ground_damping_Ns_per_m": 20,
+      "training_friction": 0.8,
+      "torso_radius_m": 0.15,
+      "foot_radius_m": 0.06,
+      "energy_cost_m_per_J": 0.002,
+      "fall_penalty": 2,
+      "curves_include_extra_evaluations": false,
+      "hyperparameter_tuning_on_results": false,
+      "notes": "A single prespecified seed and budget, not a benchmark of optimizer reliability. Time-limit truncation is not success. Baseline and replay calls are outside the optimizer objective-call count. Final falling actions can contain fewer physics substeps; traces therefore index control steps, not inferred elapsed time.",
+      "initial_baseline_summary_episodes": 3,
+      "recorded_baseline_and_selected_replay_episodes": 20
+    },
+    "runs": [
+      {
+        "policy": "zero_action",
+        "split": "training_replay",
+        "case": "train_torso_x_minus_015",
+        "search_seed": 42,
+        "horizon": 250,
+        "friction": 0.8,
+        "initial_torso_x": -0.015,
+        "initial_torso_vx": 0.0,
+        "steps": 250,
+        "return": 0.011164781131182272,
+        "com_distance": 0.011164781131182272,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "training_replay",
+        "case": "train_torso_x_minus_015",
+        "search_seed": 42,
+        "horizon": 250,
+        "friction": 0.8,
+        "initial_torso_x": -0.015,
+        "initial_torso_vx": 0.0,
+        "steps": 250,
+        "return": 13.99535881901127,
+        "com_distance": 16.47450559914418,
+        "actuator_work": 1239.573390066453,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "training_replay",
+        "case": "train_neutral",
+        "search_seed": 42,
+        "horizon": 250,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 250,
+        "return": 0.0,
+        "com_distance": 0.0,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "training_replay",
+        "case": "train_neutral",
+        "search_seed": 42,
+        "horizon": 250,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 250,
+        "return": 13.873820452890863,
+        "com_distance": 16.34110644453453,
+        "actuator_work": 1233.6429958218325,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "training_replay",
+        "case": "train_torso_x_plus_015",
+        "search_seed": 42,
+        "horizon": 250,
+        "friction": 0.8,
+        "initial_torso_x": 0.015,
+        "initial_torso_vx": 0.0,
+        "steps": 250,
+        "return": -0.011164781131182272,
+        "com_distance": -0.011164781131182272,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "training_replay",
+        "case": "train_torso_x_plus_015",
+        "search_seed": 42,
+        "horizon": 250,
+        "friction": 0.8,
+        "initial_torso_x": 0.015,
+        "initial_torso_vx": 0.0,
+        "steps": 250,
+        "return": 13.630990475701706,
+        "com_distance": 16.00371957958837,
+        "actuator_work": 1186.3645519433294,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "extended",
+        "case": "neutral_500",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 0.0,
+        "com_distance": 0.0,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "extended",
+        "case": "neutral_500",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 35.34788288971808,
+        "com_distance": 40.52649638692608,
+        "actuator_work": 2589.306748603978,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "held_out",
+        "case": "torso_x_minus_03",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": -0.03,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 0.0205961499956175,
+        "com_distance": 0.0205961499956175,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "held_out",
+        "case": "torso_x_minus_03",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": -0.03,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 34.186907394225436,
+        "com_distance": 39.59804079059455,
+        "actuator_work": 2705.5666981845625,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "held_out",
+        "case": "torso_x_plus_03",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.03,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": -0.0205961499956175,
+        "com_distance": -0.0205961499956175,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "held_out",
+        "case": "torso_x_plus_03",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.03,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 29.413155541190413,
+        "com_distance": 34.565795667203446,
+        "actuator_work": 2576.320063006512,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "held_out",
+        "case": "torso_vx_minus_05",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": -0.05,
+        "steps": 500,
+        "return": -1.464706676779226e-06,
+        "com_distance": -1.464706676779226e-06,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "held_out",
+        "case": "torso_vx_minus_05",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": -0.05,
+        "steps": 500,
+        "return": 34.05412942454638,
+        "com_distance": 39.259333524894586,
+        "actuator_work": 2602.6020501740945,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "held_out",
+        "case": "torso_vx_plus_05",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.05,
+        "steps": 500,
+        "return": 1.464706676779226e-06,
+        "com_distance": 1.464706676779226e-06,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "held_out",
+        "case": "torso_vx_plus_05",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.8,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.05,
+        "steps": 500,
+        "return": 27.77954463198806,
+        "com_distance": 32.59356055580785,
+        "actuator_work": 2407.0079619099015,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "zero_action",
+        "split": "held_out",
+        "case": "friction_06",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.6,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 0.0,
+        "com_distance": 0.0,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "held_out",
+        "case": "friction_06",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 0.6,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 222,
+        "return": -2.569766965766527,
+        "com_distance": 0.536213984440515,
+        "actuator_work": 552.9904751035207,
+        "terminated": true,
+        "truncated": false
+      },
+      {
+        "policy": "zero_action",
+        "split": "held_out",
+        "case": "friction_10",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 1.0,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 0.0,
+        "com_distance": 0.0,
+        "actuator_work": 0.0,
+        "terminated": false,
+        "truncated": true
+      },
+      {
+        "policy": "selected",
+        "split": "held_out",
+        "case": "friction_10",
+        "search_seed": 42,
+        "horizon": 500,
+        "friction": 1.0,
+        "initial_torso_x": 0.0,
+        "initial_torso_vx": 0.0,
+        "steps": 500,
+        "return": 26.36439872420148,
+        "com_distance": 31.32224741462765,
+        "actuator_work": 2478.9243452130945,
+        "terminated": false,
+        "truncated": true
+      }
+    ],
+    "selected_heldout_falls": [
+      "friction_06"
+    ],
+    "selected_heldout_horizon_completions": 5,
+    "heldout_case_count": 6,
+    "foot_height_proxies": {
+      "neutral_500": {
+        "recorded_states_including_start": 501,
+        "left_fraction_at_or_below_foot_radius": 0.3932135728542914,
+        "right_fraction_at_or_below_foot_radius": 0.043912175648702596,
+        "interpretation": "Geometric center-height proxy at recorded control endpoints, not contact force or physical time fraction"
+      },
+      "friction_06": {
+        "recorded_states_including_start": 223,
+        "left_fraction_at_or_below_foot_radius": 0.8071748878923767,
+        "right_fraction_at_or_below_foot_radius": 0.04035874439461883,
+        "interpretation": "Geometric center-height proxy at recorded control endpoints, not contact force or physical time fraction"
+      }
+    }
+  },
+  "deep_ga_execution": {
+    "protocol": {
+      "task": "XOR, all four truth-table rows; no held-out set",
+      "network": [
+        2,
+        16,
+        16,
+        16,
+        1
+      ],
+      "activations": [
+        "tanh",
+        "tanh",
+        "tanh",
+        "sigmoid"
+      ],
+      "parameters": 609,
+      "algorithm": "Mutation-only DeepGa teaching variant; top-parent truncation and seeded dense Gaussian mutations",
+      "seed": 42,
+      "population": 64,
+      "parents": 16,
+      "elite_count": 1,
+      "initial_bound": 0.5,
+      "mutation_sigma": 0.1,
+      "batch_cap_including_initialization": 100,
+      "stop": "Best observed MSE <= 0.01",
+      "execution": [
+        "serial",
+        "Rayon1worker",
+        "Rayon4workers"
+      ],
+      "checked": "Every batch best-score bits, final seed genome, decoded weight bits, evaluation count match all three runs",
+      "payload": "8 bytes per seed versus 8 bytes per f64; excludes Vec metadata, allocation, network architecture/settings, and issued-batch copies",
+      "decode_cost": "O(dimensions * lineage_length); no shared prefix cache or noise table",
+      "timing": "One local demonstration trial per mode; includes search and curve logging, excludes final decoding/reporting. Not a controlled throughput benchmark.",
+      "limitations": "Small deep MLP, not Atari or large-model reproduction; CPU job-level parallelism, not SIMD, GPU, distributed execution, or batched tensors."
+    },
+    "runs": [
+      {
+        "mode": "serial",
+        "evaluations": 2304,
+        "batches": 36,
+        "best_mse": 0.0067768349015564005,
+        "mutations": 32,
+        "seed_payload_bytes": 264,
+        "dense_payload_bytes": 4872,
+        "wall_seconds": 0.659530101
+      },
+      {
+        "mode": "rayon_1",
+        "evaluations": 2304,
+        "batches": 36,
+        "best_mse": 0.0067768349015564005,
+        "mutations": 32,
+        "seed_payload_bytes": 264,
+        "dense_payload_bytes": 4872,
+        "wall_seconds": 0.67513399
+      },
+      {
+        "mode": "rayon_4",
+        "evaluations": 2304,
+        "batches": 36,
+        "best_mse": 0.0067768349015564005,
+        "mutations": 32,
+        "seed_payload_bytes": 264,
+        "dense_payload_bytes": 4872,
+        "wall_seconds": 0.210339601
+      }
+    ],
+    "recorded_curves_identical_across_modes": true,
+    "seed_to_dense_parameter_payload_ratio": 0.054187192118226604,
+    "payload_caveat": "Excludes Vec metadata, allocations, architecture/settings, issued copies, decoded weights, and other run state",
+    "timing_caveat": "One local trial per mode, not a controlled throughput benchmark or an inferred speedup"
+  }
+}

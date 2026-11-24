@@ -1,0 +1,307 @@
+   Compiling nevo-core v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03/nevo/crates/nevo-core)
+   Compiling nevo v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03/nevo/crates/nevo)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.82s
+     Running unittests src/lib.rs (target/debug/deps/nevo-bfa07202a1a8cfac)
+
+running 5 tests
+test algorithms::elitist::tests::insufficient_id_range_is_rejected_before_issuing_any_jobs ... ok
+test algorithms::elitist::tests::rounded_subnormal_samples_keep_the_upper_bound_exclusive ... ok
+test algorithms::elitist::tests::final_id_is_issued_once_then_exhaustion_is_reported ... ok
+test algorithms::es::tests::selected_offspring_keep_their_own_adapted_sigma_after_sorting ... ok
+test algorithms::nsga2::tests::mating_keeps_crowding_measured_before_front_truncation ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/classification.rs (target/debug/deps/classification-41512fc6febde64e)
+
+running 4 tests
+test classifier_averages_over_outputs_and_uses_stable_argmax_ties ... ok
+test optdigits_parser_checks_pixels_labels_and_shape ... ok
+test stratified_split_is_disjoint_complete_balanced_and_reproducible ... ok
+test bundled_dataset_has_expected_domain_and_reproducible_teaching_split ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/cma_openai.rs (target/debug/deps/cma_openai-3882c6d936955175)
+
+running 14 tests
+test invalid_gaussian_search_configs_are_rejected ... ok
+test openai_rank_ties_have_no_artificial_gradient_including_signed_zero ... ok
+test cma_supports_one_dimension_and_two_offspring ... ok
+test invalid_results_do_not_change_distributions_best_or_accounting ... ok
+test cma_first_generation_matches_positive_weight_equations_including_odd_population ... ok
+test both_algorithms_reject_protocol_violations ... ok
+test cma_objective_direction_and_seeded_replay_are_consistent ... ok
+test openai_raw_linear_update_matches_the_sampled_gradient_and_objective_direction ... ok
+test raw_es_reports_numeric_overflow_without_committing_a_mean ... ok
+test openai_centered_ranks_are_invariant_to_positive_affine_score_changes ... ok
+test openai_samples_mirrored_pairs_with_common_evaluation_seeds ... ok
+test cma_adapts_a_full_symmetric_positive_covariance_on_a_rotated_problem ... ok
+test cma_reduces_sphere_loss_across_fixed_seeds ... ok
+test openai_replays_and_moves_toward_the_sphere_minimum ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/control.rs (target/debug/deps/control-9c08f9b6f3152737)
+
+running 28 tests
+test cart_pole_actions_select_discrete_directions_not_force_magnitude ... ok
+test cart_pole_matches_classic_zero_state_acceleration_and_explicit_euler ... ok
+test cart_pole_checks_actions_and_rejects_bad_states_without_mutation ... ok
+test cart_pole_failure_reward_and_horizon_are_explicit ... ok
+test cart_pole_seeded_resets_are_reproducible_and_use_explicit_randomness ... ok
+test double_pole_one_step_matches_independent_rk4_reference ... ok
+test double_pole_reflects_state_and_force_symmetrically ... ok
+test double_pole_positions_only_does_not_leak_velocity_information ... ok
+test double_pole_upright_equilibrium_and_known_force_have_correct_units ... ok
+test environments_reject_invalid_physical_configurations ... ok
+test mlp_control_tasks_have_declared_dimensions_and_reject_bad_suites ... ok
+test numerical_failure_does_not_commit_a_cart_or_double_pole_step ... ok
+test recorded_rollout_preserves_policy_errors_and_exact_horizon ... ok
+test double_pole_zero_action_survival_counts_valid_endpoints ... ok
+test spring_robot_ground_force_has_correct_units_and_never_pulls_down ... ok
+test spring_robot_ground_friction_reduces_slide_without_reversing_it ... ok
+test spring_robot_observation_is_translation_invariant_and_has_thirteen_values ... ok
+test spring_robot_internal_forces_are_equal_and_opposite ... ok
+test mlp_task_objective_is_negative_mean_of_independent_episode_returns ... ok
+test double_pole_rk4_error_decreases_when_substeps_are_halved ... ok
+test spring_robot_positive_actuator_work_is_charged_and_zero_action_is_free ... ok
+test spring_robot_invalid_actions_do_not_change_the_state ... ok
+test spring_robot_reset_clears_energy_and_repeats_seeded_state ... ok
+test spring_robot_unstretched_springs_at_rest_exert_no_internal_force ... ok
+test spring_robot_has_no_horizontal_propulsion_without_ground ... ok
+test spring_robot_symmetric_actions_preserve_left_right_symmetry ... ok
+test spring_robot_smaller_substeps_reduce_short_trajectory_error ... ok
+test spring_robot_bounded_changing_actions_stay_numerically_valid ... ok
+
+test result: ok. 28 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/deep_ga.rs (target/debug/deps/deep_ga-c47db6cabfab703f)
+
+running 10 tests
+test invalid_parent_elite_and_dimension_configurations_are_rejected ... ok
+test exact_ties_keep_issue_order_and_the_earliest_best_record ... ok
+test encoding_matches_an_independent_three_coordinate_reference ... ok
+test reevaluated_elites_do_not_bypass_current_scores_or_truncation ... ok
+test malformed_complete_batches_cannot_commit_or_release_pending_work ... ok
+test truncation_keeps_the_best_parents_for_both_objective_directions ... ok
+test zero_scale_replays_initialization_and_invalid_settings_or_overflow_fail ... ok
+test a_late_invalid_score_leaves_existing_parents_and_best_unchanged ... ok
+test replay_preserves_every_job_history_seed_and_selected_state ... ok
+test several_seeded_sphere_runs_improve_with_equal_evaluation_budgets ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.89s
+
+     Running tests/elitist.rs (target/debug/deps/elitist-ea8573d8474eec71)
+
+running 12 tests
+test changed_seed_or_input_is_rejected_even_when_it_has_the_best_score ... ok
+test a_complete_seeded_run_replays_candidates_seeds_results_and_accounting ... ok
+test equal_scores_keep_earliest_initial_candidate_then_the_incumbent ... ok
+test duplicate_unknown_and_reordered_ids_are_rejected_without_a_commit ... ok
+test missing_and_extra_results_are_rejected_without_a_commit ... ok
+test minimization_and_maximization_retain_the_correct_unchanged_candidate ... ok
+test evaluation_seed_stream_is_independent_of_candidate_dimension ... ok
+test nonfinite_scores_do_not_replace_the_incumbent_or_advance_accounting ... ok
+test invalid_population_and_numeric_ranges_are_rejected ... ok
+test protocol_rejects_select_before_generate_and_overlapping_batches ... ok
+test offspring_mutate_the_selected_parent_with_fresh_ids_and_bounded_offsets ... ok
+test sphere_search_improves_across_fixed_seeds_without_claiming_a_convergence_rate ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/foundations_tasks.rs (target/debug/deps/foundations_tasks-72ea85eaa3bfc971)
+
+running 3 tests
+test rastrigin_known_values_and_domains ... ok
+test xor_decodes_and_scores_a_known_solution ... ok
+test zdt1_known_values_and_domains ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/ga_es.rs (target/debug/deps/ga_es-8f5d966a824cb1d1)
+
+running 14 tests
+test invalid_ga_and_es_configurations_are_rejected_before_a_run ... ok
+test gaussian_mutation_uses_a_normal_deviate_and_can_be_disabled_without_rng_draws ... ok
+test ga_allows_operator_ablation_and_keeps_signed_zero_ties_in_issue_order ... ok
+test ga_and_es_reject_complete_batch_protocol_violations ... ok
+test ga_selects_the_expected_current_population_and_copies_elites_with_fresh_ids ... ok
+test operators_reject_invalid_inputs_and_mutation_failure_keeps_the_input ... ok
+test tournament_returns_an_original_index_and_obeys_both_directions ... ok
+test uniform_crossover_inherits_the_selected_parent_coordinate_without_averaging ... ok
+test es_respects_explicit_sigma_bounds_and_never_drops_strategy_state ... ok
+test ga_and_es_replay_their_complete_seeded_runs ... ok
+test late_invalid_results_do_not_change_ga_or_es_selected_state ... ok
+test same_seed_ga_and_es_have_identical_initial_jobs ... ok
+test es_comma_replacement_forgets_even_better_old_parents_but_keeps_best_reporting ... ok
+test ga_and_es_improve_sphere_over_multiple_seeds_at_the_same_evaluation_budget ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.24s
+
+     Running tests/ges.rs (target/debug/deps/ges-1575d2b60e6693f4)
+
+running 4 tests
+test fixture_rejects_a_second_generate_while_results_are_pending ... ok
+test fixture_validates_before_committing_selection ... ok
+test invalid_sphere_input_does_not_select_in_the_algorithm ... ok
+test sphere_runs_through_the_entire_ges_protocol ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/multiobjective.rs (target/debug/deps/multiobjective-d8ee5a0b0b12cc4d)
+
+running 11 tests
+test nondominated_sort_matches_four_hand_calculated_fronts_with_duplicates ... ok
+test dominance_requires_one_strict_improvement_and_supports_mixed_directions ... ok
+test crowding_matches_normalized_neighbor_gaps_and_ignores_constant_objectives ... ok
+test crowding_handles_extreme_and_subnormal_objective_ranges ... ok
+test nsga2_rejects_invalid_configuration ... ok
+test pareto_primitives_reject_invalid_shapes_and_values ... ok
+test nsga2_issues_only_fresh_offspring_and_caches_retained_parent_scores ... ok
+test nsga2_keeps_best_combined_fronts_with_mixed_objective_directions ... ok
+test nsga2_rejects_malformed_batches_without_mutating_state_or_consuming_pending_work ... ok
+test nsga2_seeded_replay_and_clipping_preserve_configured_bounds ... ok
+test nsga2_approaches_zdt1_tradeoff_front_across_fixed_seeds ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+
+     Running tests/neat_genome.rs (target/debug/deps/neat_genome-f73e1a2d947d7385)
+
+running 12 tests
+test largest_remainders_preserve_budget_sharing_and_all_zero_fallback ... ok
+test equality_checks_weight_bits_and_network_arithmetic_fails_explicitly ... ok
+test crossover_preserves_first_historical_id_for_duplicate_endpoint_pairs ... ok
+test compatibility_matches_hand_calculated_excess_disjoint_and_disabled_weight_terms ... ok
+test crossover_guards_cycles_created_by_dag_union_or_reenabling ... ok
+test crossover_uses_homology_fitter_unmatched_genes_and_disabled_inheritance ... ok
+test add_connection_respects_roles_duplicates_cycles_and_transactional_validation ... ok
+test innovations_deduplicate_within_a_generation_and_remain_global_across_generations ... ok
+test validation_rejects_bad_identity_endpoints_weights_and_enabled_cycles ... ok
+test minimal_graph_uses_shared_ids_bias_and_checked_stateless_execution ... ok
+test node_split_preserves_historical_gene_and_uses_one_then_original_weight ... ok
+test mutation_is_replayable_and_preserves_valid_histories ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/neat_search.rs (target/debug/deps/neat_search-741bf572f1f078ba)
+
+running 9 tests
+test invalid_neat_configuration_is_rejected_before_search ... ok
+test finite_extreme_fitness_does_not_overflow_sharing ... ok
+test proportional_species_quotas_use_raw_nonnegative_fitness ... ok
+test sharing_uses_species_means_before_culling_not_species_fitness_sums ... ok
+test initialization_is_minimal_and_fresh_work_includes_species_champions ... ok
+test species_ids_persist_and_stagnation_protects_the_current_champions_species ... ok
+test malformed_selection_keeps_all_state_and_pending_work_unchanged ... ok
+test seeded_replay_preserves_structure_species_and_evaluation_counts ... ok
+test declared_seed_and_budget_evolve_hidden_structure_for_xor ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.09s
+
+     Running tests/neural.rs (target/debug/deps/neural-f2f1e384a0b75cda)
+
+running 24 tests
+test attention_checks_matrix_shapes_and_nonfinite_values ... ok
+test attention_uses_sqrt_dimension_scaling_and_stable_softmax ... ok
+test failed_gradient_step_leaves_parameters_unchanged ... ok
+test convolution_is_cross_correlation_without_kernel_reversal ... ok
+test causal_attention_masks_future_values_and_renormalizes_each_prefix ... ok
+test analytic_backprop_matches_central_finite_differences ... ok
+test convolution_rejects_ragged_oversized_and_overflowing_inputs ... ok
+test gradient_step_returns_pre_step_loss_and_changes_parameters_correctly ... ok
+test layer_norm_uses_population_variance_and_handles_constant_vectors ... ok
+test lstm_gate_encoding_and_state_checks_are_explicit ... ok
+test mlp_flat_encoding_and_affine_forward_have_known_values ... ok
+test mlp_rejects_bad_inputs_and_affine_overflow ... ok
+test mse_and_gradient_average_over_examples_and_output_coordinates ... ok
+test neural_shapes_and_nonfinite_parameters_are_rejected ... ok
+test parameter_replacement_is_validated_before_mutation ... ok
+test relu_gradient_uses_zero_derivative_at_the_kink ... ok
+test rnn_propagates_explicit_state_according_to_tanh_recurrence ... ok
+test sigmoid_is_stable_for_large_positive_and_negative_inputs ... ok
+test sinusoidal_positions_match_known_even_and_odd_coordinates ... ok
+test supervised_data_requires_nonempty_matching_finite_examples ... ok
+test uniform_attention_returns_value_means ... ok
+test zero_lstm_gates_have_a_hand_computable_memory_update ... ok
+test transformer_block_preserves_shape_and_causal_prefix_independence ... ok
+test zero_transformer_sublayers_still_pass_through_normalized_residuals ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/parallel.rs (target/debug/deps/parallel-c1e1e1cd4206c3bf)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/sphere.rs (target/debug/deps/sphere-b3808f9da8c352f3)
+
+running 16 tests
+test doubling_coordinates_quadruples_objective ... ok
+test deterministic_evaluation_ignores_seed ... ok
+test floating_point_underflow_is_documented_not_hidden_by_an_epsilon ... ok
+test evaluates_mixed_sign_coordinates ... ok
+test matches_integer_reference_for_64_deterministic_points ... ok
+test initialization_bounds_do_not_restrict_the_objective ... ok
+test ones_have_objective_equal_to_dimension ... ok
+test origin_has_zero_objective ... ok
+test rejects_accumulation_overflow ... ok
+test rejects_nan_and_both_infinities ... ok
+test rejects_square_overflow ... ok
+test rejects_wrong_lengths_including_empty_input ... ok
+test rejects_zero_dimensions ... ok
+test reports_configured_dimension ... ok
+test sign_reversal_does_not_change_objective ... ok
+test supports_arrays_slices_and_vectors_without_changing_inputs ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/target_reach.rs (target/debug/deps/target_reach-9f22b12896be29cd)
+
+running 6 tests
+test invalid_tasks_and_genomes_are_errors ... ok
+test nonfinite_arithmetic_is_not_hidden_by_activation_saturation ... ok
+test evaluation_matches_recorded_episodes_and_resets_each_trial ... ok
+test symmetric_controller_produces_mirrored_trajectories ... ok
+test one_step_agrees_with_the_published_equations ... ok
+test zero_controller_is_the_no_action_baseline ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/nevo_core-36f85ef9126c230d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/protocol.rs (target/debug/deps/protocol-4fe44f097b65f330)
+
+running 9 tests
+test duplicate_ids_fail_before_any_evaluation ... ok
+test empty_batch_is_an_error_not_termination ... ok
+test distinct_trials_can_share_the_same_seed ... ok
+test generate_error_skips_evaluation_and_select ... ok
+test evaluation_error_never_delivers_a_partial_selection ... ok
+test job_ids_have_readable_error_messages ... ok
+test local_non_clone_inputs_and_structured_outputs_are_supported ... ok
+test select_error_preserves_its_source ... ok
+test step_preserves_inputs_ids_seeds_and_submission_order ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nevo
+
+running 2 tests
+test crates/nevo/src/lib.rs - (line 8) ... ok
+test crates/nevo/src/nn/mlp.rs - nn::mlp::Mlp (line 72) ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nevo_core
+
+running 1 test
+test crates/nevo-core/src/lib.rs - Job (line 33) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

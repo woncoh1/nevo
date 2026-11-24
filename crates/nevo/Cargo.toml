@@ -6,10 +6,19 @@ rust-version.workspace = true
 publish.workspace = true
 description = "Composable neuroevolution building blocks"
 
+[features]
+default = []
+parallel = ["dep:rayon"]
+
 [dependencies]
 nevo-core = { path = "../nevo-core" }
 rand_chacha = "=0.9.0"
 nalgebra = { version = "=0.33.2", default-features = false, features = ["std"] }
+rayon = { version = "=1.10.0", optional = true }
+
+[[example]]
+name = "ch03_parallel"
+required-features = ["parallel"]
 
 [lints]
 workspace = true

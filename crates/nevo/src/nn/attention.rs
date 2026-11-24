@@ -1,5 +1,110 @@
 use super::{Activation, Mlp, NnError, check_finite, check_len, dense_count, finite, matrix_shape};
 
+/// Convert a nonempty finite vector of logits to probabilities.
+///
+/// Subtracting the largest logit before exponentiation avoids positive
+/// overflow and leaves the mathematical softmax unchanged. Very small
+/// probabilities may underflow to zero. This is Chapter 2, equation 2.26;
+/// it does not change the MLP's existing sigmoid/MSE classification convention.
+pub fn softmax(logits: &[f64]) -> Result<Vec<f64>, NnError> {
+    if logits.is_empty() {
+        return Err(NnError::InvalidShape("softmax input cannot be empty"));
+    }
+    check_finite(logits, "softmax logits")?;
+    let maximum = logits.iter().copied().fold(f64::NEG_INFINITY, f64::max);
+    let mut probabilities: Vec<f64> = logits.iter().map(|value| (value - maximum).exp()).collect();
+    let denominator: f64 = probabilities.iter().sum();
+    for probability in &mut probabilities {
+        *probability /= denominator;
+    }
+    Ok(probabilities)
+}
+
+/// Multi-head values and each head's query-to-key probability matrix.
+#[derive(Clone, Debug, PartialEq)]
+pub struct MultiHeadAttentionOutput {
+    /// Concatenated head outputs after the output projection: `[queries, output_width]`.
+    pub values: Vec<Vec<f64>>,
+    /// Attention probabilities: `[heads, queries, keys]`.
+    pub weights: Vec<Vec<Vec<f64>>>,
+}
+
+/// Attend in separate feature subspaces, concatenate, then apply `W_o`.
+///
+/// Queries, keys and values are **already projected** by the caller. Each row's
+/// features contain `heads` equal contiguous slices; query/key widths match,
+/// while the value width may differ. Each head scales its scores by the square
+/// root of its own key width. `output_projection` is a row-major matrix of
+/// shape `[total_value_width, output_width]`, with no implicit bias.
+///
+/// This implements Chapter 2, equation 2.29, as a composable forward operation.
+/// Separate query and key sequences support cross-attention. Causal mode
+/// requires aligned query/key rows and masks future keys within every head.
+/// Q/K/V projections, embeddings, a full decoder, and training are caller-owned.
+pub fn multi_head_attention(
+    queries: &[Vec<f64>],
+    keys: &[Vec<f64>],
+    values: &[Vec<f64>],
+    heads: usize,
+    output_projection: &[Vec<f64>],
+    causal: bool,
+) -> Result<MultiHeadAttentionOutput, NnError> {
+    let (query_count, query_width) = matrix_shape(queries, "multi-head queries")?;
+    let (key_count, key_width) = matrix_shape(keys, "multi-head keys")?;
+    let (value_count, value_width) = matrix_shape(values, "multi-head values")?;
+    let (projection_rows, output_width) =
+        matrix_shape(output_projection, "attention output projection")?;
+    if heads == 0 || query_width % heads != 0 || value_width % heads != 0 {
+        return Err(NnError::InvalidShape(
+            "attention widths must divide into a positive number of heads",
+        ));
+    }
+    if query_width != key_width || key_count != value_count || projection_rows != value_width {
+        return Err(NnError::InvalidShape(
+            "multi-head query/key widths, key/value rows and projection rows must match",
+        ));
+    }
+    if causal && query_count != key_count {
+        return Err(NnError::InvalidShape(
+            "causal attention needs aligned query and key rows",
+        ));
+    }
+    let key_head_width = key_width / heads;
+    let value_head_width = value_width / heads;
+    let mut concatenated = vec![Vec::with_capacity(value_width); query_count];
+    let mut weights = Vec::with_capacity(heads);
+    for head in 0..heads {
+        let slice = |matrix: &[Vec<f64>], width: usize| {
+            matrix
+                .iter()
+                .map(|row| row[head * width..(head + 1) * width].to_vec())
+                .collect::<Vec<_>>()
+        };
+        let attended = scaled_dot_product_attention(
+            &slice(queries, key_head_width),
+            &slice(keys, key_head_width),
+            &slice(values, value_head_width),
+            causal,
+        )?;
+        for (row, head_values) in concatenated.iter_mut().zip(attended.values) {
+            row.extend(head_values);
+        }
+        weights.push(attended.weights);
+    }
+    let mut output = vec![vec![0.0; output_width]; query_count];
+    for (row, head_values) in output.iter_mut().zip(concatenated) {
+        for (&value, projection) in head_values.iter().zip(output_projection) {
+            for (coordinate, &weight) in row.iter_mut().zip(projection) {
+                *coordinate = finite(*coordinate + value * weight, "multi-head output projection")?;
+            }
+        }
+    }
+    Ok(MultiHeadAttentionOutput {
+        values: output,
+        weights,
+    })
+}
+
 /// Outputs and attention weights from a scaled dot-product attention operation.
 #[derive(Clone, Debug, PartialEq)]
 pub struct AttentionOutput {

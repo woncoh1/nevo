@@ -1,0 +1,26 @@
+{
+  "review_date": "2026-11-24",
+  "note": "Source PDFs retained outside the project; no textbook content bundled.",
+  "sources": [
+    {
+      "filename": "ne_book-0(1).pdf",
+      "bytes": 1689489,
+      "sha256": "826687cad892547eab9642763d48a8e02f2375514002dbb7b25512885c9e5b45"
+    },
+    {
+      "filename": "ne_book-1(1).pdf",
+      "bytes": 1365191,
+      "sha256": "200a6f55e6ac8edaf9581634d7dbfa341fda9e54f8930dbaabdb59c714497fa6"
+    },
+    {
+      "filename": "ne_book-2(1).pdf",
+      "bytes": 3607103,
+      "sha256": "57f85b6150425e24c2bbae7483bc550593acb3af96f372697a8726fe0ca6be37"
+    },
+    {
+      "filename": "ne_book-3(1).pdf",
+      "bytes": 1469319,
+      "sha256": "aa1585844108b127b3301cb657aa93bf1b32cbc62c39ebcfa47d8cd27109ca1a"
+    }
+  ]
+}

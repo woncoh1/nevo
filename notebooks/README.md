@@ -7,8 +7,9 @@ solutions or copies of the textbook.
 
 | Notebook | Contents |
 | --- | --- |
-| [Chapter 1](ch01_introduction.ipynb) | Evolve a three-gene controller, then inspect learning and held-out trajectories. |
-| [Chapter 2](ch02_foundations.ipynb) | GES, four scalar searches, multi-seed results, NSGA-II/ZDT1, MLP gradients, XOR, recurrence, convolution and attention. |
+| [Chapter 1](ch01_introduction.ipynb) | Evolve a three-gene controller, inspect held-out trajectories, then run the 100/20/80 GA population companion. |
+| [Chapter 2](ch02_foundations.ipynb) | GES, original four scalar searches, DE and ES modes, NSGA-II/ZDT1, MLP/XOR, recurrence, pooling/softmax and single/multi-head attention. |
+| [Chapter 3](ch03_neuroevolution.ipynb) | NEAT structure/GES, genuine Optdigits classification, control/held-out trials, spring-robot replay, seed encoding and parallel Deep GA. |
 
 ## Run interactively
 
@@ -40,9 +41,10 @@ a newer compiler, so the commands above use the `stable` toolchain for notebook
 execution. The recorded validation used **Evcxr 0.15.1 and Rust 1.85.1**; see
 [VALIDATION.md](../VALIDATION.md) for the tested versions.
 
-Both notebooks pin Plotters 0.3.7 with `evcxr` and `line_series` features. The
+All three notebooks pin Plotters 0.3.7 with `evcxr` and `line_series` features. The
 Chapter 2 notebook also declares rand_chacha 0.9.0 to reproduce independent
-initialization stream 2. These notebook dependencies do not add plotting tools
+initialization stream 2. Chapter 3 enables `nevo`'s `parallel` feature and
+pins Rayon 1.10.0 for an explicitly sized four-worker pool. These notebook dependencies do not add plotting tools
 to the library dependency graph. Notebook package resolution uses Evcxr's
 separate generated Cargo project; the workspace lockfile controls Cargo builds
 of the repository itself.
@@ -67,10 +69,37 @@ ZDT1 uses 30 genes and 12,800 evaluations. XOR stops at MSE at most 0.001 or its
 budget cap; evolutionary evaluations and gradient steps are different work
 units. The notebook states these distinctions alongside the plots.
 
-Chapter 1 still uses 3,200 search evaluations, each with four 80-step episodes.
+Chapter 1's original demo uses 3,200 search evaluations, each with four 80-step episodes.
+The appended population companion uses another 3,200 calls with the same task
+and independently reports its held-out loss. Chapter 2's appended DE/fixed-ES
+cells add three runs of 6,400 calls each, plus hand-computed neural operations.
 Its baseline, held-out loss and trajectory recording are additional diagnostics.
 Held-out starts are not used for selection. See the respective result folders
 for exact configurations and interpretation.
+
+## Chapter 3 data and work budgets
+
+The notebook uses the bundled attributed Optdigits CSV and reads the committed
+Chapter 3 experiment records. Its live computations include:
+
+- Feedforward NEAT XOR, seed 1, population 150, at most 300 selected batches.
+- GA classification, seed 0, 80 batches × 64 fitness calls × 600 training images.
+- GA CartPole, seed 0, three training starts, stop at full training horizon or
+  60 batches, then evaluate 20 held-out starts.
+- Replay the saved spring-robot parameters at neutral and held-out low friction.
+- Deep GA on a 609-parameter MLP, seed 42, serial and four-worker runs checked
+  for identical outcomes, with at most 100 batches × 64 candidates.
+
+The full CLI experiments additionally include ten XOR seeds, three classifier
+seeds per method, GA/ES CartPole, full-state double-pole, and the spring-robot
+search. Commands and work accounting are in
+[the Chapter 3 results report](../book/results/ch03/README.md). Training calls,
+reporting passes and held-out episodes are separate quantities. No reported
+holdout score selected the saved policies or their stopping points.
+
+All inline notebook charts use Rust Plotters. Optional static report figures
+can be regenerated with the separate Python plotting script; this does not
+replace any Rust search or evaluation.
 
 ## Headless execution
 
@@ -79,10 +108,11 @@ After installing the kernel and nbconvert:
 ```bash
 python -m pip install nbconvert
 cd notebooks
-rustup run stable jupyter nbconvert --to notebook --execute --inplace ch02_foundations.ipynb --ExecutePreprocessor.timeout=600
+rustup run stable jupyter nbconvert --to notebook --execute --inplace ch03_neuroevolution.ipynb --ExecutePreprocessor.timeout=600
 ```
 
-Replace the filename with `ch01_introduction.ipynb` to run Chapter 1. The
+Replace the filename with `ch01_introduction.ipynb` or `ch02_foundations.ipynb`
+to run an earlier chapter. The
 command-line examples provide an alternative when Jupyter is unnecessary.
 
 ## References
@@ -90,3 +120,5 @@ command-line examples provide an alternative when Jupyter is unnecessary.
 - [Evcxr installation and usage](https://github.com/evcxr/evcxr/blob/main/evcxr_jupyter/README.md)
 - [Plotters 0.3.7](https://docs.rs/plotters/0.3.7/plotters/)
 - [Chapter 2 explanations and method references](../book/ch02_foundations.md)
+
+- [Chapter 3 explanations and method references](../book/ch03_neuroevolution.md)

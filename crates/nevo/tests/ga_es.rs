@@ -374,7 +374,7 @@ fn invalid_ga_and_es_configurations_are_rejected_before_a_run() {
     config.initial_bound = f64::MAX;
     assert!(Ga::new(config).is_err());
     let mut config = es_config(Objective::Minimize);
-    config.parents = config.population;
+    config.parents = config.population + 1;
     assert!(Es::new(config).is_err());
     let mut config = es_config(Objective::Minimize);
     config.sigma_min = config.initial_sigma * 2.0;
