@@ -4,3 +4,7 @@
 .DS_Store
 
 /results/
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
