@@ -153,7 +153,12 @@ mlp_control_task!(
     ///
     /// Four state inputs and one signed action; hidden width 4 gives 25 genes.
     /// Reward follows classic Gym's per-action +1 convention, including failure.
-    CartPoleTask, CartPole, CartPoleConfig, CartPoleState, |_: &CartPoleConfig| 4, 1
+    CartPoleTask,
+    CartPole,
+    CartPoleConfig,
+    CartPoleState,
+    |_: &CartPoleConfig| 4,
+    1
 );
 
 mlp_control_task!(
@@ -163,8 +168,12 @@ mlp_control_task!(
     /// continuous-force output. A position-only MLP has no recurrent memory.
     /// The objective counts valid control endpoints, not the historical
     /// non-Markov benchmark's oscillation/generalization scoring protocol.
-    DoublePoleTask, DoublePole, DoublePoleConfig, DoublePoleState,
-    |config: &DoublePoleConfig| config.observation.dimensions(), 1
+    DoublePoleTask,
+    DoublePole,
+    DoublePoleConfig,
+    DoublePoleState,
+    |config: &DoublePoleConfig| config.observation.dimensions(),
+    1
 );
 
 mlp_control_task!(
@@ -173,6 +182,10 @@ mlp_control_task!(
     /// Thirteen observations and two rest-length actions; hidden width 4 gives
     /// 66 parameters. Reward combines centre-of-mass displacement, positive
     /// actuator-work cost, and falling penalty. It is not BipedalWalker reward.
-    SpringWalkerTask, SpringWalker, SpringWalkerConfig, SpringWalkerState,
-    |_: &SpringWalkerConfig| 13, 2
+    SpringWalkerTask,
+    SpringWalker,
+    SpringWalkerConfig,
+    SpringWalkerState,
+    |_: &SpringWalkerConfig| 13,
+    2
 );

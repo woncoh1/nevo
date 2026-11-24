@@ -163,7 +163,7 @@ fn one_plus_one_fixed_es_keeps_incumbent_until_strict_improvement() {
         let child = search.generate().unwrap();
         assert_eq!(child.len(), 1);
         search.select(score(child, &[worse_or_equal])).unwrap();
-        assert_eq!(search.parents(), [incumbent.clone()]);
+        assert_eq!(search.parents(), std::slice::from_ref(&incumbent));
     }
     let child = search.generate().unwrap();
     let improved = child[0].clone();
