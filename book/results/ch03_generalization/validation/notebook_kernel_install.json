@@ -1,0 +1,8 @@
+{
+  "release": "v0.22.0",
+  "published_at": "2026-08-18T05:57:14Z",
+  "release_url": "https://github.com/evcxr/evcxr/releases/tag/v0.22.0",
+  "asset_url": "https://github.com/evcxr/evcxr/releases/download/v0.22.0/evcxr_jupyter-v0.22.0-x86_64-unknown-linux-gnu.tar.gz",
+  "asset_sha256": "c4c9ffa198d79e2e21518061567f1661c452c44702a09fcb5123fdcaeda0af7a",
+  "upstream_digest": "sha256:c4c9ffa198d79e2e21518061567f1661c452c44702a09fcb5123fdcaeda0af7a"
+}

@@ -9,7 +9,7 @@ textbook or official exercise solutions.
 | --- | --- | --- | --- |
 | 1 · Introduction | [Neural controller](ch01_introduction.md) | [Rust notebook](../notebooks/ch01_introduction.ipynb) | [Run data](results/ch01/) |
 | 2 · Foundations | [Evolutionary and neural building blocks](ch02_foundations.md) | [Rust notebook](../notebooks/ch02_foundations.ipynb) | [Experiments](results/ch02/README.md) |
-| 3 · Neuroevolution | [Topology, control and scaling](ch03_neuroevolution.md) | [Rust notebook](../notebooks/ch03_neuroevolution.ipynb) | [Experiments and failures](results/ch03/README.md) |
+| 3 · Neuroevolution | [Topology, control and scaling](ch03_neuroevolution.md) | [Rust notebook](../notebooks/ch03_neuroevolution.ipynb) | [Controlled generalization](results/ch03_generalization/README.md) · [historical experiments](results/ch03/README.md) |
 
 The supplied full Chapters 1–3 were reviewed on 2026-11-24. See the
 [source audit](source-audit-ch01-ch03.md) and [new example records](results/pdf_review/README.md).

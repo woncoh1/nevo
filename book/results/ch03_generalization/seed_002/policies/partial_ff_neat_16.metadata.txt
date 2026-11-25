@@ -1,0 +1,8 @@
+mode=FeedForward
+encoding=NeatGenome
+inputs=3
+outputs=1
+activation=Sigmoid4.9
+action=2*output-1
+selected_job_id=603
+selected_batch=10

@@ -1,0 +1,73 @@
+{
+  "cells": 39,
+  "code_cells": 22,
+  "execution_counts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "errors": 0,
+  "executed_all": true,
+  "fresh_svg_figures": [
+    {
+      "cell_index": 8,
+      "mime": "text/html",
+      "sha256": "b76aab0ed2e29f56f129e14d6e9963be67771cc80afa164bd589c587ef36c6b9",
+      "bytes": 36243
+    },
+    {
+      "cell_index": 12,
+      "mime": "text/html",
+      "sha256": "2d1142cfafcfaa4e2accb3857cb72561f0ff071da8c28d35544bb18be7673a85",
+      "bytes": 57510
+    },
+    {
+      "cell_index": 18,
+      "mime": "text/html",
+      "sha256": "cb7134f835a330e494d14d535b0e71afae31af3558d2c06d96d03e8f009434d4",
+      "bytes": 60435
+    },
+    {
+      "cell_index": 27,
+      "mime": "text/html",
+      "sha256": "5b802c2c5464cdd0b205e6e24bc2c0cebe3c512f45edc8261fafb440d2658aad",
+      "bytes": 14800
+    },
+    {
+      "cell_index": 33,
+      "mime": "text/html",
+      "sha256": "e0cb21e27f79e61a3461a9c5ae9db27b87f50b97c5d8f1d378eac311c54af692",
+      "bytes": 20134
+    }
+  ],
+  "saved_topology_svg_in_markdown": true,
+  "toolchain": "Rust1.100.0",
+  "kernel": "Evcxr0.22.0",
+  "live_extra_episodes": {
+    "small_recurrent_training": 384,
+    "two_trial_diagnostics": 6,
+    "saved_recurrent_replay": 1
+  },
+  "historical_live_figures_unchanged": 4,
+  "historical_live_figures_compared": 4,
+  "new_plot_visual_qa": "Final SVG independently rendered with MuPDF/PyMuPDF and visually inspected: titles, axis labels, ticks and all categories are readable; Inkscape/Pango glyph-positioning warnings were renderer-specific."
+}

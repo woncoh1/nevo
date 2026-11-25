@@ -1,0 +1,123 @@
+/workspace/scratch/a2689e927bb8/.rust-toolchain-local/notebook-python/jupyter_client/localinterfaces.py:58: UserWarning: Unexpected error discovering local network interfaces: [Errno 1] Operation not permitted
+  ret = f(**kwargs)
+No configuration file found, use the default configuration
+   Compiling autocfg v1.5.1
+   Compiling zerocopy v0.8.64
+   Compiling paste v1.0.15
+   Compiling bytemuck v1.25.2
+   Compiling rawpointer v0.2.1
+   Compiling either v1.19.0
+   Compiling safe_arch v0.7.4
+   Compiling rand_core v0.9.5
+   Compiling typenum v1.20.1
+   Compiling matrixmultiply v0.3.11
+   Compiling wide v0.7.33
+   Compiling approx v0.5.1
+   Compiling plotters v0.3.7
+   Compiling rayon v1.10.0
+   Compiling simba v0.9.1
+   Compiling rand_chacha v0.9.0
+   Compiling nalgebra v0.33.2
+   Compiling nevo v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/crates/nevo)
+{
+  "input": "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/notebooks/ch03_neuroevolution.ipynb",
+  "output": "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/notebooks/ch03_neuroevolution.executed.ipynb",
+  "code_cells": 22,
+  "execution_counts": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "output_types": [
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "execute_result",
+    "execute_result",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "execute_result",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "execute_result",
+    "stream",
+    "execute_result",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "execute_result",
+    "stream",
+    "stream",
+    "stream",
+    "stream",
+    "execute_result",
+    "stream",
+    "stream",
+    "stream"
+  ]
+}

@@ -1,0 +1,17 @@
+No configuration file found, use the default configuration
+CellExecutionError
+[
+  {
+    "output_type": "error",
+    "ename": "Error",
+    "evalue": "The variable `recurrent_rows` contains a reference with a non-static lifetime so\ncan't be persisted. You can prevent this error by making sure that the\nvariable goes out of scope - i.e. wrapping the code in {}.",
+    "traceback": [
+      "let recurrent_rows: Vec<_> = study_runs.iter().filter(|r| r[\"condition\"] == \"partial_recurrent_neat_16\").collect();",
+      "let recurrent_rows: Vec<_> = study_runs.iter().filter(|r| r[\"condition\"] == \"partial_recurrent_neat_16\").collect();",
+      "\u001b[91m    ^^^^^^^^^^^^^^\u001b[0m \u001b[94m\u001b[0m",
+      "The variable `recurrent_rows` contains a reference with a non-static lifetime so\ncan't be persisted. You can prevent this error by making sure that the\nvariable goes out of scope - i.e. wrapping the code in {}."
+    ]
+  }
+]
+/workspace/scratch/a2689e927bb8/.rust-toolchain-local/notebook-python/jupyter_client/localinterfaces.py:58: UserWarning: Unexpected error discovering local network interfaces: [Errno 1] Operation not permitted
+  ret = f(**kwargs)

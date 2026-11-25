@@ -13,10 +13,12 @@
 mod cart_pole;
 mod double_pole;
 mod spring_walker;
+mod trials;
 
 pub use cart_pole::{CartPole, CartPoleConfig, CartPoleState};
 pub use double_pole::{DoublePole, DoublePoleConfig, DoublePoleState, PoleObservations};
 pub use spring_walker::{Particle, SpringWalker, SpringWalkerConfig, SpringWalkerState};
+pub use trials::{EpisodeSummary, TrialSummary, evaluate_trials};
 
 use rand_chacha::ChaCha8Rng;
 use rand_chacha::rand_core::{RngCore, SeedableRng};
@@ -181,6 +183,33 @@ trait Environment {
     fn done(&self) -> bool;
 }
 
+fn run_episode<Env, P, E>(env: &mut Env, mut policy: P) -> Result<EpisodeSummary, RolloutError<E>>
+where
+    Env: Environment,
+    P: FnMut(&[f64]) -> Result<Vec<f64>, E>,
+{
+    if env.done() {
+        return Err(RolloutError::Control(ControlError::EpisodeFinished));
+    }
+    let mut total_reward = 0.0;
+    let mut steps = 0;
+    loop {
+        let action = policy(&env.observation()).map_err(RolloutError::Policy)?;
+        let outcome = env.step(&action).map_err(RolloutError::Control)?;
+        total_reward += outcome.reward;
+        finite(&[total_reward], "episode return").map_err(RolloutError::Control)?;
+        steps += 1;
+        if outcome.done() {
+            return Ok(EpisodeSummary {
+                total_reward,
+                steps,
+                terminated: outcome.terminated,
+                truncated: outcome.truncated,
+            });
+        }
+    }
+}
+
 fn rollout<Env, P, E>(
     env: &mut Env,
     mut policy: P,
@@ -237,6 +266,20 @@ macro_rules! environment_impl {
             }
         }
         impl $environment {
+            /// Run an episode without retaining a trace of states or actions.
+            ///
+            /// Reset the environment and any recurrent policy state before each
+            /// independent episode. Actions must lie in [-1, 1].
+            pub fn run_episode<P, E>(
+                &mut self,
+                policy: P,
+            ) -> Result<$crate::control::EpisodeSummary, $crate::control::RolloutError<E>>
+            where
+                P: FnMut(&[f64]) -> Result<Vec<f64>, E>,
+            {
+                $crate::control::run_episode(self, policy)
+            }
+
             /// Record an episode from the current state using a fallible policy.
             ///
             /// Reset the environment and any recurrent policy state before each

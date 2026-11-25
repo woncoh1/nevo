@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/execute_notebook.py",
+    "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/notebooks/ch03_neuroevolution.ipynb",
+    "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/notebooks/ch03_neuroevolution.executed.ipynb"
+  ],
+  "exit_code": 1,
+  "seconds": 6.667281098999865,
+  "toolchain": "1.100.0",
+  "kernel": "Evcxr 0.15.1",
+  "fresh_kernel": true
+}

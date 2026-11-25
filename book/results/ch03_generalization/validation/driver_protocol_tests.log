@@ -1,0 +1,9 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running unittests examples/ch03_generalization.rs (/workspace/scratch/a2689e927bb8/target_ch03g/debug/build/nevo/f06276e3fc9d46fe/out/ch03_generalization-f06276e3fc9d46fe)
+
+running 2 tests
+test tests::fixed_budgets_include_initialization_and_complete_batches ... ok
+test tests::suites_are_fixed_disjoint_and_independent_of_optimizer_seed ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

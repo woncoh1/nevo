@@ -1,6 +1,6 @@
 # Source audit: supplied Chapters 1–3
 
-**Reviewed 2026-11-24.** The supplied PDFs of the front matter and Chapters 1–3
+**Reviewed 2026-11-24; Chapter 3 implementation status updated 2026-11-25.** The supplied PDFs of the front matter and Chapters 1–3
 were read in full. Equations and decisive figures were also inspected visually.
 This review updates the existing `nevo` milestone; it does not redistribute the
 textbook or claim to reproduce every experiment it cites.
@@ -107,20 +107,34 @@ membership interpretation of the sharing discussion, not a separate all-pairs
 sharing implementation. Small-genome normalization, fixed threshold, quotas
 and stagnation conventions remain explicitly documented choices.
 
-Three experiment gaps are particularly significant:
+Three experiment boundaries remain significant:
 
 | Book experiment | What `nevo` actually contains |
 | --- | --- |
 | §3.2, pp.53–56: Box2D BipedalWalkerHardcore; 24 observations, four actions, two hidden layers; 16 random training rollouts and 100-trial evaluation. | Original 13-observation/two-action SpringWalker and separate CartPole tasks, declared fixed starts and held-out reports. The articulated walker and its exact protocol remain unimplemented. |
-| §3.3.4, pp.63–65: recurrent positions-only double pole, including the self-loop in Fig.3.7 and a 100,000-step success criterion. | Full-state 500-step CMA/NEAT companion. Positions-only observations exist, but current NEAT permits only DAGs. This cannot express the chapter's recurrent controller. |
+| §3.3.4, pp.63–65: recurrent positions-only double pole, including the self-loop in Fig.3.7 and a 100,000-step success criterion. | Full-state and positions-only 500-step companions now support recurrent graphs, including self-loops. A 10-seed, fixed-rollout study compares training suites and includes a memory-reset ablation. The book's long-horizon historical protocol is still separate. |
 | §3.4.2, p.68: Deep GA's ten elite contenders each receive 30 extra episodes. | Ordinary copied-elite reevaluation with compact seed histories. The additional elite-contender phase and Atari experiment are absent. |
 
-Recurrent NEAT requires a stateful phenotype with explicit tick/reset semantics
-and recurrence-aware mutation/crossover. Removing the DAG validation alone
-would not implement it correctly. This remains the most substantive Chapter 3
-algorithm extension, distinct from the physics/experimental work needed for
-BipedalWalkerHardcore. A reusable Gaussian action head, independent random-search
-baseline, accelerator batching and distributed workers also remain future work.
+The 2026-11-25 update implements a stateful recurrent phenotype, explicit
+synchronous tick/reset semantics, mode-aware mutation/crossover and shared
+historical tracking. Current inputs and bias feed the new tick; hidden/output
+sources use their previous values. This convention follows the same broad
+two-buffer approach as [NEAT-Python's recurrent implementation](https://neat-python.readthedocs.io/en/latest/_modules/nn/recurrent.html),
+while retaining nevo's own genes, sigmoid, bias and evolutionary rules. It is not
+an exact reproduction of the original NEAT software's activation loop.
+
+The new controlled experiment is documented in
+[its own result folder](results/ch03_generalization/README.md). It retains the
+earlier single-start study unchanged and distinguishes trial count from fitness
+calls and environment steps. A 500-step survival-return task with 100 held-out
+starts does not reproduce the original paper's oscillation-penalized DPNV
+objective, 100,000-step qualification or 625-start generalization test.
+Clearing memory every action measures dependence on persistent neural state,
+including delayed acyclic paths; it does not isolate graph cycles alone.
+
+A reusable Gaussian action head, independent random-search baseline,
+BipedalWalkerHardcore, accelerator batching and distributed workers remain
+future work.
 Rayon covers CPU job evaluation only; it is not the hardware/distribution stack
 reviewed in §3.4.3, pp.69–70.
 

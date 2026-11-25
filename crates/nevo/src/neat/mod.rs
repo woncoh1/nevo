@@ -1,10 +1,12 @@
-//! Historical graph genes and composable feedforward NEAT building blocks.
+//! Historical graph genes and composable feedforward/recurrent NEAT building blocks.
 //!
 //! This implementation starts with direct input/bias-to-output connections,
 //! aligns genes by innovation number, and grows structure through connection
-//! and node mutations. Inputs and the single bias are sources; outputs are
-//! sinks. Enabled connections form a DAG. Recurrent NEAT is a separate future
-//! variant, not an implicit update rule for cyclic graphs.
+//! and node mutations. Inputs and the single bias are sources. The default
+//! feedforward mode requires output sinks and an enabled DAG. The explicit
+//! recurrent mode permits feedback and uses synchronous ticks: current external
+//! inputs, previous-tick hidden/output sources, simultaneous neuron updates.
+//! It is a declared temporal convention, not an implicit cycle traversal rule.
 //!
 //! An innovation number is meaningful within its shared [`InnovationTracker`].
 //! Genomes from independent evolutionary histories must not be mixed merely
@@ -18,7 +20,9 @@ mod innovation;
 mod operators;
 mod species;
 
-pub use genome::{ConnectionGene, FeedForwardNetwork, Genome, NodeGene, NodeKind};
+pub use genome::{
+    ConnectionGene, FeedForwardNetwork, Genome, NetworkMode, NodeGene, NodeKind, RecurrentNetwork,
+};
 pub use innovation::InnovationTracker;
 pub use operators::{
     CompatibilityConfig, MutationConfig, add_connection, compatibility_distance, crossover, mutate,
@@ -35,7 +39,7 @@ use crate::algorithms::SearchError;
 pub enum NeatError {
     /// A probability, bound, dimension, or population setting is invalid.
     InvalidConfig(&'static str),
-    /// A graph violates its shape, identity, or feedforward invariants.
+    /// A graph violates its shape, identity, or selected execution-mode invariants.
     InvalidGenome(&'static str),
     /// Parents or a genome and its tracker disagree about historical identity.
     IncompatibleHistory(&'static str),

@@ -1,0 +1,9 @@
+   Compiling crossbeam-utils v0.8.23
+   Compiling crossbeam-epoch v0.9.21
+   Compiling crossbeam-deque v0.8.8
+   Compiling rayon-core v1.13.0
+    Checking either v1.19.0
+    Checking nevo-core v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/crates/nevo-core)
+    Checking rayon v1.10.0
+    Checking nevo v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/crates/nevo)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.94s

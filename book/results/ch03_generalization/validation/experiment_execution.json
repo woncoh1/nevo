@@ -1,0 +1,136 @@
+{
+  "started_utc": "2026-11-25T06:26:49.214001+00:00",
+  "protocol": "controlled_v1",
+  "optimizer_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "parallel_seed_processes": 4,
+  "within_seed_execution": "serial",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "binary_sha256": "ea97cf5ff04a7b84c4580237fb37ae8d9e5cd9fe6e7c448005b1fff8880e1a31",
+  "source_sha256": "88ebfa2a9cf04208cff5c77dbda980e50acf4a18a123cc36eadd5828fb279243",
+  "lockfile_sha256": "3d90c99806a72046e81a26133899543180bb9f97c9ea18168926f8d3917ad51d",
+  "runs": [
+    {
+      "seed": 0,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "0"
+      ],
+      "exit_code": 0,
+      "seconds": 19.00681994599995
+    },
+    {
+      "seed": 1,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "1"
+      ],
+      "exit_code": 0,
+      "seconds": 17.270398462000003
+    },
+    {
+      "seed": 2,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "2"
+      ],
+      "exit_code": 0,
+      "seconds": 15.87212579900006
+    },
+    {
+      "seed": 3,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "3"
+      ],
+      "exit_code": 0,
+      "seconds": 17.47642190600004
+    },
+    {
+      "seed": 4,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "4"
+      ],
+      "exit_code": 0,
+      "seconds": 16.45806550500015
+    },
+    {
+      "seed": 5,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "5"
+      ],
+      "exit_code": 0,
+      "seconds": 17.60485277199996
+    },
+    {
+      "seed": 6,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "6"
+      ],
+      "exit_code": 0,
+      "seconds": 16.663114724000025
+    },
+    {
+      "seed": 7,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "7"
+      ],
+      "exit_code": 0,
+      "seconds": 18.81235443300011
+    },
+    {
+      "seed": 8,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "8"
+      ],
+      "exit_code": 0,
+      "seconds": 18.249901533999946
+    },
+    {
+      "seed": 9,
+      "command": [
+        "/workspace/scratch/a2689e927bb8/target_ch03g/release/examples/ch03_generalization",
+        "/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/book/results/ch03_generalization",
+        "--seed",
+        "9"
+      ],
+      "exit_code": 0,
+      "seconds": 16.748345021999967
+    }
+  ],
+  "finished_utc": "2026-11-25T06:27:40.114599+00:00",
+  "wall_seconds": 50.900620593999975
+}

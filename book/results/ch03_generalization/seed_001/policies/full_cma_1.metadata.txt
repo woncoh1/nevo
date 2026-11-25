@@ -1,0 +1,6 @@
+mode=FeedForward
+encoding=Mlp
+widths=6,4,1
+activations=Tanh,Tanh
+selected_job_id=3820
+selected_batch=60

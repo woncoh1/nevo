@@ -1,6 +1,6 @@
 use std::collections::BTreeMap;
 
-use super::{ConnectionGene, Genome, NeatError, NodeGene, NodeKind};
+use super::{ConnectionGene, Genome, NeatError, NetworkMode, NodeGene, NodeKind};
 
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Split {
@@ -20,6 +20,7 @@ pub(super) struct Split {
 /// endpoint-to-ID caches.
 #[derive(Clone, Debug)]
 pub struct InnovationTracker {
+    mode: NetworkMode,
     base_nodes: Vec<NodeGene>,
     initial_connections: Vec<(u64, u64, u64)>,
     nodes: BTreeMap<u64, NodeKind>,
@@ -31,11 +32,23 @@ pub struct InnovationTracker {
 }
 
 impl InnovationTracker {
-    /// Allocate common inputs, one bias, outputs, and direct initial connections.
+    /// Allocate feedforward inputs, one bias, outputs, and direct initial connections.
     ///
     /// Initial node IDs are inputs, then bias, then outputs. Initial connection
     /// weights are supplied in output-major order, with input weights then bias.
     pub fn new(inputs: usize, outputs: usize) -> Result<Self, NeatError> {
+        Self::with_mode(inputs, outputs, NetworkMode::FeedForward)
+    }
+
+    /// Allocate the same minimal topology for a synchronous recurrent run.
+    ///
+    /// Initial genomes have only current-input/bias connections. Later mutation
+    /// can add hidden/output feedback, whose sources use previous-tick values.
+    pub fn new_recurrent(inputs: usize, outputs: usize) -> Result<Self, NeatError> {
+        Self::with_mode(inputs, outputs, NetworkMode::Recurrent)
+    }
+
+    fn with_mode(inputs: usize, outputs: usize, mode: NetworkMode) -> Result<Self, NeatError> {
         if inputs == 0 || outputs == 0 {
             return Err(NeatError::InvalidConfig(
                 "input and output counts must be positive",
@@ -74,6 +87,7 @@ impl InnovationTracker {
             }
         }
         Ok(Self {
+            mode,
             nodes: base_nodes.iter().map(|node| (node.id, node.kind)).collect(),
             connections: initial_connections
                 .iter()
@@ -86,6 +100,11 @@ impl InnovationTracker {
             connections_this_generation: BTreeMap::new(),
             splits_this_generation: BTreeMap::new(),
         })
+    }
+
+    /// The immutable execution mode shared by every genome in this history.
+    pub fn mode(&self) -> NetworkMode {
+        self.mode
     }
 
     /// Number of weights required for the minimal direct-connectivity genome.
@@ -112,7 +131,7 @@ impl InnovationTracker {
                 enabled: true,
             })
             .collect();
-        Genome::new(self.base_nodes.clone(), connections)
+        Genome::with_mode(self.base_nodes.clone(), connections, self.mode)
     }
 
     /// Start a reproduction generation; retain all IDs and historical mappings.
@@ -124,6 +143,11 @@ impl InnovationTracker {
     /// Check that every gene agrees with this run's recorded historical identity.
     pub fn validate_genome(&self, genome: &Genome) -> Result<(), NeatError> {
         genome.validate()?;
+        if genome.mode != self.mode {
+            return Err(NeatError::IncompatibleHistory(
+                "genome and tracker have different execution modes",
+            ));
+        }
         for node in genome.nodes() {
             if self.nodes.get(&node.id) != Some(&node.kind) {
                 return Err(NeatError::IncompatibleHistory(

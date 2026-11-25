@@ -1,0 +1,9 @@
+{
+  "historical_result_files_compared": 141,
+  "historical_result_files_changed": [],
+  "earlier_notebooks_unchanged": {
+    "ch01_introduction.ipynb": true,
+    "ch02_foundations.ipynb": true
+  },
+  "lockfile_unchanged": true
+}

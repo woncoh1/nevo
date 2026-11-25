@@ -1,7 +1,8 @@
 # Coverage
 
 Reviewed against the supplied full PDFs of Chapters 1–3 and the front matter on
-**2026-11-24**. Page numbers below are the book's printed page numbers. This
+**2026-11-24**, with recurrent/generalization coverage updated **2026-11-25**.
+Page numbers below are the book's printed page numbers. This
 registry separates implemented methods, declared variants, original teaching
 tasks, and experiments still to reproduce. A chapter label does not mean every
 method mentioned in that chapter has been implemented.
@@ -42,8 +43,9 @@ method mentioned in that chapter has been implemented.
 | Taxonomy §3.1, pp.49–52 | Weight vectors, topology/weight graphs and replayable seed histories. | Seed history is not a developmental indirect encoding; developmental methods begin in Chapter 4. |
 | Robot case study §3.2, pp.53–56 | Native CartPole and original three-particle SpringWalker, explicit trial resets and held-out reporting. | **BipedalWalkerHardcore is unimplemented.** Its Box2D body, 24 observations, 4 actions, two hidden layers, 16 random training rollouts and 100-trial evaluation are not reproduced. |
 | Stochastic policies §3.2.5, p.56 | Current control policies are deterministic. | Reusable Gaussian action head and associated sampling policy are not implemented. |
-| NEAT §§3.3.1–3.3.3, pp.57–62 | Feedforward historical genes, structure mutation, aligned crossover, persistent species, sharing and exact quotas. | Fixed threshold, species-membership sharing and other paper-derived conventions are explicitly declared. No recurrent phenotype. |
-| Double pole §3.3.4, pp.63–65 | Historical dynamics with RK4; full-state 500-step CMA/NEAT companion. Positions-only observations exist. | **Recurrent NEAT remains unimplemented.** A feedforward graph cannot express the self-loop in Fig.3.7. Original 100,000-step success/generalization and ablation protocols are not reproduced. |
+| NEAT §§3.3.1–3.3.3, pp.57–62 | Feedforward and synchronous recurrent graphs, historical genes, structure mutation, aligned crossover, persistent species, sharing and exact quotas. | Fixed threshold, species-membership sharing, explicit tick/reset semantics and other variant choices are documented. |
+| Double pole §3.3.4, pp.63–65 | Historical RK4 dynamics; full-state and positions-only 500-step tasks; recurrent control, 10-seed equal-rollout comparisons, 100 held-out starts and memory-reset ablation. | The original 100,000-step success criterion, oscillation fitness, 625-case generalization and published ablation protocols are not reproduced. |
+| Trial aggregation | `EpisodeSummary`, `TrialSummary`, `evaluate_trials`, trace-free `run_episode`, MLP summaries and `NeatDoublePoleTask`. | Fixed explicit starts and independent resets. No universal experiment runner or stochastic Gaussian action head. |
 | Deep neuroevolution §3.4.2, pp.67–69 | Mutation-only Deep GA, truncation, seed replay, ordinary elite reevaluation; existing OpenAI ES. | No Atari/humanoid reproduction, random-search algorithm, shared noise table, or top-10 contenders ×30 additional elite trials. |
 | Compute §3.4.3, pp.69–70 | Optional CPU evaluation through Rayon; exact serial/worker replay checks. | No GPU/TPU, SIMD, tensor batching or multi-machine distribution. |
 | Published assignment themes | Genuine 8×8 Optdigits classification and CartPole GA/ES experiments. | Original accessible tasks/splits, not MNIST, official solutions or paper benchmark replications. |

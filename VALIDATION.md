@@ -1,6 +1,59 @@
 # Validation status
 
-## Current: full-PDF review of Chapters 1–3
+## Current: recurrent NEAT and controlled generalization
+
+Verified **2026-11-25**, Linux x86_64, with **Rust 1.100.0**. The unchanged
+`Cargo.lock` and the separately tested **1.85.1 MSRV** are retained. Exact
+commands, logs, data audits and notebook records are in
+[the current validation directory](book/results/ch03_generalization/validation/README.md).
+
+| Check | Actual result |
+| --- | --- |
+| rustfmt | Passed with the pinned formatter. |
+| Strict Clippy, all targets/features | Passed with `-D warnings`; the unnecessary-clone test is fixed. |
+| Default tests | **228 unit/integration + 3 doctests = 231 passed.** |
+| All-feature tests | **234 unit/integration + 3 doctests = 237 passed.** |
+| Release, all features | **237 passed**, including doctests. |
+| Controlled-driver protocol tests | **2 additional example tests passed.** |
+| API documentation | Passed with `RUSTDOCFLAGS=-D warnings`. |
+| Rust 1.85.1 compatibility | All-feature suite: **237 passed**. |
+| Controlled study | **60/60 runs completed**; 1,966,080 training episodes, 6,000 held-out, 1,000 state-reset diagnostics and seven trace replays. |
+| Data audit | Raw trials, summaries, policy identities, fixed budgets and species quotas agree. |
+| Historical results | **141 files unchanged**; all eight regenerated old double-pole artifacts match byte for byte. |
+| Feedforward NEAT regression | Twelve complete pre-change batch fingerprints match, including RNG/job/graph/weight identity. |
+| Chapter 3 notebook | Fresh **Evcxr 0.22.0 / Rust 1.100.0** execution: **22 code cells**, zero errors, five live SVG plots and a saved topology diagram. |
+| Report figures | Six PNG/SVG pairs generated from actual data and visually inspected. |
+
+The 16 new library/integration tests cover recurrent timing, reset and failure
+atomicity; cycle/feedback evolution and historical identity; unchanged default
+feedforward generation; reusable trial statistics and control adapter resets.
+Two additional example tests cover exact budget arithmetic and suite generation.
+No new mandatory core trait or dependency was introduced.
+
+The updated notebook ran in a fresh kernel in approximately **50.9 seconds**.
+The old Evcxr 0.15.1 kernel could not start with Rust 1.100.0; upgrading to the
+verified 0.22.0 release fixed the setup. A persistent borrowed value in a new
+notebook analysis cell was also corrected to owned data. Failed setup/cell
+attempts are retained separately from the final successful execution record.
+The unchanged Chapter 1–2 notebooks keep their previous saved outputs and
+validation dates; they are not presented as newly executed on this toolchain.
+
+The controlled study does not reproduce the historical 100,000-step non-Markov
+NEAT protocol. Recurrence is now implemented with explicit synchronous semantics,
+but BipedalWalkerHardcore, Deep GA's extra elite-contender trials, full neural
+training frameworks, Burn/Bevy backends and accelerator/distributed support remain
+outside the current scope. See [coverage](coverage.md) and
+[the actual results](book/results/ch03_generalization/README.md).
+
+Linux execution is established. GitHub Actions includes Linux/Windows gates,
+a Rust 1.85.1 compatibility job and the new smoke experiment; remote CI and
+Windows/macOS execution have not been performed here. No cross-platform bitwise
+or general runtime guarantee follows from these checks.
+
+The dated sections below preserve earlier evidence; their scope and toolchain
+statements describe those earlier milestones.
+
+## Historical full-PDF review of Chapters 1–3 (2026-11-24)
 
 Verified **2026-11-24** on Linux x86_64 with Rust/Cargo **1.85.1**.
 All command logs, exact arguments, counts and regression hashes are in

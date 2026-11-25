@@ -9,6 +9,8 @@ pub use classification::{
     ClassificationData, ClassificationError, ClassificationMetrics, DataSplit, LabeledSample,
     MlpClassifier, NeatClassifier, NeatXor,
 };
-pub use control::{CartPoleTask, ControlTaskError, DoublePoleTask, SpringWalkerTask};
+pub use control::{
+    CartPoleTask, ControlTaskError, DoublePoleTask, NeatDoublePoleTask, SpringWalkerTask,
+};
 pub use target_reach::{Rollout, State, TargetReach, TargetReachError};
 pub use xor::Xor;

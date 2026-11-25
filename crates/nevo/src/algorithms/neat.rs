@@ -1,4 +1,4 @@
-//! Feedforward NEAT with historical alignment and explicit species reproduction.
+//! Feedforward/recurrent NEAT with historical alignment and species reproduction.
 
 use rand_chacha::ChaCha8Rng;
 
@@ -6,18 +6,20 @@ use super::SearchError;
 use super::batch::Batch;
 use super::common::{seeded_rng, symmetric, uniform_index, uniform01};
 use crate::neat::{
-    CompatibilityConfig, Genome, InnovationTracker, MutationConfig, NeatError, SpeciesStats,
-    allocate_offspring, compatibility_distance, crossover, mutate,
+    CompatibilityConfig, Genome, InnovationTracker, MutationConfig, NeatError, NetworkMode,
+    SpeciesStats, allocate_offspring, compatibility_distance, crossover, mutate,
 };
 use crate::{Algorithm, Evaluated, Job};
 
-/// Configuration for the documented feedforward NEAT variant.
+/// Configuration for the documented feedforward or synchronous recurrent NEAT variant.
 #[derive(Clone, Debug, PartialEq)]
 pub struct NeatConfig {
     /// Number of external inputs, excluding the automatically added bias.
     pub inputs: usize,
     /// Number of sigmoid output nodes.
     pub outputs: usize,
+    /// Graph and phenotype execution mode; defaults to feedforward.
+    pub mode: NetworkMode,
     /// Number of newly evaluated genomes in every batch, including initialization.
     pub population: usize,
     /// Root seed for variation stream 0, evaluation stream 1, and representative stream 2.
@@ -45,7 +47,8 @@ pub struct NeatConfig {
 impl NeatConfig {
     /// Set 150 genomes, threshold 3, crossover 0.75, stagnation 15, and champion quota 5.
     ///
-    /// Other defaults are disable probability 0.75, interspecies mating 0.001,
+    /// Execution defaults to feedforward. Other defaults are disable probability
+    /// 0.75, interspecies mating 0.001,
     /// survival fraction 0.2, and the documented mutation/distance defaults.
     /// Fitness is always maximized and must be finite and nonnegative. An
     /// evaluator must explicitly transform a loss if that is its task objective.
@@ -53,6 +56,7 @@ impl NeatConfig {
         Self {
             inputs,
             outputs,
+            mode: NetworkMode::FeedForward,
             population: 150,
             seed,
             mutation: MutationConfig::default(),
@@ -124,7 +128,7 @@ struct Species {
     offspring: usize,
 }
 
-/// Feedforward topology and weight evolution with NEAT's central mechanisms.
+/// Topology and weight evolution with NEAT's central mechanisms.
 ///
 /// All genomes start with direct input/bias-to-output edges and no hidden
 /// neurons. Innovation-aligned crossover, structural mutation, compatibility
@@ -143,11 +147,13 @@ struct Species {
 /// for a new job. Innovation caches are generation-local. Representatives are
 /// sampled from all current members using a separate random stream.
 ///
-/// This is an explicit feedforward variant: fixed threshold, independent
-/// structural mutation events, deterministic DAG/endpoint guards, and quota-
-/// based champion copying. It does not reproduce the original recurrent pole-
-/// balancing experiments or their global-stagnation rescue rule. `best()` is an
-/// observed reporting record, not an additional archived reproductive parent.
+/// Execution mode is explicit. Feedforward genomes use a DAG; recurrent genomes
+/// use synchronous ticks with current inputs and previous-tick hidden/output
+/// sources. Both use a fixed compatibility threshold, independent structural
+/// mutation events, and quota-based champion copying. Neither claims to
+/// reproduce the original recurrent pole-balancing protocol or its global-
+/// stagnation rescue rule. `best()` is an observed reporting record, not an
+/// additional archived reproductive parent.
 #[derive(Debug)]
 pub struct Neat {
     config: NeatConfig,
@@ -167,7 +173,12 @@ impl Neat {
     /// Validate settings and initialize a shared historical registry.
     pub fn new(config: NeatConfig) -> Result<Self, NeatError> {
         config.validate()?;
-        let tracker = InnovationTracker::new(config.inputs, config.outputs)?;
+        let tracker = match config.mode {
+            NetworkMode::FeedForward => InnovationTracker::new(config.inputs, config.outputs)?,
+            NetworkMode::Recurrent => {
+                InnovationTracker::new_recurrent(config.inputs, config.outputs)?
+            }
+        };
         Ok(Self {
             tracker,
             variation_rng: seeded_rng(config.seed, 0),

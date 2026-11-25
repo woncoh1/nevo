@@ -3,7 +3,9 @@ use std::collections::{BTreeMap, BTreeSet};
 use rand_chacha::rand_core::RngCore;
 
 use super::genome::creates_cycle;
-use super::{ConnectionGene, Genome, InnovationTracker, NeatError, NodeGene, NodeKind};
+use super::{
+    ConnectionGene, Genome, InnovationTracker, NeatError, NetworkMode, NodeGene, NodeKind,
+};
 use crate::algorithms::common::{symmetric, uniform_index, uniform01};
 
 /// Coefficients for excess/disjoint counts and mean matching-weight difference.
@@ -44,7 +46,7 @@ impl CompatibilityConfig {
     }
 }
 
-/// Explicit mutation choices for this scalar feedforward NEAT variant.
+/// Explicit mutation choices for the scalar feedforward/recurrent NEAT variants.
 #[derive(Clone, Debug, PartialEq)]
 pub struct MutationConfig {
     /// Probability of changing the genome's connection weights.
@@ -107,6 +109,11 @@ impl MutationConfig {
 fn compatible_history(left: &Genome, right: &Genome) -> Result<(), NeatError> {
     left.validate()?;
     right.validate()?;
+    if left.mode != right.mode {
+        return Err(NeatError::IncompatibleHistory(
+            "parents have different execution modes",
+        ));
+    }
     let left_base: Vec<_> = left
         .nodes
         .iter()
@@ -217,8 +224,10 @@ pub fn compatibility_distance(
 
 /// Add a new endpoint pair without changing existing historical markings.
 ///
-/// Returns `false` when the pair already exists (even if disabled), targets an
-/// input/bias, leaves an output, is a self-link, or would create a cycle.
+/// Returns `false` when the pair already exists (even if disabled) or targets an
+/// input/bias. In feedforward mode it also rejects output sources, self-links,
+/// and cycles. Recurrent mode permits these feedback connections and assigns
+/// every hidden/output source the phenotype's explicit one-tick delay.
 /// Unknown endpoints and invalid weights are errors. On error the genome and
 /// tracker remain unchanged.
 pub fn add_connection(
@@ -244,14 +253,15 @@ pub fn add_connection(
         .iter()
         .find(|node| node.id == to)
         .ok_or(NeatError::InvalidGenome("unknown connection destination"))?;
-    if from_node.kind == NodeKind::Output
-        || matches!(to_node.kind, NodeKind::Input | NodeKind::Bias)
-        || from == to
+    if matches!(to_node.kind, NodeKind::Input | NodeKind::Bias)
         || genome
             .connections
             .iter()
             .any(|link| (link.from, link.to) == (from, to))
-        || creates_cycle(&genome.connections, from, to)
+        || (genome.mode == NetworkMode::FeedForward
+            && (from_node.kind == NodeKind::Output
+                || from == to
+                || creates_cycle(&genome.connections, from, to)))
     {
         return Ok(false);
     }
@@ -265,7 +275,7 @@ pub fn add_connection(
         weight,
         enabled: true,
     });
-    let next = Genome::new(genome.nodes.clone(), links)?;
+    let next = Genome::with_mode(genome.nodes.clone(), links, genome.mode)?;
     next_tracker.validate_genome(&next)?;
     *genome = next;
     *tracker = next_tracker;
@@ -277,7 +287,9 @@ pub fn add_connection(
 /// Returns `false` if the specified gene is already disabled. A repeated split
 /// in another genome during this generation reuses the new node and two
 /// innovations. The new sigmoid changes the function; this is not an exact
-/// function-preserving mutation.
+/// function-preserving mutation. In recurrent mode the inserted hidden neuron
+/// also adds one tick of delay to the split path. The original historical gene
+/// remains disabled, including when it was a self-link or output feedback.
 pub fn split_connection(
     genome: &mut Genome,
     tracker: &mut InnovationTracker,
@@ -321,7 +333,7 @@ pub fn split_connection(
         weight: old.weight,
         enabled: true,
     });
-    let next = Genome::new(nodes, links)?;
+    let next = Genome::with_mode(nodes, links, genome.mode)?;
     next_tracker.validate_genome(&next)?;
     *genome = next;
     *tracker = next_tracker;
@@ -402,19 +414,20 @@ pub fn mutate(
         for from in next
             .nodes
             .iter()
-            .filter(|node| node.kind != NodeKind::Output)
+            .filter(|node| next.mode == NetworkMode::Recurrent || node.kind != NodeKind::Output)
         {
             for to in next
                 .nodes
                 .iter()
                 .filter(|node| matches!(node.kind, NodeKind::Hidden | NodeKind::Output))
             {
-                if from.id != to.id
+                if (next.mode == NetworkMode::Recurrent || from.id != to.id)
                     && !next
                         .connections
                         .iter()
                         .any(|link| link.from == from.id && link.to == to.id)
-                    && !creates_cycle(&next.connections, from.id, to.id)
+                    && (next.mode == NetworkMode::Recurrent
+                        || !creates_cycle(&next.connections, from.id, to.id))
                 {
                     candidates.push((from.id, to.id));
                 }
@@ -453,6 +466,8 @@ pub fn mutate(
 /// earliest innovation if endpoint pairs repeat, and retain an otherwise
 /// inherited cycle-closing gene as disabled. These guards are necessary even
 /// when both parents are DAGs. Historical IDs are never rewritten.
+/// Recurrent mode keeps inherited feedback enabled according to the same
+/// disable probability, without a DAG guard. Parents must share a mode.
 pub fn crossover(
     left: &Genome,
     left_fitness: f64,
@@ -521,7 +536,10 @@ pub fn crossover(
             if !endpoints.insert((link.from, link.to)) {
                 continue;
             }
-            if link.enabled && creates_cycle(&links, link.from, link.to) {
+            if left.mode == NetworkMode::FeedForward
+                && link.enabled
+                && creates_cycle(&links, link.from, link.to)
+            {
                 link.enabled = false;
             }
             links.push(link);
@@ -535,5 +553,5 @@ pub fn crossover(
         .filter(|node| node.kind != NodeKind::Hidden || referenced.contains(&node.id))
         .map(|node| (node.id, node.clone()))
         .collect();
-    Genome::new(nodes.into_values().collect(), links)
+    Genome::with_mode(nodes.into_values().collect(), links, left.mode)
 }

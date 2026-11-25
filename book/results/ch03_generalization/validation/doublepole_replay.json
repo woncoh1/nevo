@@ -1,0 +1,42 @@
+[
+  {
+    "file": "doublepole_cma_parameters.txt",
+    "equal": true,
+    "sha256": "a572ff9c63468e983fd12f5bd25fef18004a2880e4501830caf32f72e44f4a83"
+  },
+  {
+    "file": "doublepole_curves.csv",
+    "equal": true,
+    "sha256": "a417ab31a81dba7ee69a59e4b9866407b143d07a4391bbd77a21dc0b9d9738de"
+  },
+  {
+    "file": "doublepole_manifest.json",
+    "equal": true,
+    "sha256": "001cac2a3ac6fe1033986d5fe115399f4b2e1f83d0a33ec65c426ec0b6894714"
+  },
+  {
+    "file": "doublepole_neat_connections.csv",
+    "equal": true,
+    "sha256": "fc3d6ca8315ed9059b96310bb69603011ef0c24e9135bbc06079c95b8fbfa229"
+  },
+  {
+    "file": "doublepole_neat_nodes.csv",
+    "equal": true,
+    "sha256": "20416a0e3904df3c409b31c9a592336d7266ecf73b99f6b75304695d596f1988"
+  },
+  {
+    "file": "doublepole_runs.csv",
+    "equal": true,
+    "sha256": "eb2ba0d5575597c83b82bc346ad173d30bfd16ce73e858649698916123b0cd4e"
+  },
+  {
+    "file": "doublepole_trajectories.csv",
+    "equal": true,
+    "sha256": "34ab67e3afbac130aa74669d4cb32eb14f1957dfa35f14ec78954e41e1564fd1"
+  },
+  {
+    "file": "doublepole_trials.csv",
+    "equal": true,
+    "sha256": "d53e9a6179443a4c73de377ef7d19f480857e6b5d1448a799d59e8435a238123"
+  }
+]

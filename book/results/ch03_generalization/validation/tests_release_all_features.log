@@ -1,0 +1,410 @@
+   Compiling crossbeam-utils v0.8.23
+   Compiling crossbeam-epoch v0.9.21
+   Compiling crossbeam-deque v0.8.8
+   Compiling rayon-core v1.13.0
+   Compiling either v1.19.0
+   Compiling nevo-core v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/crates/nevo-core)
+   Compiling rayon v1.10.0
+   Compiling nevo v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/crates/nevo)
+    Finished `release` profile [optimized] target(s) in 8.89s
+     Running unittests src/lib.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/48320c9fb7ff7f88/out/nevo-48320c9fb7ff7f88)
+
+running 5 tests
+test algorithms::elitist::tests::final_id_is_issued_once_then_exhaustion_is_reported ... ok
+test algorithms::elitist::tests::rounded_subnormal_samples_keep_the_upper_bound_exclusive ... ok
+test algorithms::elitist::tests::insufficient_id_range_is_rejected_before_issuing_any_jobs ... ok
+test algorithms::es::tests::selected_offspring_keep_their_own_adapted_sigma_after_sorting ... ok
+test algorithms::nsga2::tests::mating_keeps_crowding_measured_before_front_truncation ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/classification.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/2cd9d1a95f440226/out/classification-2cd9d1a95f440226)
+
+running 4 tests
+test stratified_split_is_disjoint_complete_balanced_and_reproducible ... ok
+test classifier_averages_over_outputs_and_uses_stable_argmax_ties ... ok
+test optdigits_parser_checks_pixels_labels_and_shape ... ok
+test bundled_dataset_has_expected_domain_and_reproducible_teaching_split ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cma_openai.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/c1a14de5308c1519/out/cma_openai-c1a14de5308c1519)
+
+running 14 tests
+test cma_supports_one_dimension_and_two_offspring ... ok
+test cma_first_generation_matches_positive_weight_equations_including_odd_population ... ok
+test both_algorithms_reject_protocol_violations ... ok
+test cma_objective_direction_and_seeded_replay_are_consistent ... ok
+test cma_adapts_a_full_symmetric_positive_covariance_on_a_rotated_problem ... ok
+test cma_reduces_sphere_loss_across_fixed_seeds ... ok
+test invalid_results_do_not_change_distributions_best_or_accounting ... ok
+test openai_centered_ranks_are_invariant_to_positive_affine_score_changes ... ok
+test invalid_gaussian_search_configs_are_rejected ... ok
+test openai_rank_ties_have_no_artificial_gradient_including_signed_zero ... ok
+test raw_es_reports_numeric_overflow_without_committing_a_mean ... ok
+test openai_raw_linear_update_matches_the_sampled_gradient_and_objective_direction ... ok
+test openai_samples_mirrored_pairs_with_common_evaluation_seeds ... ok
+test openai_replays_and_moves_toward_the_sphere_minimum ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/control.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/e8fa00f5e3218cab/out/control-e8fa00f5e3218cab)
+
+running 28 tests
+test cart_pole_actions_select_discrete_directions_not_force_magnitude ... ok
+test cart_pole_failure_reward_and_horizon_are_explicit ... ok
+test cart_pole_checks_actions_and_rejects_bad_states_without_mutation ... ok
+test cart_pole_matches_classic_zero_state_acceleration_and_explicit_euler ... ok
+test cart_pole_seeded_resets_are_reproducible_and_use_explicit_randomness ... ok
+test double_pole_one_step_matches_independent_rk4_reference ... ok
+test double_pole_positions_only_does_not_leak_velocity_information ... ok
+test double_pole_reflects_state_and_force_symmetrically ... ok
+test double_pole_upright_equilibrium_and_known_force_have_correct_units ... ok
+test double_pole_rk4_error_decreases_when_substeps_are_halved ... ok
+test double_pole_zero_action_survival_counts_valid_endpoints ... ok
+test environments_reject_invalid_physical_configurations ... ok
+test mlp_control_tasks_have_declared_dimensions_and_reject_bad_suites ... ok
+test numerical_failure_does_not_commit_a_cart_or_double_pole_step ... ok
+test recorded_rollout_preserves_policy_errors_and_exact_horizon ... ok
+test spring_robot_ground_force_has_correct_units_and_never_pulls_down ... ok
+test mlp_task_objective_is_negative_mean_of_independent_episode_returns ... ok
+test spring_robot_ground_friction_reduces_slide_without_reversing_it ... ok
+test spring_robot_internal_forces_are_equal_and_opposite ... ok
+test spring_robot_has_no_horizontal_propulsion_without_ground ... ok
+test spring_robot_invalid_actions_do_not_change_the_state ... ok
+test spring_robot_observation_is_translation_invariant_and_has_thirteen_values ... ok
+test spring_robot_positive_actuator_work_is_charged_and_zero_action_is_free ... ok
+test spring_robot_reset_clears_energy_and_repeats_seeded_state ... ok
+test spring_robot_unstretched_springs_at_rest_exert_no_internal_force ... ok
+test spring_robot_symmetric_actions_preserve_left_right_symmetry ... ok
+test spring_robot_smaller_substeps_reduce_short_trajectory_error ... ok
+test spring_robot_bounded_changing_actions_stay_numerically_valid ... ok
+
+test result: ok. 28 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/control_trials.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/5a2e9db207ed7d51/out/control_trials-5a2e9db207ed7d51)
+
+running 5 tests
+test invalid_suites_and_policy_errors_are_not_silent_partial_reports ... ok
+test trial_aggregation_uses_sample_sd_and_unambiguous_horizon_success ... ok
+test no_trace_episodes_match_recorded_rollouts_in_all_environments ... ok
+test recurrent_trial_task_resets_memory_for_every_start_and_evaluation ... ok
+test task_diagnostics_preserve_scalar_objectives_and_validate_shapes ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/deep_ga.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/be520ec501418a92/out/deep_ga-be520ec501418a92)
+
+running 10 tests
+test a_late_invalid_score_leaves_existing_parents_and_best_unchanged ... ok
+test invalid_parent_elite_and_dimension_configurations_are_rejected ... ok
+test malformed_complete_batches_cannot_commit_or_release_pending_work ... ok
+test reevaluated_elites_do_not_bypass_current_scores_or_truncation ... ok
+test encoding_matches_an_independent_three_coordinate_reference ... ok
+test exact_ties_keep_issue_order_and_the_earliest_best_record ... ok
+test zero_scale_replays_initialization_and_invalid_settings_or_overflow_fail ... ok
+test truncation_keeps_the_best_parents_for_both_objective_directions ... ok
+test replay_preserves_every_job_history_seed_and_selected_state ... ok
+test several_seeded_sphere_runs_improve_with_equal_evaluation_budgets ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/differential_evolution.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/09b2b843177db015/out/differential_evolution-09b2b843177db015)
+
+running 9 tests
+test invalid_configurations_are_rejected_before_sampling ... ok
+test full_crossover_uses_one_frozen_distinct_non_target_donor_triple ... ok
+test mutation_overflow_is_reported_and_does_not_replace_parents ... ok
+test one_dimensional_forced_crossover_does_not_depend_on_probability ... ok
+test malformed_late_results_never_partially_replace_targets ... ok
+test repeated_selection_requires_a_new_complete_batch ... ok
+test zero_crossover_still_forces_one_mutant_coordinate ... ok
+test trial_survival_is_one_to_one_and_strict_with_target_ties ... ok
+test seeded_runs_replay_and_make_progress_on_sphere ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/elitist.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/29530e48a7309a15/out/elitist-29530e48a7309a15)
+
+running 12 tests
+test a_complete_seeded_run_replays_candidates_seeds_results_and_accounting ... ok
+test changed_seed_or_input_is_rejected_even_when_it_has_the_best_score ... ok
+test equal_scores_keep_earliest_initial_candidate_then_the_incumbent ... ok
+test duplicate_unknown_and_reordered_ids_are_rejected_without_a_commit ... ok
+test evaluation_seed_stream_is_independent_of_candidate_dimension ... ok
+test invalid_population_and_numeric_ranges_are_rejected ... ok
+test minimization_and_maximization_retain_the_correct_unchanged_candidate ... ok
+test missing_and_extra_results_are_rejected_without_a_commit ... ok
+test nonfinite_scores_do_not_replace_the_incumbent_or_advance_accounting ... ok
+test offspring_mutate_the_selected_parent_with_fresh_ids_and_bounded_offsets ... ok
+test protocol_rejects_select_before_generate_and_overlapping_batches ... ok
+test sphere_search_improves_across_fixed_seeds_without_claiming_a_convergence_rate ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/es_modes.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/14c916cb743941c0/out/es_modes-14c916cb743941c0)
+
+running 9 tests
+test both_modes_reject_invalid_required_scale_and_population ... ok
+test original_defaults_remain_self_adaptive_comma ... ok
+test fixed_mode_ignores_unused_adaptation_parameters ... ok
+test fixed_scale_draws_only_parent_index_and_coordinate_gaussians ... ok
+test one_plus_one_fixed_es_keeps_incumbent_until_strict_improvement ... ok
+test plus_keeps_each_surviving_parents_adapted_scale ... ok
+test plus_rejects_bad_pending_results_without_changing_selected_state ... ok
+test plus_retains_better_parents_and_parent_ties_in_both_objective_directions ... ok
+test all_four_modes_replay_and_improve_sphere ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/foundations_tasks.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/e50cc7eda2c4445c/out/foundations_tasks-e50cc7eda2c4445c)
+
+running 3 tests
+test rastrigin_known_values_and_domains ... ok
+test zdt1_known_values_and_domains ... ok
+test xor_decodes_and_scores_a_known_solution ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/ga_es.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/96400a622f3693e7/out/ga_es-96400a622f3693e7)
+
+running 14 tests
+test ga_allows_operator_ablation_and_keeps_signed_zero_ties_in_issue_order ... ok
+test es_comma_replacement_forgets_even_better_old_parents_but_keeps_best_reporting ... ok
+test es_respects_explicit_sigma_bounds_and_never_drops_strategy_state ... ok
+test ga_and_es_reject_complete_batch_protocol_violations ... ok
+test ga_and_es_replay_their_complete_seeded_runs ... ok
+test ga_selects_the_expected_current_population_and_copies_elites_with_fresh_ids ... ok
+test gaussian_mutation_uses_a_normal_deviate_and_can_be_disabled_without_rng_draws ... ok
+test same_seed_ga_and_es_have_identical_initial_jobs ... ok
+test operators_reject_invalid_inputs_and_mutation_failure_keeps_the_input ... ok
+test late_invalid_results_do_not_change_ga_or_es_selected_state ... ok
+test tournament_returns_an_original_index_and_obeys_both_directions ... ok
+test invalid_ga_and_es_configurations_are_rejected_before_a_run ... ok
+test uniform_crossover_inherits_the_selected_parent_coordinate_without_averaging ... ok
+test ga_and_es_improve_sphere_over_multiple_seeds_at_the_same_evaluation_budget ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/ga_parent_pool.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/6c6cc7936f6f7f9c/out/ga_parent_pool-6c6cc7936f6f7f9c)
+
+running 5 tests
+test a_one_candidate_pool_can_reproduce_without_copying_any_elites ... ok
+test twenty_retained_elites_are_new_jobs_whose_scores_are_reevaluated ... ok
+test offspring_inherit_only_from_the_best_pool_in_both_objective_directions ... ok
+test parent_pool_size_must_be_positive_and_no_larger_than_population ... ok
+test explicit_full_pool_preserves_default_jobs_random_streams_and_selected_state ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/ges.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/c65971e78d40490e/out/ges-c65971e78d40490e)
+
+running 4 tests
+test fixture_rejects_a_second_generate_while_results_are_pending ... ok
+test fixture_validates_before_committing_selection ... ok
+test sphere_runs_through_the_entire_ges_protocol ... ok
+test invalid_sphere_input_does_not_select_in_the_algorithm ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/multiobjective.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/d735518625bc71a4/out/multiobjective-d735518625bc71a4)
+
+running 11 tests
+test crowding_matches_normalized_neighbor_gaps_and_ignores_constant_objectives ... ok
+test crowding_handles_extreme_and_subnormal_objective_ranges ... ok
+test dominance_requires_one_strict_improvement_and_supports_mixed_directions ... ok
+test nondominated_sort_matches_four_hand_calculated_fronts_with_duplicates ... ok
+test nsga2_issues_only_fresh_offspring_and_caches_retained_parent_scores ... ok
+test nsga2_keeps_best_combined_fronts_with_mixed_objective_directions ... ok
+test nsga2_rejects_invalid_configuration ... ok
+test nsga2_rejects_malformed_batches_without_mutating_state_or_consuming_pending_work ... ok
+test pareto_primitives_reject_invalid_shapes_and_values ... ok
+test nsga2_seeded_replay_and_clipping_preserve_configured_bounds ... ok
+test nsga2_approaches_zdt1_tradeoff_front_across_fixed_seeds ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/neat_feedforward_regression.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/fbaa33866b81509d/out/neat_feedforward_regression-fbaa33866b81509d)
+
+running 1 test
+test feedforward_jobs_remain_identical_to_the_v4_baseline ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/neat_genome.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/218840d21f6ae93b/out/neat_genome-218840d21f6ae93b)
+
+running 12 tests
+test crossover_preserves_first_historical_id_for_duplicate_endpoint_pairs ... ok
+test add_connection_respects_roles_duplicates_cycles_and_transactional_validation ... ok
+test crossover_guards_cycles_created_by_dag_union_or_reenabling ... ok
+test compatibility_matches_hand_calculated_excess_disjoint_and_disabled_weight_terms ... ok
+test crossover_uses_homology_fitter_unmatched_genes_and_disabled_inheritance ... ok
+test innovations_deduplicate_within_a_generation_and_remain_global_across_generations ... ok
+test equality_checks_weight_bits_and_network_arithmetic_fails_explicitly ... ok
+test largest_remainders_preserve_budget_sharing_and_all_zero_fallback ... ok
+test minimal_graph_uses_shared_ids_bias_and_checked_stateless_execution ... ok
+test validation_rejects_bad_identity_endpoints_weights_and_enabled_cycles ... ok
+test node_split_preserves_historical_gene_and_uses_one_then_original_weight ... ok
+test mutation_is_replayable_and_preserves_valid_histories ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/neat_recurrent.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/42431863365a0f0c/out/neat_recurrent-42431863365a0f0c)
+
+running 10 tests
+test output_self_loop_retains_a_pulse_until_explicit_episode_reset ... ok
+test recurrence_allows_cycles_and_output_feedback_but_never_input_or_bias_destinations ... ok
+test external_inputs_are_current_but_every_neuron_source_is_delayed_one_tick ... ok
+test phenotype_compilation_and_historical_operators_require_the_explicit_matching_mode ... ok
+test feedback_addition_and_splitting_preserve_mode_and_generation_local_innovations ... ok
+test failed_tick_does_not_commit_earlier_neuron_updates_or_corrupt_the_next_tick ... ok
+test seeded_recurrent_mutation_replays_and_minimal_graph_can_gain_an_output_self_loop ... ok
+test synchronous_values_do_not_depend_on_neuron_ids_or_input_gene_storage_order ... ok
+test recurrent_crossover_can_reenable_inherited_feedback_without_discarding_cycles ... ok
+test recurrent_search_replays_and_select_rejects_mode_substitution_without_losing_work ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/neat_search.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/fd875b25df591202/out/neat_search-fd875b25df591202)
+
+running 9 tests
+test invalid_neat_configuration_is_rejected_before_search ... ok
+test initialization_is_minimal_and_fresh_work_includes_species_champions ... ok
+test malformed_selection_keeps_all_state_and_pending_work_unchanged ... ok
+test finite_extreme_fitness_does_not_overflow_sharing ... ok
+test proportional_species_quotas_use_raw_nonnegative_fitness ... ok
+test sharing_uses_species_means_before_culling_not_species_fitness_sums ... ok
+test species_ids_persist_and_stagnation_protects_the_current_champions_species ... ok
+test seeded_replay_preserves_structure_species_and_evaluation_counts ... ok
+test declared_seed_and_budget_evolve_hidden_structure_for_xor ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.49s
+
+     Running tests/neural.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/7fb78c2f6094d424/out/neural-7fb78c2f6094d424)
+
+running 24 tests
+test attention_checks_matrix_shapes_and_nonfinite_values ... ok
+test causal_attention_masks_future_values_and_renormalizes_each_prefix ... ok
+test attention_uses_sqrt_dimension_scaling_and_stable_softmax ... ok
+test analytic_backprop_matches_central_finite_differences ... ok
+test failed_gradient_step_leaves_parameters_unchanged ... ok
+test convolution_is_cross_correlation_without_kernel_reversal ... ok
+test gradient_step_returns_pre_step_loss_and_changes_parameters_correctly ... ok
+test layer_norm_uses_population_variance_and_handles_constant_vectors ... ok
+test convolution_rejects_ragged_oversized_and_overflowing_inputs ... ok
+test lstm_gate_encoding_and_state_checks_are_explicit ... ok
+test mlp_rejects_bad_inputs_and_affine_overflow ... ok
+test mlp_flat_encoding_and_affine_forward_have_known_values ... ok
+test mse_and_gradient_average_over_examples_and_output_coordinates ... ok
+test neural_shapes_and_nonfinite_parameters_are_rejected ... ok
+test relu_gradient_uses_zero_derivative_at_the_kink ... ok
+test sigmoid_is_stable_for_large_positive_and_negative_inputs ... ok
+test parameter_replacement_is_validated_before_mutation ... ok
+test uniform_attention_returns_value_means ... ok
+test rnn_propagates_explicit_state_according_to_tanh_recurrence ... ok
+test supervised_data_requires_nonempty_matching_finite_examples ... ok
+test zero_lstm_gates_have_a_hand_computable_memory_update ... ok
+test sinusoidal_positions_match_known_even_and_odd_coordinates ... ok
+test zero_transformer_sublayers_still_pass_through_normalized_residuals ... ok
+test transformer_block_preserves_shape_and_causal_prefix_independence ... ok
+
+test result: ok. 24 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/neural_chapter2.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/4ab6bf8280c68053/out/neural_chapter2-4ab6bf8280c68053)
+
+running 8 tests
+test pooling_uses_actual_negative_maxima_and_only_complete_windows ... ok
+test pooling_rejects_invalid_shapes_and_nonfinite_input ... ok
+test causal_mask_hides_future_keys_in_every_head ... ok
+test softmax_known_probabilities_and_translation_invariance ... ok
+test one_head_with_identity_projection_matches_scaled_attention ... ok
+test softmax_rejects_empty_and_nonfinite_logits ... ok
+test two_heads_scale_separately_and_project_in_concatenation_order ... ok
+test multi_head_checks_shapes_and_projection_overflow ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/parallel.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/dedccd55c235ef17/out/parallel-dedccd55c235ef17)
+
+running 6 tests
+test empty_and_duplicate_batches_fail_before_constructing_evaluators ... ok
+test evaluation_failure_reports_lowest_submission_index_and_never_selects ... ok
+test generation_and_selection_errors_keep_their_correct_phase ... ok
+test every_job_gets_a_fresh_evaluator_even_on_a_single_worker ... ok
+test parallel_results_preserve_serial_job_identity_input_seed_and_issue_order ... ok
+test deep_ga_replays_identically_serially_and_with_one_or_four_workers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/sphere.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/acbca1da744c6a91/out/sphere-acbca1da744c6a91)
+
+running 16 tests
+test doubling_coordinates_quadruples_objective ... ok
+test initialization_bounds_do_not_restrict_the_objective ... ok
+test deterministic_evaluation_ignores_seed ... ok
+test ones_have_objective_equal_to_dimension ... ok
+test matches_integer_reference_for_64_deterministic_points ... ok
+test floating_point_underflow_is_documented_not_hidden_by_an_epsilon ... ok
+test evaluates_mixed_sign_coordinates ... ok
+test rejects_accumulation_overflow ... ok
+test origin_has_zero_objective ... ok
+test rejects_square_overflow ... ok
+test rejects_nan_and_both_infinities ... ok
+test rejects_zero_dimensions ... ok
+test rejects_wrong_lengths_including_empty_input ... ok
+test reports_configured_dimension ... ok
+test sign_reversal_does_not_change_objective ... ok
+test supports_arrays_slices_and_vectors_without_changing_inputs ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/target_reach.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo/6d81d7d569820872/out/target_reach-6d81d7d569820872)
+
+running 6 tests
+test invalid_tasks_and_genomes_are_errors ... ok
+test evaluation_matches_recorded_episodes_and_resets_each_trial ... ok
+test symmetric_controller_produces_mirrored_trajectories ... ok
+test zero_controller_is_the_no_action_baseline ... ok
+test nonfinite_arithmetic_is_not_hidden_by_activation_saturation ... ok
+test one_step_agrees_with_the_published_equations ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo-core/85ef35738051ef39/out/nevo_core-85ef35738051ef39)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/protocol.rs (/workspace/scratch/a2689e927bb8/target_ch03g/release/build/nevo-core/5341b96d587a87ad/out/protocol-5341b96d587a87ad)
+
+running 9 tests
+test empty_batch_is_an_error_not_termination ... ok
+test distinct_trials_can_share_the_same_seed ... ok
+test duplicate_ids_fail_before_any_evaluation ... ok
+test evaluation_error_never_delivers_a_partial_selection ... ok
+test generate_error_skips_evaluation_and_select ... ok
+test job_ids_have_readable_error_messages ... ok
+test local_non_clone_inputs_and_structured_outputs_are_supported ... ok
+test select_error_preserves_its_source ... ok
+test step_preserves_inputs_ids_seeds_and_submission_order ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests nevo
+
+running 2 tests
+test crates/nevo/src/lib.rs - (line 8) ... ok
+test crates/nevo/src/nn/mlp.rs - nn::mlp::Mlp (line 72) ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.14s; merged doctests compilation took 0.14s
+   Doc-tests nevo_core
+
+running 1 test
+test crates/nevo-core/src/lib.rs - Job (line 33) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.11s; merged doctests compilation took 0.10s

@@ -1,0 +1,128 @@
+[
+  {
+    "name": "fmt",
+    "command": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ],
+    "toolchain": "1.100.0",
+    "exit_code": 0,
+    "seconds": 0.2037430459999996,
+    "finished_utc": "2026-11-25T06:27:20.177249+00:00"
+  },
+  {
+    "name": "clippy",
+    "command": [
+      "cargo",
+      "clippy",
+      "--workspace",
+      "--all-targets",
+      "--all-features",
+      "--locked",
+      "--offline",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "toolchain": "1.100.0",
+    "exit_code": 0,
+    "seconds": 3.98662667900021,
+    "finished_utc": "2026-11-25T06:27:24.164415+00:00"
+  },
+  {
+    "name": "tests_default",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--locked",
+      "--offline"
+    ],
+    "toolchain": "1.100.0",
+    "exit_code": 0,
+    "seconds": 12.973252954999907,
+    "finished_utc": "2026-11-25T06:27:37.142038+00:00"
+  },
+  {
+    "name": "tests_all_features",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--all-features",
+      "--locked",
+      "--offline"
+    ],
+    "toolchain": "1.100.0",
+    "exit_code": 0,
+    "seconds": 16.380870365999954,
+    "finished_utc": "2026-11-25T06:27:53.523255+00:00"
+  },
+  {
+    "name": "tests_release_all_features",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--all-features",
+      "--release",
+      "--locked",
+      "--offline"
+    ],
+    "toolchain": "1.100.0",
+    "exit_code": 0,
+    "seconds": 9.902740355999867,
+    "finished_utc": "2026-11-25T06:28:03.426458+00:00"
+  },
+  {
+    "name": "driver_protocol_tests",
+    "command": [
+      "cargo",
+      "test",
+      "-p",
+      "nevo",
+      "--example",
+      "ch03_generalization",
+      "--locked",
+      "--offline"
+    ],
+    "toolchain": "1.100.0",
+    "exit_code": 0,
+    "seconds": 0.02249368399998275,
+    "finished_utc": "2026-11-25T06:28:03.449511+00:00"
+  },
+  {
+    "name": "docs",
+    "command": [
+      "cargo",
+      "doc",
+      "--workspace",
+      "--all-features",
+      "--no-deps",
+      "--locked",
+      "--offline"
+    ],
+    "toolchain": "1.100.0",
+    "exit_code": 0,
+    "seconds": 0.570268212000201,
+    "finished_utc": "2026-11-25T06:28:04.020157+00:00"
+  },
+  {
+    "name": "msrv_tests",
+    "command": [
+      "cargo",
+      "test",
+      "--workspace",
+      "--all-features",
+      "--locked",
+      "--offline"
+    ],
+    "toolchain": "1.85.1",
+    "exit_code": 0,
+    "seconds": 27.579684602999805,
+    "finished_utc": "2026-11-25T06:28:31.600726+00:00"
+  }
+]

@@ -1,0 +1,6 @@
+full_cma_1 seed 9: train 500.000, held-out 500.000, successes 100/100, 32768 training episodes, 9.52s
+full_cma_16 seed 9: train 349.062, held-out 350.100, successes 7/100, 32768 training episodes, 0.73s
+full_ff_neat_1 seed 9: train 500.000, held-out 280.720, successes 9/100, 32768 training episodes, 4.34s
+full_ff_neat_16 seed 9: train 500.000, held-out 500.000, successes 100/100, 32768 training episodes, 0.98s
+partial_ff_neat_16 seed 9: train 86.688, held-out 90.020, successes 0/100, 32768 training episodes, 0.61s
+partial_recurrent_neat_16 seed 9: train 352.187, held-out 346.290, successes 49/100, 32768 training episodes, 0.56s

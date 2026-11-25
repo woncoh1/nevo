@@ -6,10 +6,18 @@ not a preconfigured Git repository or credentials.
 
 ## Verify locally
 
+The pinned development toolchain is Rust 1.100.0, including rustfmt, Clippy,
+rust-analyzer and rust-src. Rustup installs it when you enter this workspace;
+the library's separately tested minimum Rust version remains 1.85.1.
+Shared `.vscode/settings.json` and extension recommendations are safe to commit:
+they contain project settings and no machine-specific paths or credentials.
+Read [STYLE.md](STYLE.md) for the conventions.
+
 ```sh
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
 cargo test --workspace --all-features --locked
-cargo run -p nevo --example ch01_introduction --locked
-cargo run -p nevo --example ch03_neat --release --locked -- results/ch03
+cargo run -p nevo --example ch03_generalization --release --locked -- results/ch03_smoke --smoke
 ```
 
 ## First push to a new, empty repository
@@ -31,7 +39,9 @@ authentication. If you already have a local repository or nonempty remote,
 integrate the files with that history rather than overwriting it or force-pushing.
 
 The included workflow runs Rust formatting, linting, tests, documentation, and
-the Chapter 1–3 examples on Linux and Windows. Review the resulting Actions run after push.
+the Chapter 1–3 examples on Linux and Windows. The new controlled study uses a
+small CI smoke protocol; its full 60-run dataset is a separate experiment. A
+Linux job also tests the declared 1.85.1 MSRV. Review the Actions run after push.
 Notebook execution is documented separately and is not currently a CI job.
 
 ## Source license

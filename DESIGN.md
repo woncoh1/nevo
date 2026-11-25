@@ -1,6 +1,7 @@
 # nevo: design contract
 
-**Status:** updated after full-PDF review of Chapters 1–3, 2026-11-24.
+**Status:** recurrent NEAT and controlled generalization update, 2026-11-25;
+source mapping follows the full-PDF review of Chapters 1–3.
 This is an evolving library design, not a stable 1.0 API.
 
 ## Purpose and vocabulary
@@ -230,7 +231,7 @@ The same two traits now support three concrete input representations:
 | Representation | Search/evaluator composition | What `select` updates |
 | --- | --- | --- |
 | `Vec<f64>` | Existing GA/ES/CMA-ES with `MlpClassifier` and control tasks. | The chosen optimizer's parents or distribution. |
-| `neat::Genome` | `Neat` with `NeatXor`, `NeatClassifier`, or a custom control evaluator. | Population, species, representatives, stagnation, offspring quotas and best-observed record. |
+| `neat::Genome` | `Neat` with `NeatXor`, `NeatClassifier`, or `NeatDoublePoleTask`. | Population, species, representatives, stagnation, offspring quotas and best-observed record. |
 | `encoding::SeedGenome` | `DeepGa` with a decoder composed inside an evaluator. | Top current parents and a separate best-observed record. |
 
 `Genome` is a concrete NEAT graph, not a new mandatory trait. Public genes,
@@ -239,12 +240,30 @@ compatibility distance and offspring allocation are usable separately. The
 strict structured-batch helper privately requires `Clone + PartialEq`; graph
 equality compares weight bits. The core interfaces acquire no new bounds.
 
-NEAT starts with input/bias-to-output links and no hidden nodes. It supports
-feedforward DAGs only; disabled genes remain historical records. Innovation
-and node IDs are run-global and monotonic, while matching structural events
-reuse IDs within one generation. Node splitting uses weights one and the old
-weight, but the inserted sigmoid changes the represented function. Crossover
-guards against enabled cycles and duplicate endpoints.
+NEAT starts with input/bias-to-output links and no hidden nodes. Feedforward
+DAGs remain the default. `NetworkMode::Recurrent` permits self-links, cycles and
+output feedback while forbidding edges into inputs or bias. Disabled genes
+remain historical records in both modes. Innovation and node IDs are run-global
+and monotonic, while matching structural events reuse IDs within one generation.
+Node splitting uses weights one and the old weight, but the inserted sigmoid
+changes the function; in recurrent mode it also adds a tick of signal delay.
+Feedforward crossover guards against enabled cycles; both modes enforce unique
+endpoints and historical identities. Mixing execution modes is an error.
+
+Execution mode belongs to genotype identity and its innovation tracker, not to
+`ConnectionGene`. `Genome::new` and `compile` keep their feedforward semantics.
+`Genome::new_recurrent` constructs a recurrent genotype; `compile_recurrent`
+creates its stateful phenotype with `step` and `reset`. The genotype contains
+no episode memory. Each recurrent tick
+uses current external inputs and bias, but **previous-tick hidden/output values**
+on every neuron-source edge; all computed neurons update synchronously. Even an
+acyclic hidden-to-output path therefore has a delay. `reset` clears all neuron
+state to zero. A failed step does not commit partial memory. This explicit
+timing convention is not a claim to reproduce the original NEAT activation loop.
+
+No extra core trait, scheduler, tensor type or required environment interface
+is introduced. XOR and classification adapters remain feedforward tasks unless
+the caller defines a meaningful sequence/reset protocol.
 
 This NEAT variant maximizes finite nonnegative fitness. Loss evaluators
 transform their objective explicitly (`1 - MSE` for bounded classification).
@@ -253,8 +272,7 @@ Species sharing sums `fitness / species_size` before culling. A fixed threshold,
 top-fraction parent pools, largest-remainder quotas, stagnation removal and
 quota-based champion copying are explicit choices. The current champion's
 species is exempt from stagnation removal; it is not guaranteed a nonzero
-offspring quota. There is no recurrent phenotype or original global-stagnation
-rescue rule.
+offspring quota. The original global-stagnation rescue rule is not implemented.
 
 `DeepGa` is a mutation-only truncation variant inspired by Such et al. Each
 lineage stores an initialization seed followed by ordered Gaussian mutation
@@ -276,11 +294,30 @@ writer-independent UCI benchmark results.
 
 Headless `CartPole`, `DoublePole` and `SpringWalker` expose configuration,
 physical state, observations, checked actions, reset, termination, truncation,
-and closure-based recorded rollouts. The internal implementation-sharing trait
-does not add a required public abstraction. `CartPoleTask`, `DoublePoleTask`
+and closure-based recorded rollouts or trace-free `run_episode` summaries.
+The internal implementation-sharing trait does not add a required public abstraction. `CartPoleTask`, `DoublePoleTask`
 and `SpringWalkerTask` decode MLP parameters and minimize negative mean return
 over explicit starts, resetting each episode. Training evaluation does not
-allocate full trajectories; reporting rollouts do.
+allocate full trajectories; reporting rollouts do. Their existing `value`
+accumulation remains unchanged for numerical compatibility; the new `summary`
+method reports return statistics separately.
+
+`EpisodeSummary` records return, applied actions, termination and truncation.
+`evaluate_trials(starts, episode)` aggregates a nonempty explicit suite through
+a fallible closure. The caller resets the world and policy memory before each
+episode. `TrialSummary` reports arithmetic mean, sample standard deviation
+(`None` for one trial), worst return, episode/action counts, and horizon hits.
+A horizon hit requires truncation without simultaneous task termination.
+These are diagnostics; the GES output can remain one `f64`.
+
+`NeatDoublePoleTask` compiles the genome's declared mode, maps its single sigmoid
+output to force with `2 * output - 1`, and maximizes positive mean return.
+It resets both world and recurrent phenotype between independent starts. The
+controlled example records its training summary during the original fitness
+evaluation, so plots do not hide repeated diagnostic rollouts. Held-out trials,
+memory-reset ablations and representative trajectory replays are counted
+separately. A complete fixed training suite makes best-observed scores
+comparable across generations; a changing suite would need a different policy.
 
 CartPole follows classic discrete-force equations. DoublePole uses the
 historical two-pole dynamics with RK4 and configurable full-state or

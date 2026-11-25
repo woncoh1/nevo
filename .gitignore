@@ -5,6 +5,7 @@
 
 /results/
 
+# Share project conventions, while keeping personal editor files local.
 .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json

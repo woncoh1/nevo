@@ -1,11 +1,12 @@
-//! Fixed-topology MLP adapters for the headless control environments.
+//! Neural-policy adapters for the headless control environments.
 
 use crate::Evaluator;
 use crate::control::{
     CartPole, CartPoleConfig, CartPoleState, ControlError, ControlRollout, DoublePole,
-    DoublePoleConfig, DoublePoleState, RolloutError, SpringWalker, SpringWalkerConfig,
-    SpringWalkerState,
+    DoublePoleConfig, DoublePoleState, EpisodeSummary, RolloutError, SpringWalker,
+    SpringWalkerConfig, SpringWalkerState, TrialSummary, evaluate_trials,
 };
+use crate::neat::{FeedForwardNetwork, Genome, NeatError, NetworkMode, RecurrentNetwork};
 use crate::nn::{Activation, Mlp, NnError};
 use std::error::Error;
 use std::fmt;
@@ -19,6 +20,8 @@ pub enum ControlTaskError {
     Control(ControlError),
     /// The neural network rejected a shape, parameter, or numerical operation.
     Neural(NnError),
+    /// A NEAT genome or phenotype rejected a shape or computation.
+    Neat(NeatError),
 }
 
 impl fmt::Display for ControlTaskError {
@@ -27,6 +30,7 @@ impl fmt::Display for ControlTaskError {
             Self::EmptyStarts => write!(f, "a control task requires at least one initial state"),
             Self::Control(error) => error.fmt(f),
             Self::Neural(error) => error.fmt(f),
+            Self::Neat(error) => error.fmt(f),
         }
     }
 }
@@ -37,6 +41,7 @@ impl Error for ControlTaskError {
             Self::EmptyStarts => None,
             Self::Control(error) => Some(error),
             Self::Neural(error) => Some(error),
+            Self::Neat(error) => Some(error),
         }
     }
 }
@@ -50,6 +55,21 @@ impl From<ControlError> for ControlTaskError {
 impl From<NnError> for ControlTaskError {
     fn from(error: NnError) -> Self {
         Self::Neural(error)
+    }
+}
+
+impl From<NeatError> for ControlTaskError {
+    fn from(error: NeatError) -> Self {
+        Self::Neat(error)
+    }
+}
+
+impl From<RolloutError<NeatError>> for ControlTaskError {
+    fn from(error: RolloutError<NeatError>) -> Self {
+        match error {
+            RolloutError::Control(error) => Self::Control(error),
+            RolloutError::Policy(error) => Self::Neat(error),
+        }
     }
 }
 
@@ -129,6 +149,28 @@ macro_rules! mlp_control_task {
                 Ok(objective)
             }
 
+            /// Return independent-episode diagnostics without storing any traces.
+            ///
+            /// The positive mean return is convenient for reporting. `value()`
+            /// retains its original per-step negative-mean arithmetic, so tiny
+            /// floating-point rounding differences are possible on general rewards.
+            pub fn summary(&self, parameters: &[f64]) -> Result<TrialSummary, ControlTaskError> {
+                let network = self.network(parameters.to_vec())?;
+                let mut env = <$env>::new(self.config.clone())?;
+                Ok(evaluate_trials(&self.starts, |&start| {
+                    env.reset_to(start).map_err(RolloutError::Control)?;
+                    env.run_episode(|observation| network.forward(observation))
+                })?)
+            }
+
+            /// Evaluate one explicit start without retaining a trace.
+            pub fn episode(&self, parameters: &[f64], start: $state) -> Result<EpisodeSummary, ControlTaskError> {
+                let network = self.network(parameters.to_vec())?;
+                let mut env = <$env>::new(self.config.clone())?;
+                env.reset_to(start)?;
+                Ok(env.run_episode(|observation| network.forward(observation))?)
+            }
+
             /// Record one episode, allowing a held-out start without changing training.
             pub fn rollout(&self, parameters: &[f64], start: $state) -> Result<ControlRollout<$state>, ControlTaskError> {
                 let network = self.network(parameters.to_vec())?;
@@ -189,3 +231,133 @@ mlp_control_task!(
     |_: &SpringWalkerConfig| 13,
     2
 );
+
+enum NeatPolicy {
+    FeedForward(FeedForwardNetwork),
+    Recurrent(RecurrentNetwork),
+}
+
+impl NeatPolicy {
+    fn new(genome: &Genome, inputs: usize) -> Result<Self, NeatError> {
+        let policy = match genome.mode() {
+            NetworkMode::FeedForward => Self::FeedForward(genome.compile()?),
+            NetworkMode::Recurrent => Self::Recurrent(genome.compile_recurrent()?),
+        };
+        let (actual_inputs, outputs) = match &policy {
+            Self::FeedForward(network) => (network.input_count(), network.output_count()),
+            Self::Recurrent(network) => (network.input_count(), network.output_count()),
+        };
+        if actual_inputs != inputs || outputs != 1 {
+            return Err(NeatError::InvalidGenome(
+                "double-pole requires the selected observation dimension and one output",
+            ));
+        }
+        Ok(policy)
+    }
+
+    fn reset(&mut self) {
+        if let Self::Recurrent(network) = self {
+            network.reset();
+        }
+    }
+
+    fn action(&mut self, observation: &[f64]) -> Result<Vec<f64>, NeatError> {
+        let output = match self {
+            Self::FeedForward(network) => network.forward(observation)?,
+            Self::Recurrent(network) => network.step(observation)?,
+        };
+        Ok(vec![2.0 * output[0] - 1.0])
+    }
+}
+
+/// Feedforward or recurrent NEAT on explicit double-pole initial states.
+///
+/// Fitness is positive mean valid-endpoint return and is maximized. The single
+/// sigmoid output is mapped to force with `2 * output - 1`. A compiled recurrent
+/// phenotype is reset to zero state before **every** independent episode.
+/// The genome's execution mode, rather than the observation choice, determines
+/// whether the policy has memory. This is not the historical non-Markov task's
+/// oscillation penalty or its generalization protocol.
+#[derive(Clone, Debug)]
+pub struct NeatDoublePoleTask {
+    config: DoublePoleConfig,
+    starts: Vec<DoublePoleState>,
+}
+
+impl NeatDoublePoleTask {
+    /// Construct a task from a nonempty, checked suite of physical states.
+    pub fn new(
+        config: DoublePoleConfig,
+        starts: Vec<DoublePoleState>,
+    ) -> Result<Self, ControlTaskError> {
+        if starts.is_empty() {
+            return Err(ControlTaskError::EmptyStarts);
+        }
+        let mut env = DoublePole::new(config.clone())?;
+        for &start in &starts {
+            env.reset_to(start)?;
+        }
+        Ok(Self { config, starts })
+    }
+
+    /// Shared environment configuration.
+    pub fn config(&self) -> &DoublePoleConfig {
+        &self.config
+    }
+
+    /// Fixed suite used by every training evaluation.
+    pub fn starts(&self) -> &[DoublePoleState] {
+        &self.starts
+    }
+
+    /// Independent-episode diagnostics; compiled recurrent state never leaks.
+    pub fn summary(&self, genome: &Genome) -> Result<TrialSummary, ControlTaskError> {
+        let mut policy = NeatPolicy::new(genome, self.config.observation.dimensions())?;
+        let mut env = DoublePole::new(self.config.clone())?;
+        Ok(evaluate_trials(&self.starts, |&start| {
+            env.reset_to(start).map_err(RolloutError::Control)?;
+            policy.reset();
+            env.run_episode(|observation| policy.action(observation))
+        })?)
+    }
+
+    /// Mean valid-endpoint return; maximize this scalar fitness.
+    pub fn value(&self, genome: &Genome) -> Result<f64, ControlTaskError> {
+        Ok(self.summary(genome)?.mean_return)
+    }
+
+    /// Evaluate one explicit start with fresh policy memory and no trace.
+    pub fn episode(
+        &self,
+        genome: &Genome,
+        start: DoublePoleState,
+    ) -> Result<EpisodeSummary, ControlTaskError> {
+        let mut policy = NeatPolicy::new(genome, self.config.observation.dimensions())?;
+        let mut env = DoublePole::new(self.config.clone())?;
+        env.reset_to(start)?;
+        policy.reset();
+        Ok(env.run_episode(|observation| policy.action(observation))?)
+    }
+
+    /// Record one explicit episode, always starting with fresh policy memory.
+    pub fn rollout(
+        &self,
+        genome: &Genome,
+        start: DoublePoleState,
+    ) -> Result<ControlRollout<DoublePoleState>, ControlTaskError> {
+        let mut policy = NeatPolicy::new(genome, self.config.observation.dimensions())?;
+        let mut env = DoublePole::new(self.config.clone())?;
+        env.reset_to(start)?;
+        policy.reset();
+        Ok(env.rollout(|observation| policy.action(observation))?)
+    }
+}
+
+impl Evaluator<Genome> for NeatDoublePoleTask {
+    type Output = f64;
+    type Error = ControlTaskError;
+
+    fn evaluate(&mut self, genome: &Genome, _seed: u64) -> Result<f64, Self::Error> {
+        self.value(genome)
+    }
+}

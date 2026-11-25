@@ -17,8 +17,8 @@ do not reproduce every experiment in the chapter.
 | --- | --- |
 | §3.1, pp. 49–52: taxonomy | Flat weights, historical graphs, and seed lineages; developmental indirect encoding remains for Chapter 4. |
 | §3.2, pp. 52–56: walking and generality | Episode aggregation and separate training/evaluation starts; the original spring robot is a teaching task, not the chapter's Box2D BipedalWalkerHardcore. |
-| §3.3.2–3.3.3, pp. 58–62: NEAT mechanisms | Historical genes, structural mutation, aligned crossover, compatibility distance, and fitness sharing; an explicitly feedforward variant. |
-| §3.3.4, pp. 63–65: double-pole balancing | Full-state 500-step experiment; recurrent NEAT and the book's 100,000-step success protocol remain unimplemented. |
+| §3.3.2–3.3.3, pp. 58–62: NEAT mechanisms | Historical genes, structural mutation, aligned crossover, compatibility distance, and fitness sharing; feedforward and explicit synchronous recurrent modes. |
+| §3.3.4, pp. 63–65: double-pole balancing | Full-state and positions-only 500-step experiments, recurrent NEAT, ten optimizer seeds and a memory-reset ablation; the historical 100,000-step protocol remains separate. |
 | §3.4.2–3.4.3, pp. 67–70: deep neuroevolution and compute | Mutation-only Deep GA and ordered CPU evaluations; extra noisy elite-contender trials, accelerator batching, and distributed execution remain unimplemented. |
 
 The classification and CartPole examples also follow the authors' separate
@@ -39,14 +39,14 @@ The implemented representations make these choices concrete:
 | Representation | Search object | Executable form | Current examples |
 | --- | --- | --- | --- |
 | Flat parameters | `Vec<f64>` | `nn::Mlp` with fixed widths and activations | GA/ES classifiers and control policies |
-| Historical graph | `neat::Genome` | `FeedForwardNetwork` compiled from enabled edges | NEAT XOR, digit classification and double-pole control |
+| Historical graph | `neat::Genome` | `FeedForwardNetwork` or stateful `RecurrentNetwork` compiled from enabled edges | NEAT XOR, digit classification and double-pole control |
 | Seed lineage | `encoding::SeedGenome` | `SeededEncoding::decode` reconstructs flat parameters | `DeepGa` and deterministic replay |
 
 A seed lineage is a compact procedural representation of a fixed parameter
 vector. It does not add developmental rules, spatial regularities, or a
 HyperNEAT-style connectivity generator. Likewise, changing a graph is not the
-same as giving it memory: this chapter's NEAT implementation only permits
-feedforward directed acyclic graphs.
+same as giving it memory: feedforward mode evaluates a directed acyclic graph
+without temporal state; recurrent mode carries neuron activations between ticks.
 
 Keep the decoder in the evaluator. Then the optimizer can handle graphs or seed
 histories without depending on how a neural network executes, or which world
@@ -116,8 +116,10 @@ genomes from unrelated trackers is not a supported form of crossover.
 `split_connection` disables an enabled edge of weight \(w\), introduces a hidden
 node, and adds edges with weights \(1\) and \(w\). The new sigmoid changes the
 function, so splitting is not exactly behavior preserving. This implementation
-uses \(\sigma(4.9z)\), one constant bias, input sources, and output sinks.
-Compilation follows a topological ordering, not increasing historical node IDs.
+uses \(\sigma(4.9z)\), one constant bias and input sources. In feedforward mode,
+outputs are sinks and compilation follows a topological ordering, not increasing
+historical node IDs. Recurrent mode additionally allows self-links, cycles and
+output feedback, but never links into inputs or bias.
 
 **Crossover.** Matching innovations choose a parent's gene at random. Unmatched
 genes come from the fitter parent; equal-fitness parents contribute each
@@ -170,7 +172,40 @@ equations (3.1) and (3.2), p. 62. We divide fitness by assigned species size,
 as described in its species-sharing explanation, rather than recomputing a
 separate pairwise neighborhood for each individual. The small-genome rule and
 generation-local innovation cache are details from the original NEAT paper.
-Recurrent NEAT remains future work.
+### Recurrent NEAT: define what one tick means
+
+Set `NeatConfig.mode = NetworkMode::Recurrent` before creating a search. The
+mode travels with every genome and its innovation tracker; mutation, crossover
+and compatibility reject incompatible modes. Feedforward mode remains the
+default, with its old random draws and graph rules preserved.
+
+`Genome::compile_recurrent()` creates a phenotype with `step` and `reset`.
+For a computed neuron \(j\), our synchronous convention is
+
+\[
+h_j(t)=\operatorname{sigmoid}\!\left(4.9\left[
+\sum_{i\in\text{inputs}} w_{ij}x_i(t)+w_{bj}
++\sum_{k\in\text{neurons}}w_{kj}h_k(t-1)\right]\right).
+\]
+
+Only enabled edges participate. Inputs and the constant bias have their current
+values; every hidden/output source has its previous-tick value. All neurons
+update together, so historical node IDs do not impose an accidental temporal
+ordering. `reset()` sets hidden/output memory to zero. A failed step leaves
+the previous state intact.
+
+This includes a delay on an ordinary acyclic hidden-to-output edge. Splitting
+an edge therefore changes both its nonlinearity and its temporal depth. A graph
+with no cycles can still retain information briefly through delayed paths.
+The convention is similar to [NEAT-Python's two-buffer recurrent evaluator][neat-python-recurrent];
+it is an explicit implementation choice, not a reproduction of the original
+NEAT software's activation loop.
+
+Compile once per candidate and clear memory between independent episodes.
+Never carry the end of one test trial into the next. `NeatDoublePoleTask`
+implements those resets for the built-in control task. XOR and digit adapters
+continue to use feedforward evaluation; static rows do not define a temporal
+sequence merely because the genotype can be recurrent.
 
 ## 4. Fitness measures behavior under a trial distribution
 
@@ -181,8 +216,10 @@ resulting episodes. The control adapters minimize negative mean episode return:
 L(\theta)=-\frac{1}{K}\sum_{k=1}^{K}\sum_{t=0}^{T_k-1}r_{k,t}.
 \]
 
-Every candidate sees the same explicit training starts. The adapters reset the
-environment for each start and use stateless tanh MLPs. Their job seed is unused
+Every candidate sees the same explicit training starts. The MLP adapters reset
+the environment for each start and use stateless tanh networks.
+`NeatDoublePoleTask` instead maximizes positive mean return and resets its
+feedforward or recurrent phenotype for every start. Their job seed is unused
 because this trial suite is fixed. A stochastic custom evaluator should instead
 derive its randomness explicitly from the supplied seed. Evaluate held-out
 starts after search, and report both episodes and actual environment steps:
@@ -193,8 +230,10 @@ This separation supports the robustness lesson in §3.2.5, pp. 55–56, and
 objective and the cost. The book's BipedalWalkerHardcore experiment averages
 **16 random training rollouts per candidate** and then evaluates the final
 agent over **100 random trials**, seeking an average return above 300. Our
-fixed-start suites illustrate aggregation but do not implement that protocol
-or establish broad generalization from a few successful trajectories.
+fixed-start suites illustrate aggregation but do not implement that environment
+or its protocol. The new double-pole study uses 16 fixed training starts and
+100 independently generated held-out starts, with every actual state saved.
+Its claims are limited to that declared local initial-state distribution.
 
 The book also describes stochastic Gaussian action outputs on p. 56. The current
 task adapters use deterministic policies; a Gaussian policy head is not yet a
@@ -219,10 +258,11 @@ a feedforward controller still has no memory.
 In §3.3.4, pp. 63–65, the book discusses both full-state and partially observed
 double-pole tasks. Its compact positions-only solution has recurrent
 connections, and its stated success criterion is **100,000 balanced steps**.
-Our saved experiment uses full-state observations and a **500-step horizon**.
-It cannot demonstrate that recurrent solution or claim the book's success
-criterion. Stateful recurrent graph execution and its evolutionary operators
-remain to be implemented.
+The original saved experiment used full-state observations and a **500-step
+horizon**. It remains unchanged as a historical result. The new experiments
+include recurrent positions-only control, but retain the short 500-step horizon
+and simple survival return. They do not claim the book's success criterion or
+the original paper's oscillation-penalized scoring and generalization test.
 
 SpringWalker is our original three-particle robot. Its body and feet interact
 through springs and ground contact; there is no direct horizontal propulsion
@@ -232,6 +272,111 @@ articulated Box2D BipedalWalkerHardcore with **24 observations, four hip/knee
 actions, and two hidden layers**. That environment and its terrain-generation
 protocol are not implemented here; the spring robot's scores are not comparable
 to its 300-point target.
+
+### Reusable evaluation, separate from optimization
+
+Three small public building blocks handle repeated trials:
+
+| Building block | Responsibility |
+| --- | --- |
+| `run_episode(policy)` | Advance one environment to termination or truncation; return an `EpisodeSummary` without storing a trajectory. |
+| `evaluate_trials(starts, episode)` | Invoke a fallible closure once per explicit start and return a `TrialSummary`. The closure resets environment and policy state. |
+| `NeatDoublePoleTask` | Decode the graph's mode, map `2 * sigmoid_output - 1` to force, reset each episode, and supply positive mean return to GES. |
+
+The trial summary includes mean return, sample standard deviation, worst return,
+episode count, actual applied actions and horizon hits. Sample SD is undefined
+for one episode, represented by `None`. A horizon hit means that the time limit
+was reached without a physical failure on the same action. The final failing
+action counts as work even though DoublePole awards it zero reward.
+
+The optimizer still receives one `f64`. Diagnostics do not require a new
+mandatory evaluator trait or an `Experiment` framework. Existing MLP tasks gain
+`summary` and `episode` methods while retaining their old `value` arithmetic.
+
+For a small demonstration of recurrent GES:
+
+```rust
+use nevo::algorithms::{Neat, NeatConfig};
+use nevo::control::{DoublePoleConfig, DoublePoleState, PoleObservations};
+use nevo::neat::NetworkMode;
+use nevo::tasks::NeatDoublePoleTask;
+use nevo::step;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let world = DoublePoleConfig {
+        observation: PoleObservations::PositionsOnly,
+        max_steps: 80,
+        ..DoublePoleConfig::default()
+    };
+    let mut task = NeatDoublePoleTask::new(world, vec![DoublePoleState::default()])?;
+    let mut config = NeatConfig::new(3, 1, 0);
+    config.mode = NetworkMode::Recurrent;
+    config.population = 16;
+    let mut search = Neat::new(config)?;
+    for _ in 0..8 {
+        step(&mut search, &mut task)?;
+    }
+    let best = search.best().ok_or("no evaluated controller")?;
+    // One additional diagnostic episode, outside the 128 training calls.
+    let report = task.summary(&best.job.input)?;
+    println!("mean={}, worst={}, horizons={}/{}",
+        report.mean_return, report.worst_return,
+        report.horizon_hits, report.episodes);
+    Ok(())
+}
+```
+
+### A controlled test of the earlier generalization gap
+
+The original comparison trained one CMA-ES controller and one NEAT controller
+on one initial state. Both reached the training horizon; their held-out results
+differed. The new experiment asks a narrower question: **what happens when each
+method trains on a broader fixed suite under the same episode budget?**
+
+| Setting | Declared value |
+| --- | --- |
+| Optimizer seeds | 0–9, all included |
+| Population | 64 for both algorithms |
+| Training budget | 32,768 episodes per run, including initialization; no early stop |
+| Training suites | Historical start alone, or that start plus 15 seeded starts |
+| Batches, including initialization | 512 with one start; 32 with 16 starts |
+| Full-state comparisons | CMA-ES and feedforward NEAT, each with one and 16 starts |
+| Positions-only comparisons | Feedforward and recurrent NEAT, each with 16 starts |
+| Held-out suite | 100 independent seeded starts, identical across runs and disjoint from training |
+| Horizon | 500 applied actions, 10 simulated seconds |
+| Final model | Earliest best mean training return actually observed by the fixed budget |
+
+The wider training suite costs more simulations per candidate and leaves fewer
+evolutionary updates. Equal episodes do not equalize CPU time or actual control
+steps; both are recorded. CMA and NEAT also differ in representation, activation
+and adaptation, so this is not an isolated comparison of optimizers using the
+same parameterization. The shared starts make comparisons conditional on one
+declared suite; ten optimizer seeds do not resample ten training distributions.
+
+For the selected recurrent genomes, a paired held-out diagnostic resets memory
+before **every action**. This measures dependence on persistent synchronous
+state, including delayed acyclic pathways. It does not isolate cycle edges or
+construct a functionally equivalent feedforward controller. The 100 extra
+episodes per recurrent run are counted separately and never affect selection.
+Seed 0 and held-out case 0 are chosen in advance for illustrative topology and
+trajectory figures, so pictures do not silently choose the best-performing run.
+
+Read [the full protocol, actual results and plots](results/ch03_generalization/README.md).
+It includes per-run/per-trial data, generation curves, species histories,
+all final genomes/weights and resolved configurations. Trial SD describes
+variation across starts. The report's mean ± SD across ten runs describes
+optimizer variability; it does not treat 1,000 repeated trials as independent
+optimizer replications. All results, including failures, remain visible.
+
+```sh
+cargo run -p nevo --example ch03_generalization --release --locked -- results/ch03_generalization
+python scripts/plot_ch03_generalization.py --input results/ch03_generalization
+```
+
+Use a new output directory; the driver refuses to overwrite existing seed
+records. `--seed 3` runs all six conditions for one independent seed. `--smoke`
+uses a small, explicitly different protocol for integration checks, and its
+scores are not scientific results for the full study.
 
 ## 5. A real classification experiment, with the right dataset name
 
@@ -324,7 +469,8 @@ decoding both have costs.
 
 ## Results and experiments
 
-See the [recorded results and manifests](results/ch03/README.md) for exact
+See the [historical results and manifests](results/ch03/README.md) and
+[controlled generalization update](results/ch03_generalization/README.md) for exact
 configurations, counts, curves, trajectories, and classification metrics.
 The default NEAT XOR experiment solved 7 of the 10 declared seeds within its
 150-candidate, 300-batch cap, using an error of at most 0.1 on every truth-table
@@ -349,6 +495,7 @@ available independently for these experiments.
 
 - Risi, Tang, Ha, and Miikkulainen (2026), *Neuroevolution: Harnessing Creativity in AI Agent Design*, Chapter 3, pp. 49–71: supplied PDF reviewed on 2026-11-24; section mapping above. [Book website][book].
 - [Stanley and Miikkulainen (2002)][neat-paper]: historical alignment, speciation, and incremental topology growth. [Accessible copy of the same paper][neat-copy].
+- [NEAT-Python recurrent source][neat-python-recurrent]: a primary implementation of the synchronous two-buffer execution convention.
 - [UT NEAT software page][ut-neat]: historical double-pole simulator context; our equations and teaching objective are documented separately.
 - [Ha (2017), Evolving Stable Strategies][ha-walking]: policy evaluation and averaging multiple locomotion trials.
 - [Authors' Chapter 3 classification exercise][exercise]: instructional context and the actual `load_digits` call.
@@ -368,3 +515,5 @@ available independently for these experiments.
 [deep-ga]: https://arxiv.org/abs/1712.06567
 [cartpole]: https://gymnasium.farama.org/environments/classic_control/cart_pole/
 [rayon]: https://docs.rs/rayon/1.10.0/rayon/iter/trait.IndexedParallelIterator.html
+
+[neat-python-recurrent]: https://neat-python.readthedocs.io/en/latest/_modules/nn/recurrent.html

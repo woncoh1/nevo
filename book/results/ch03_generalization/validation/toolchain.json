@@ -1,0 +1,49 @@
+[
+  {
+    "command": [
+      "rustc",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cargo",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "cargo 1.100.0 (3acc79c0c 2026-11-05)",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cargo",
+      "fmt",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "rustfmt 1.11.0-stable (0ef1bc3860 2026-11-09)",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "cargo",
+      "clippy",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "clippy 0.1.100 (0ef1bc3860 2026-11-09)",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "rust-analyzer",
+      "--version"
+    ],
+    "exit_code": 0,
+    "stdout": "rust-analyzer 1.100.0 (0ef1bc3 2026-11-09)",
+    "stderr": ""
+  }
+]

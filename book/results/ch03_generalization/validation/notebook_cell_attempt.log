@@ -1,0 +1,84 @@
+/workspace/scratch/a2689e927bb8/.rust-toolchain-local/notebook-python/jupyter_client/localinterfaces.py:58: UserWarning: Unexpected error discovering local network interfaces: [Errno 1] Operation not permitted
+  ret = f(**kwargs)
+No configuration file found, use the default configuration
+   Compiling autocfg v1.5.1
+   Compiling zerocopy v0.8.64
+   Compiling bytemuck v1.25.2
+   Compiling paste v1.0.15
+   Compiling rawpointer v0.2.1
+   Compiling either v1.19.0
+   Compiling safe_arch v0.7.4
+   Compiling rand_core v0.9.5
+   Compiling typenum v1.20.1
+   Compiling matrixmultiply v0.3.11
+   Compiling wide v0.7.33
+   Compiling approx v0.5.1
+   Compiling plotters v0.3.7
+   Compiling rayon v1.10.0
+   Compiling simba v0.9.1
+   Compiling rand_chacha v0.9.0
+   Compiling nalgebra v0.33.2
+   Compiling nevo v0.1.0-dev (/workspace/scratch/a2689e927bb8/work_ch03_generalization/nevo/crates/nevo)
+Traceback (most recent call last):
+  File "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/execute_notebook.py", line 48, in <module>
+    client.execute()
+  File "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/notebook-python/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/notebook-python/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/notebook-python/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/workspace/scratch/a2689e927bb8/.rust-toolchain-local/notebook-python/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+// These generated CSVs have plain, unquoted numeric/identifier fields.
+fn read_study_csv(path: &str) -> Result<Vec<std::collections::BTreeMap<String, String>>, Box<dyn std::error::Error>> {
+    let text = std::fs::read_to_string(path)?;
+    let mut lines = text.lines();
+    let header: Vec<_> = lines.next().ok_or("missing header")?.split(',').map(str::to_owned).collect();
+    let mut rows = Vec::new();
+    for line in lines {
+        let fields: Vec<_> = line.split(',').map(str::to_owned).collect();
+        if fields.len() != header.len() { return Err("invalid generated CSV row".into()); }
+        rows.push(header.iter().cloned().zip(fields).collect());
+    }
+    Ok(rows)
+}
+fn across_runs(values: &[f64]) -> (f64, f64) {
+    let mean = values.iter().sum::<f64>() / values.len() as f64;
+    let sd = (values.iter().map(|v| (v-mean).powi(2)).sum::<f64>() / (values.len()-1) as f64).sqrt();
+    (mean, sd)
+}
+let study_runs = read_study_csv("../book/results/ch03_generalization/runs.csv")?;
+assert_eq!(study_runs.len(), 60);
+for row in &study_runs {
+    assert_eq!(row["protocol"], "controlled_v1");
+    assert_eq!(row["training_rollouts"], "32768");
+    assert_eq!(row["heldout_episodes"], "100");
+}
+let condition_ids = ["full_cma_1", "full_cma_16", "full_ff_neat_1", "full_ff_neat_16", "partial_ff_neat_16", "partial_recurrent_neat_16"];
+println!("Condition                        train mean | held-out mean ± run SD | mean horizon successes /100");
+for condition in condition_ids {
+    let rows: Vec<_> = study_runs.iter().filter(|r| r["condition"] == condition).collect();
+    assert_eq!(rows.len(), 10);
+    let training: Vec<f64> = rows.iter().map(|r| r["train_mean"].parse().unwrap()).collect();
+    let heldout: Vec<f64> = rows.iter().map(|r| r["heldout_mean"].parse().unwrap()).collect();
+    let successes: Vec<f64> = rows.iter().map(|r| r["heldout_horizon_hits"].parse().unwrap()).collect();
+    let (mean, sd) = across_runs(&heldout);
+    println!("{:<32} {:>8.2} | {:>8.2} ± {:>7.2} | {:>6.2}", condition, across_runs(&training).0, mean, sd, across_runs(&successes).0);
+}
+let recurrent_rows: Vec<_> = study_runs.iter().filter(|r| r["condition"] == "partial_recurrent_neat_16").collect();
+let reset_returns: Vec<f64> = recurrent_rows.iter().map(|r| r["ablation_mean"].parse().unwrap()).collect();
+let paired_deltas: Vec<f64> = recurrent_rows.iter().map(|r| r["heldout_mean"].parse::<f64>().unwrap() - r["ablation_mean"].parse::<f64>().unwrap()).collect();
+println!("Same recurrent policies, state reset each action: {:?} (mean, run SD)", across_runs(&reset_returns));
+println!("Paired retained-minus-reset return: {:?} (mean, run SD)", across_runs(&paired_deltas));
+------------------
+
+
+
+

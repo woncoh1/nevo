@@ -16,6 +16,28 @@ implemented variants and remaining scope.
 These are independently written teaching implementations with real results,
 not official exercise solutions or research-benchmark reproductions.
 
+## Chapter 3 update: generalization and recurrent NEAT
+
+The current milestone adds reusable episode statistics, explicit recurrent graph
+execution, and a controlled double-pole study. It preserves the earlier
+single-start experiment in `book/results/ch03/` as a historical baseline.
+The new experiment compares one versus 16 training starts, ten optimizer seeds,
+100 held-out starts, and a fixed **32,768 training episodes per run**. A separate
+positions-only comparison includes a memory-reset ablation.
+
+```sh
+# Short integration check; this is not the recorded scientific experiment.
+cargo run -p nevo --example ch03_generalization --release --locked -- results/ch03_smoke --smoke
+
+# Full experiment: all six conditions and ten declared seeds.
+cargo run -p nevo --example ch03_generalization --release --locked -- results/ch03_generalization
+python scripts/plot_ch03_generalization.py --input results/ch03_generalization
+```
+
+See [the protocol, results and figures](book/results/ch03_generalization/README.md),
+the [Chapter 3 walkthrough](book/ch03_neuroevolution.md), and the
+[executed Rust notebook](notebooks/ch03_neuroevolution.ipynb).
+
 ## Additions after reading the PDFs
 
 ```sh
@@ -50,7 +72,8 @@ cargo run -p nevo --example ch03_parallel --features parallel --release --locked
 | `ch03_walker` | An original spring/contact robot, displacement/work accounting, and actual motion traces. |
 | `ch03_parallel` | Seed-encoded deep MLP weights and exact serial/one-worker/four-worker replay. |
 
-The workspace pins **Rust 1.85.1** and dependency versions through `Cargo.lock`.
+The workspace pins **Rust 1.100.0** for development and dependency versions
+through `Cargo.lock`. The separately tested library MSRV remains **1.85.1**.
 After the toolchain and crates are cached, add `--offline` for a network-free
 build. The attributed Optdigits CSV is bundled; the examples do not download
 data. All search, neural computation and environment simulation are Rust.
@@ -105,22 +128,23 @@ bounds apply at this execution boundary, not to every library user.
 | Covariance adaptation | `CmaEs`: classic non-active, positive-weight, full-covariance CMA-ES. |
 | Perturbation gradient | `OpenAiEs`: mirrored Gaussian sampling, raw/centered-rank rewards, explicit SGD. |
 | Multiobjective evolution | `Nsga2`: rank/crowding survival and mating, uniform/Gaussian box-bounded variation. |
-| Topology evolution | `Neat`: historical alignment, structural mutation, compatibility species and shared-fitness quotas; feedforward only. |
+| Topology evolution | `Neat`: historical alignment, structural mutation, compatibility species and shared-fitness quotas; feedforward and synchronous recurrent modes. |
 | Mutation-only deep GA | `DeepGa`: top-parent truncation, dense Gaussian mutations, seed lineages and reevaluated elites. |
 | Reusable evolution components | Tournament/crossover/mutation, Pareto sorting/crowding, graph genes, innovations, compatibility and quota allocation. |
 | Neural computation | MLP with analytic MSE gradients; RNN/LSTM, convolution, max pooling, softmax and single/multi-head attention forward components. |
 | Classification | Validated labelled data, reproducible stratified splits, MLP/NEAT classifiers and XOR evaluators. |
-| Headless control | CartPole, DoublePole, original SpringWalker, explicit state/reset and recorded rollouts. |
+| Headless control | CartPole, DoublePole, original SpringWalker, explicit state/reset, recorded rollouts, trace-free episode summaries and reusable trial aggregation. |
 | Execution/encoding | Checked serial GES, optional ordered Rayon execution, reproducible seed decoding. |
 
-Only the MLP implements backpropagation. NEAT is currently a feedforward DAG
-variant with explicit nonnegative maximizing fitness. Scalar MLP classification
+Only the MLP implements backpropagation. NEAT defaults to a feedforward DAG;
+`NeatConfig.mode = NetworkMode::Recurrent` enables stateful graph evolution.
+Both modes use explicit nonnegative maximizing fitness. Scalar MLP classification
 and control tasks minimize their losses; transformations are visible in each
 adapter. `nevo-core` remains standard-library-only. `nevo` uses pinned ChaCha and
 nalgebra dependencies, plus optional Rayon.
 
-Burn/Bevy adapters, tensor batching, SIMD, GPU/distributed execution, recurrent
-NEAT, and general automatic differentiation remain future work. The headless
+Burn/Bevy adapters, tensor batching, SIMD, GPU/distributed execution, and general
+automatic differentiation remain future work. The headless
 physics and scalar neural modules establish reference behavior for those
 integrations. SpringWalker is not Gym's articulated BipedalWalker.
 
@@ -128,16 +152,22 @@ integrations. SpringWalker is not Gym's articulated BipedalWalker.
 
 - [Chapter 3: neuroevolution](book/ch03_neuroevolution.md)
 - [Chapter 3 executed Rust notebook](notebooks/ch03_neuroevolution.ipynb)
-- [Chapter 3 results, failures, configurations and plots](book/results/ch03/README.md)
+- [New controlled generalization results](book/results/ch03_generalization/README.md)
+- [Historical Chapter 3 results and plots](book/results/ch03/README.md)
 - [Chapter 2: evolutionary and neural foundations](book/ch02_foundations.md)
 - [Chapter 1: neural controller introduction](book/ch01_introduction.md)
 - [Notebook setup](notebooks/README.md)
 - [Design](DESIGN.md), [coverage](coverage.md), and [validation](VALIDATION.md)
 
-![Training and held-out control performance](book/results/ch03/control_generalization.png)
+![Controlled double-pole generalization across ten optimizer seeds](book/results/ch03_generalization/generalization_comparison.png)
 
-The saved results include unsuccessful runs and generalization failures. NEAT
-solved XOR in 7/10 seeds within the declared cap. Both double-pole controllers
+The current comparison shows every optimizer seed at an equal episode budget.
+Wider training and recurrence have different effects under the declared settings;
+read the result report for seed variability, the memory-reset ablation and the
+limits on interpreting these experiments.
+
+The preserved historical results also include unsuccessful runs and generalization
+failures. NEAT solved XOR in 7/10 seeds within the declared cap. Both double-pole controllers
 solved their training start; the selected NEAT controller reached 8/16 held-out
 horizons. The spring controller learned asymmetric bounding and failed on
 lower-friction ground. Interpret these as documented experiments, not universal
@@ -168,6 +198,10 @@ cargo run -p nevo --example ch02_neural --locked
 | `book/`, `notebooks/` | Original explanations, saved outputs and literate Rust. |
 
 ## Development and publication
+
+[STYLE.md](STYLE.md) explains the Rust style/API guidelines, mathematical naming
+and narrowly scoped lint policy. Shared VS Code/VSCodium settings enable
+rustfmt and Clippy; the pinned toolchain includes rust-analyzer and rust-src.
 
 ```sh
 cargo fmt --all -- --check
