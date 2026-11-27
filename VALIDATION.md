@@ -1,6 +1,30 @@
 # Validation status
 
-## Current: recurrent NEAT and controlled generalization
+## Current: property tests and benchmarks (2026-11-27)
+
+Verified on Linux x86_64 with Rust **1.100.0** and the **1.85.1 MSRV**.
+The update adds six bounded Proptest properties and ten Criterion benchmark
+cases. Existing dependency versions remain locked; the two new development
+dependencies use versions compatible with the declared MSRV.
+
+| Check | Actual result |
+| --- | --- |
+| Formatting and strict Clippy | Passed, including all targets and features. |
+| Default tests | **237 passed**, including doctests. |
+| All-feature tests, debug and release | **243 passed** in each mode. |
+| Documentation | Passed with `RUSTDOCFLAGS=-D warnings`. |
+| Rust 1.85.1 | **243 tests passed**; Criterion benchmark compiled. |
+| Criterion smoke check | **10 cases passed**. |
+| Criterion baseline | **10 timed cases completed** with `--save-baseline initial`. |
+
+The properties check softmax, Pareto ranks, graph mutation/crossover, recurrent
+reset, offspring quotas and rejected GES results. Benchmarks measure GA on
+Sphere, MLP inference, and separate NEAT compilation/inference calls. See
+[the commands and measurement scope](README.md#property-tests-and-benchmarks).
+CI runs correctness and benchmark smoke checks without timing thresholds.
+The recorded chapter experiments and notebook outputs are unchanged.
+
+## Historical: recurrent NEAT and controlled generalization
 
 Verified **2026-11-25**, Linux x86_64, with **Rust 1.100.0**. The unchanged
 `Cargo.lock` and the separately tested **1.85.1 MSRV** are retained. Exact

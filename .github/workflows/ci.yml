@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install pinned toolchain
-        run: rustup toolchain install 1.100.0 --profile minimal --component rustfmt --component clippy --component rust-analyzer --component rust-src
+        run: rustup toolchain install 1.100.0 --profile minimal --component rustfmt --component clippy --component rust-src
       - name: Formatting
         run: cargo fmt --all -- --check
       - name: Clippy
@@ -27,6 +27,8 @@ jobs:
         run: cargo test --workspace --all-features --locked
       - name: Release-mode tests
         run: cargo test --workspace --all-features --release --locked
+      - name: Criterion smoke check
+        run: cargo bench -p nevo --bench foundations --locked -- --test
       - name: Documentation
         run: cargo doc --workspace --all-features --no-deps --locked
         env:
@@ -68,3 +70,5 @@ jobs:
         run: rustup toolchain install 1.85.1 --profile minimal
       - name: Test minimum supported toolchain
         run: cargo +1.85.1 test --workspace --all-features --locked
+      - name: Compile benchmarks on minimum supported toolchain
+        run: cargo +1.85.1 bench -p nevo --bench foundations --locked --no-run
