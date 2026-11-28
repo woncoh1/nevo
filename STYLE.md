@@ -25,12 +25,12 @@ cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
 cargo test --workspace --all-features --locked
 ```
 
-`rust-toolchain.toml` pins Rust **1.100.0** and includes rustfmt, Clippy,
-rust-analyzer and standard-library sources. `Cargo.toml` separately declares
-the library's minimum compiler version. The committed `.vscode` settings enable
-Rust formatting and Clippy checks on save; extension recommendations do not
-install software automatically. Keep personal themes, credentials and absolute
-language-server paths in user settings.
+`rust-toolchain.toml` pins Rust **1.100.0** and includes rustfmt, Clippy
+and standard-library sources. The editor extension supplies rust-analyzer.
+`Cargo.toml` separately declares the library's minimum compiler version. The
+committed `.vscode` settings enable Rust formatting and Clippy checks on save;
+extension recommendations do not install software automatically. Keep personal
+themes, credentials and absolute language-server paths in user settings.
 
 ## Clear scientific code
 

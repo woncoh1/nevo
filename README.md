@@ -200,8 +200,9 @@ cargo run -p nevo --example ch02_neural --locked
 ## Development and publication
 
 [STYLE.md](STYLE.md) explains the Rust style/API guidelines, mathematical naming
-and narrowly scoped lint policy. Shared VS Code/VSCodium settings enable
-rustfmt and Clippy; the pinned toolchain includes rust-analyzer and rust-src.
+and narrowly scoped lint policy. [AGENTS.md](AGENTS.md) summarizes project rules
+and checks for coding agents. Shared VS Code/VSCodium settings enable rustfmt
+and Clippy; the editor extension supplies rust-analyzer.
 
 ```sh
 cargo fmt --all -- --check
@@ -211,6 +212,55 @@ cargo test --workspace --all-features --locked
 cargo test --workspace --all-features --release --locked
 cargo doc --workspace --all-features --no-deps --locked
 ```
+
+### Property tests and benchmarks
+
+[Proptest](https://proptest-rs.github.io/proptest/) checks invariants across
+generated inputs and shrinks failures to smaller examples. Run the focused suite:
+
+```sh
+cargo test -p nevo --test properties --locked
+```
+
+Commit any generated regression seed file so future runs replay the failure.
+These tests supplement the existing known-answer and protocol tests.
+
+[Criterion](https://bheisler.github.io/criterion.rs/book/) measures execution
+time. Run the benchmarks, or just check that every case executes:
+
+```sh
+cargo bench -p nevo --bench foundations --locked
+cargo bench -p nevo --bench foundations --locked -- --test
+```
+
+| Benchmark | Timed work |
+| --- | --- |
+| GA on Sphere | One GES generation of 64 evaluations, after initialization; 8, 32 or 128 dimensions. |
+| MLP inference | One forward pass through an 8 → hidden → 2 network; 8, 32 or 128 hidden units. |
+| NEAT compilation | Compile a fixed feedforward genome with 0 or 8 hidden nodes. |
+| NEAT inference | One forward pass through those already compiled networks. |
+
+Fixtures use fixed seeds. GA construction and initialization happen outside the
+timed region, with fresh search state for each iteration. Results are saved in
+`target/criterion/`. To compare a later change on the same machine and toolchain:
+
+```sh
+cargo bench -p nevo --bench foundations --locked -- --save-baseline before
+# Apply the change, then compare against the saved baseline.
+cargo bench -p nevo --bench foundations --locked -- --baseline before
+```
+
+CI runs property tests and benchmark smoke checks; it does not gate on noisy
+timings. Runtime measurements are separate from search quality, which requires
+fixed-budget experiments across seeds. Criterion 0.7.0 and Proptest 1.11.0 are
+development dependencies pinned to preserve Rust 1.85.1 compatibility:
+
+```sh
+cargo +1.85.1 test --workspace --all-features --locked
+cargo +1.85.1 bench -p nevo --bench foundations --locked --no-run
+```
+
+### Validation and publication
 
 GitHub Actions is configured for Linux and Windows. [VALIDATION.md](VALIDATION.md)
 records checks actually run locally; remote CI runs after pushing.
